@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "cRf/Ggs+m/KnH/P/flJlhWc7FHDgNGbPKg7dWOFLqKmxRhQk2BT7HZ4gThiU6N/d5eQyCqI+1mR8hmedwDo+NA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\QXZ3N4O\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
