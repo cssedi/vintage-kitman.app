@@ -1,0 +1,17 @@
+:host ::ng-deep .mat-tab-label {
+    color: #fff; /* white text color */
+    font-size: 2rem; /* adjust font size as needed */
+}
+
+
+
+
+#bg-image {
+    background-image:
+    linear-gradient(to right, rgb(31, 28, 28), 20%, transparent 100%),
+    url('/assets/images/kitcollection1.png');
+    height: 500px;
+    background-size: cover;
+    color: white;
+    
+}
