@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'vintage-kitman-frontend';
   isVisible: boolean =false
+  isUserVisible: boolean =false
 
   constructor() 
   {
@@ -19,6 +20,13 @@ export class AppComponent {
   toggleDropDown()
   {
     this.isVisible=! this.isVisible
+    this.isUserVisible=false
+    console.log(this.isVisible)
+  }
+
+  toggleUserDropDown(){
+    this.isUserVisible=! this.isUserVisible
+    this.isVisible=false
     console.log(this.isVisible)
   }
 }

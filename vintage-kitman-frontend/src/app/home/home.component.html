@@ -30,68 +30,60 @@
   </div>
 
   <!--Carousel items-->
-  <div
-    class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-    <!--First item-->
-    <div
-      class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-te-carousel-active
-      data-te-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="/assets/images/kitcollection1.png"
-        class="block w-full"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] top-5 left-5 hidden py-5  text-white md:block">
-        <h1 class="text-3xl font-bold">First slide label</h1>
+  <div id="carouselExampleCaptions" class="relative" data-te-carousel-init data-te-ride="carousel">
+    <!-- Carousel items -->
+    <div class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
+      <!-- Iterate through slides -->
+      <div *ngFor="let slide of carouselslides; let i = index"
+           class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
+           [class.hidden]="activeSlide !== i"
+           data-te-carousel-active
+           data-te-carousel-item
+           style="backface-visibility: hidden">
+        <img [src]="slide.image" class="block w-full" alt="..." />
+        <div class="absolute inset-x-[15%] top-5 left-5 hidden py-5 text-white md:block">
+          <h1 class="text-3xl font-bold">{{ slide.content.title }}</h1>
+          <p>{{ slide.content.description }}</p>
+          <button class="rounded-md w-32 mt-6 bg-black p-2 text-sm font-semibold text-white">
+            {{ slide.content.buttonText }}
+          </button>
+        </div>
+        <div
+        class="absolute inset-x-[70%] top-5 right-5 hidden py-5  text-white md:block">
+        <h1 class="text-3xl font-bold">
+          {{ formatTime(countdown.days) }} days,
+          {{ formatTime(countdown.hours) }} hours,
+          {{ formatTime(countdown.minutes) }} minutes,
+          {{ formatTime(countdown.seconds) }} seconds
+      </h1>
         <p>
-          Some representative placeholder content for the first slide.
+          Time remaining until our bulk order from our supplier.<br> <a class="underline hover:text-canary hover:cursor-pointer"> Find out more.</a>
         </p>
       </div>
-    </div>
-    <!--Second item-->
-    <div
-      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-te-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg"
-        class="block w-full"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-        <h5 class="text-xl">Second slide label</h5>
-        <p>
-          Some representative placeholder content for the second slide.
-        </p>
       </div>
     </div>
-    <!--Third item-->
-    <div
-      class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
-      data-te-carousel-item
-      style="backface-visibility: hidden">
-      <img
-        src="https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg"
-        class="block w-4/5"
-        alt="..." />
-      <div
-        class="absolute inset-x-[15%] bottom-5 hidden py-5 text-center text-white md:block">
-        <h5 class="text-xl">Third slide label</h5>
-        <p>
-          Some representative placeholder content for the third slide.
-        </p>
-      </div>
-    </div>
+  
+    <!-- Carousel controls - prev item -->
+    <button class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+            type="button"
+            (click)="prevSlide()">
+      <!-- ... existing code ... -->
+    </button>
+  
+    <!-- Carousel controls - next item -->
+    <button class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+            type="button"
+            (click)="nextSlide()">
+      <!-- ... existing code ... -->
+    </button>
   </div>
+  
 
   <!--Carousel controls - prev item-->
   <button
     class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
-    data-te-target="#carouselExampleCaptions"
-    data-te-slide="prev">
+    (click)="prevSlide()">
     <span class="inline-block h-8 w-8">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -115,8 +107,7 @@
   <button
     class="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
-    data-te-target="#carouselExampleCaptions"
-    data-te-slide="next">
+    (click)="nextSlide()">
     <span class="inline-block h-8 w-8">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -159,6 +150,19 @@
         alt="" 
         class="bg-cover h-[600px] mx-auto">
     </div>
+</div>
+<div class="flex flex-row">
+    <div class="w-2/5 float-left flex-col">
+      <h1 class="text-4xl font-bold text-white ml-9">
+        Get Stock On Hand
+      </h1>
+      <p class="text-white ml-9 font-semibold text-xl float-left">
+        SHOP ON-HAND & GET
+YOUR PRODUCTS DELIVERED
+WITHIN 3-5 DAYS
+      </p>
+    </div>
+    <div></div>
 </div>
 
 
