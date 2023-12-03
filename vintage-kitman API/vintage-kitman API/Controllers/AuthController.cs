@@ -11,7 +11,7 @@ using System.Text;
 using vintage_kitman_API.Data.Repositories.Authentication;
 using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
-using vintage_kitman_API.ViewModels;
+using vintage_kitman_API.ViewModels.AuthModels;
 
 namespace vintage_kitman_API.Controllers
 {

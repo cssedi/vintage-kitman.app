@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using vintage_kitman_API.Model;
-using vintage_kitman_API.ViewModels;
+using vintage_kitman_API.ViewModels.AuthModels;
 
 namespace vintage_kitman_API.Data.Repositories.Authentication
 {

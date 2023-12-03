@@ -1,4 +1,4 @@
-﻿using vintage_kitman_API.ViewModels;
+﻿using vintage_kitman_API.ViewModels.AuthModels;
 
 namespace vintage_kitman_API.Data.Repositories.Authentication
 {
