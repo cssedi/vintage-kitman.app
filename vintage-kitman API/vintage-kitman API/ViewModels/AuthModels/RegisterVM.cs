@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace vintage_kitman_API.ViewModels
+namespace vintage_kitman_API.ViewModels.AuthModels
 {
     public class RegisterVM
     {

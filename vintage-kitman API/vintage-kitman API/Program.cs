@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using vintage_kitman_API.Data.Repositories.Authentication;
+using vintage_kitman_API.Data.Repositories.Categories;
 using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
 
@@ -32,6 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddAuthorization(options =>
 {
