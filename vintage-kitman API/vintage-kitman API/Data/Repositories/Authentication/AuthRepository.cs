@@ -14,14 +14,16 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
- 
+
 
         public async Task<UserManagerReponse> LoginUserAsync(LoginVM loginVM)
         {
@@ -62,7 +64,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 // Create a claims 
                 var claims = new[]
                 {
-                    new Claim(ClaimTypes.Role, "CHALLENGER"),
+                    new Claim(ClaimTypes.Role, "CUSTOMER"),
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
@@ -100,6 +102,62 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<UserManagerReponse> RegisterUserAsync(RegisterVM registerVM)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<UserManagerReponse> AdminLoginAsync(LoginVM loginVM)
+        {
+            // Find the user 
+            var user = await _userManager.FindByEmailAsync(loginVM.email);
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            if (roles.Contains("ADMIN"))
+            {
+                // Create a claims 
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.Role, "ADMIN"),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Surname, user.surname),
+                };
+
+                //Create the the singin in key 
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+
+                // Create a token 
+                var token = new JwtSecurityToken
+                (
+                    issuer: _configuration["Jwt:Issuer"],
+                    audience: _configuration["Jwt:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(30),
+                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                );
+
+                string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+                return new UserManagerReponse
+                {
+                    token = tokenString,
+                    isSuccess = true,
+                    Date = DateTime.Now,
+                    username = user.UserName,
+                    email = user.Email,
+                    name = user.Name,
+                    surname = user.surname,
+                };
+            }
+            else
+            {
+                return new UserManagerReponse
+                {
+                    Message = "Not Authroized",
+                    isSuccess = false,
+                };
+            }
+               
         }
     }
 }

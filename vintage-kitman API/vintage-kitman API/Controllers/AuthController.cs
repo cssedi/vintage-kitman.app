@@ -50,7 +50,7 @@ namespace vintage_kitman_API.Controllers
             //create a new customer
             var customer = new User
             {
-                UserName = model.username,
+                UserName = model.email.Substring(0, model.email.IndexOf("@")),
                 Email = model.email,
                 Name = model.name,
                 surname = model.surname,
@@ -114,6 +114,23 @@ namespace vintage_kitman_API.Controllers
                     return Ok(new { token = results.token });
                 }
         }
+
+        [HttpPost("AdminLogin")]
+        public async Task<IActionResult> AdminLogin(LoginVM model)
+        {
+            var results = await _authRepository.AdminLoginAsync(model);
+
+            if (!results.isSuccess)
+            {
+                return BadRequest(results);
+            }
+            else
+            {
+                return Ok(new { token = results.token });
+            }
+        }
+
+
         private string GenerateToken(User customer)
         {
             // Create a claims 
