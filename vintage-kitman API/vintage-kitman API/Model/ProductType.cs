@@ -4,7 +4,9 @@
     {
         public int ProductTypeId { get; set; }
         public string Name { get; set; }
+        public string? SizeChart { get; set; }
+
         //navigtaion
-        public ICollection<Size> Sizes { get; set; }
+        public ICollection<Kit> Kits { get; set; }
     }
 }

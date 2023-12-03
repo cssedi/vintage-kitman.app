@@ -3,10 +3,8 @@
     public class Size
     {
         public int SizeId { get; set; }
-        public string name { get; set; }
-        public int ProductTypeId { get; set; }
+        public string Name { get; set; }
         //navigation
-        public ProductType ProductType { get; set; }
-        public ICollection<Kit> Kits { get; set; }
+        public ICollection<KitOrders> Kits { get; set; }
     }
 }
