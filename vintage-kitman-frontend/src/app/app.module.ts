@@ -10,6 +10,9 @@ import {  NbInputModule,NbStatusService,  } from '@nebular/theme';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
+import { ProductsPageComponent } from './products/products-page/products-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    ProductsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,11 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserAnimationsModule,
     MatTabsModule,
     NbInputModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+    
 
 
     
