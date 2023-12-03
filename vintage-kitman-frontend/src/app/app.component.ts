@@ -9,19 +9,21 @@ export class AppComponent {
   title = 'vintage-kitman-frontend';
   isVisible: boolean =false
   isUserVisible: boolean =false
+  isDoubleDropDownVisible: boolean =false
 
   constructor() 
-  {
-
-    
-  }
+  {}
 
   user: any = localStorage.getItem("user")
   toggleDropDown()
   {
     this.isVisible=! this.isVisible
     this.isUserVisible=false
-    console.log(this.isVisible)
+    console.log('dropdown is' +  this.isVisible)
+  }
+  toggleDoubleDropDown(){
+    this.isDoubleDropDownVisible=! this.isDoubleDropDownVisible
+    console.log('double dropdown is' + this.isDoubleDropDownVisible)
   }
 
   toggleUserDropDown(){
