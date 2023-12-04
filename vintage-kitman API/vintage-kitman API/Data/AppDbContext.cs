@@ -19,7 +19,7 @@ namespace vintage_kitman_API.NewFolder
         public DbSet<Sport> sports { get; set; }
         public DbSet<Team> teams { get; set; }
         public DbSet<League> leagues { get; set; }
-        public DbSet<Kit> kit { get; set; }
+        public DbSet<Kit> kits { get; set; }
         public DbSet<Size> sizes { get; set; }
         public DbSet<ProductType> productTypes { get; set; }
         public DbSet<Orders> orders { get; set; }
@@ -127,11 +127,6 @@ namespace vintage_kitman_API.NewFolder
 
             modelBuilder.Entity<Kit>()
                 .HasData(
-                    new Kit
-                    { KitId = 1, ProductTypeId = 1, TeamId = 1, Name = "Arsenal Home Jersey 2022/23 ",
-                        FrontImage = "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2579c29427554b5a9fc8e492c29d29d8_9366/Arsenal_23-24_Home_Jersey_Red_HR6929_HM30.jpg",
-                        Price = 900 
-                    },
                     new Kit
                     {
                         KitId = 2,ProductTypeId = 3,TeamId =1 ,  Name = "Arsenal Away Jersey 88/90",
