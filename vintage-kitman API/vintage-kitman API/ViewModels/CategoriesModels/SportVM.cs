@@ -2,6 +2,8 @@
 {
     public class SportVM
     {
+        public int SportId { get; set; }
         public string Name { get; set; }
+        public List<LeagueVM> Leagues { get; set; }
     }
 }
