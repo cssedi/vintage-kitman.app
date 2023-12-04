@@ -6,5 +6,7 @@ namespace vintage_kitman_API.Data.Repositories.Categories
     {
         public Task<List<SportVM>> GetSportsAsync();
         public Task<List<LeagueVM>> GetLeagueById(int sportId);
+        public Task<List<TeamVM>> GetTeamsByLeagueAsync(string name);
+
     }
 }
