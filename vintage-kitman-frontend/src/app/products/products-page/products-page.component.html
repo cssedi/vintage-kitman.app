@@ -1,0 +1,22 @@
+<div class="flex flex-row">
+    <section class="float-left w-1/4">
+
+    </section>
+
+    <section class="text-gray-600 body-font ">
+        <div class="container px-5 py-24 mx-auto " >
+        <div class="flex flex-wrap -m-4">
+    
+            <div class="lg:w-1/3 md:w-1/2 p-4 w-full animate-fade-down animate-once animate-ease-linear" *ngFor="let kit of kitArray let i = index">
+            <div class="w-full max-w-sm bg-black  rounded-lg shadow transition duration-300 ease-in-out hover:scale-110 h-[400px]">
+                <img class="w-full h-full object-cove" src="{{kit.frontImage}}" alt="{{kit.name}}">
+
+            </div>
+            </div>
+    
+        
+        </div>
+        </div>
+    </section>
+
+</div>
