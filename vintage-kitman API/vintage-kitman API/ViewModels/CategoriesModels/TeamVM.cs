@@ -2,6 +2,8 @@
 {
     public class TeamVM
     {
+        public int TeamId { get; set; }
         public string Name { get; set; }
+        public string  Logo { get; set; }
     }
 }
