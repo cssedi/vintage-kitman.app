@@ -54,7 +54,6 @@ namespace vintage_kitman_API.Controllers
                 Email = model.email,
                 Name = model.name,
                 surname = model.surname,
-                PhoneNumber = model.phoneNumber,
 
             };
 
