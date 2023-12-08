@@ -22,7 +22,7 @@ export class AppComponent implements  OnInit {
 
         this.sports=response as SportsVM[]
         console.log(response)
-
+        
         this.sports.forEach(sport => {
           sport.isDoubleDropDownVisible = false;
         });
@@ -36,7 +36,9 @@ export class AppComponent implements  OnInit {
   {
     this.isVisible=! this.isVisible
     this.isUserVisible=false
-    this.isDoubleDropDownVisible=false
+    if(this.isVisible){
+      this.isDoubleDropDownVisible=false
+    }
     console.log('dropdown is' +  this.isVisible)
   }
 // Initialize visibility status for each sport
@@ -50,6 +52,7 @@ toggleDoubleDropDown(sport: SportsVM) {
   toggleUserDropDown(){
     this.isUserVisible=! this.isUserVisible
     this.isVisible=false
+    this.isDoubleDropDownVisible
     console.log(this.isVisible)
   }
 

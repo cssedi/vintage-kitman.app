@@ -1,6 +1,6 @@
 
 
-<nav class=" border-gray-200 bg-black  dark:border-gray-700" >
+<nav class=" border-gray-200 bg-black" >
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" >
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/assets/images/vintagekitman-bg-clear.png" class="h-14  " alt="Flowbite Logo">
@@ -37,7 +37,7 @@
           <div *ngIf="isVisible" class="absolute z-30 bg-black font-normal divide-y divide-gray-100 rounded-lg shadow w-44 text-white">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-400">
               <li *ngFor="let sport of sports" class="h-9">
-                <button (click)="toggleDoubleDropDown(sport)" class="flex flex-row px-4 py- hover:opacity-50 dark:hover:bg-gray-600">{{sport.name}} 
+                <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/products', sport.leagues[0]]" class="flex flex-row px-4 py- hover:opacity-50 dark:hover:bg-gray-600">{{sport.name}} 
                   <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                   </svg>
@@ -45,7 +45,7 @@
                 <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="z-10 absolute left-24 bg-darkgrey divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
                     <li *ngFor="let league of sport.leagues">
-                      <a [routerLink]="['/products', league.name]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{league.name}}</a>
+                      <a [routerLink]="['/products', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{league.name}}</a>
                     </li>
                   </ul>
                 </div>
@@ -63,7 +63,7 @@
           </a>
         </li>
         <li (click)="toggleUserDropDown()">
-          <a href="#" class=" flex flex-row space-x-2 py-2 px-3 mt-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
+          <a  class=" flex flex-row space-x-2 py-2 px-3 mt-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
             <p *ngIf="user == null" class="font-normal">user</p>
             <p *ngIf="user != null" class="font-normal">{{user.name}}</p>
             <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
