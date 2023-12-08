@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vintage_kitman_API.Data.Repositories.Categories;
+using vintage_kitman_API.Data.Repositories.Products;
 using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels.CategoriesModels;
 
@@ -13,11 +14,13 @@ namespace vintage_kitman_API.Controllers
     {
         private readonly ICategoriesRepository _categoriesRepository;
         private readonly AppDbContext _appDbContext;
+        private readonly IProductsRepository _productsRepository;
 
-        public ProductsController(ICategoriesRepository categoriesRepository, AppDbContext appDbContext)
+        public ProductsController(ICategoriesRepository categoriesRepository, AppDbContext appDbContext, IProductsRepository productsRepository)
         {
             _categoriesRepository = categoriesRepository;
             _appDbContext = appDbContext;
+            _productsRepository = productsRepository;
         }
 
         [HttpGet("GetAllSports")]
@@ -60,6 +63,33 @@ namespace vintage_kitman_API.Controllers
             return Ok(kitsVM);
 
 
+        }
+
+        [HttpGet("GetTeamsByLeague/{name}")]
+        public async Task<IActionResult> GetTeamsByLeagueName(string name)
+        {
+            name = name.Replace("%20", " ");
+            var teams = await _productsRepository.getTeamsByLeagueNameAsync(name);
+
+            if (teams == null)
+            {
+                return NotFound(new { message = "No Teams Found" });
+            }
+
+            return Ok(teams);
+        }
+
+        [HttpGet("GetKitsByTeam/{id}")]
+        public async Task<IActionResult> GetKitsByTeam(int id)
+        {
+            var kits = await _productsRepository.getKitsByTeamAsync(id);
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No Kits Found" });
+            }
+
+            return Ok(kits);
         }
     }
 }
