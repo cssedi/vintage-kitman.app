@@ -13,6 +13,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { ProductsPageComponent } from './products/products-page/products-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonModule} from '@angular/material/button';
+import { TeamsComponent } from './teams/teams.component'
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     HomeComponent,
     ProductsPageComponent,
+    TeamsComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatButtonModule
     
 
 
