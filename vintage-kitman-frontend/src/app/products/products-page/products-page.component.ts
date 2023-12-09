@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { kitVM } from 'src/app/models/categories/kit-vm';
 import { CategoriesService } from 'src/app/services/Categories/categories.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-products-page',
@@ -10,25 +11,26 @@ import { CategoriesService } from 'src/app/services/Categories/categories.servic
 })
 export class ProductsPageComponent implements OnInit {
   
-  leagueName!:string;
+  teamId!:number;
   kitArray:kitVM[]=[]
 
-  constructor(private route:ActivatedRoute,private categoriesService:CategoriesService) { }
+  constructor(private route:ActivatedRoute,private productsService:ProductService) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.leagueName = params.get('name')?.replace('%20', ' ')!;
+      this.teamId = parseInt(params.get('id')!);
       // Fetch products based on the leagueId using your ProductService
-      this.categoriesService.getKitsByLeagueName(this.leagueName).subscribe({
+      this.productsService.getKitsByTeam(this.teamId).subscribe({
         // Handle the retrieved products
         next:(reponse)=>
         {
           this.kitArray=reponse as kitVM[]
-          console.log(this.leagueName)
+          console.log(this.teamId)
           console.log(reponse)
         }
       }
 
       )
-    });  }
+    });  
+  }
 
 }

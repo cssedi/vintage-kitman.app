@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { TeamsComponent } from './teams/teams.component'
 
 @NgModule({
@@ -37,7 +38,8 @@ import { TeamsComponent } from './teams/teams.component'
     ReactiveFormsModule,
     HttpClientModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule,
     
 
 

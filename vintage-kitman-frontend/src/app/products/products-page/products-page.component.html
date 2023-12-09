@@ -1,22 +1,38 @@
-<div class="flex flex-row">
-    <section class="float-left w-1/4">
+<div class="flex flex-col">
+    <div class="h-24">
+
+    </div>
+    <div class="flex flex-row">
+    <section class="w-1/6">
 
     </section>
-
-    <section class="text-gray-600 body-font ">
-        <div class="container px-5 py-24 mx-auto " >
-        <div class="flex flex-wrap -m-4">
+    <section class="text-gray-600 body-font ml-9 space-x-3">
+        <div class="container mx-auto space-x-3">
+            <div class="flex flex-wrap">
     
-            <div class="lg:w-1/3 md:w-1/2 p-4 w-full animate-fade-down animate-once animate-ease-linear" *ngFor="let kit of kitArray let i = index">
-            <div class="w-full max-w-sm bg-black  rounded-lg shadow transition duration-300 ease-in-out hover:scale-110 h-[400px]">
-                <img class="w-full h-full object-cove" src="{{kit.frontImage}}" alt="{{kit.name}}">
-
-            </div>
-            </div>
+                <div class="animate-fade-down animate-once animate-ease-linear -mr-7 mb-12" *ngFor="let kit of kitArray">
+                    <div class="group w-1/4 mb-5 max-w-sm bg-black min-w-[300px] rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[480px] max-h-[500px]">
+                        <mat-icon fontIcon="favorite_border" class="float-right top-5 right-5 z-30 absolute text-black"></mat-icon>
+                        <img class="w-full h-4/5 mx-auto" src="{{kit.frontImage}}" alt="{{kit.name}}">
     
-        
-        </div>
+                        <h3 
+                        matTooltipPosition="above"
+                        matTooltip="{{kit.name}}"
+                        class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-5">
+                            {{kit.name}}
+                        </h3>
+                        <div class="pb-3 mx-auto text-center font-semibold mt-6">
+                            <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+                        </div>
+    
+                    </div>
+                </div>
+    
+            </div>
         </div>
     </section>
+    
 
 </div>
+</div>
+
