@@ -35,17 +35,18 @@
           </button>
           <!-- Dropdown menu -->
           <div *ngIf="isVisible" class="absolute z-30 bg-black font-normal divide-y divide-gray-100 rounded-lg shadow w-44 text-white">
-            <ul class="py-2 text-sm text-gray-700 dark:text-gray-400">
+            <ul class="py-2 text-sm text-gray-700">
               <li *ngFor="let sport of sports" class="h-9">
-                <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/products', sport.leagues[0]]" class="flex flex-row px-4 py- hover:opacity-50 dark:hover:bg-gray-600">{{sport.name}} 
+                <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/teams', sport.leagues[0]]" 
+                class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
                   <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                   </svg>
                 </button>
-                <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="z-10 absolute left-24 bg-darkgrey divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="z-10 absolute left-24 bg-darkgrey divide-y divide-gray-100 rounded-lg shadow w-44 ">
                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
                     <li *ngFor="let league of sport.leagues">
-                      <a [routerLink]="['/products', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">{{league.name}}</a>
+                      <a [routerLink]="['/teams', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{league.name}}</a>
                     </li>
                   </ul>
                 </div>

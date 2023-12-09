@@ -1,0 +1,8 @@
+.parent {
+    transition: background-color 0.3s ease;
+}
+
+.parent:hover {
+    background-color: #f3cd11; /* Change this to your desired hover background color */
+    color:black
+}

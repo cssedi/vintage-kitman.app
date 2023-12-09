@@ -4,14 +4,15 @@ import { LoginComponent } from './Authentication/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './Authentication/register/register.component';
 import { ProductsPageComponent } from './products/products-page/products-page.component';
+import { TeamsComponent } from './teams/teams.component';
 
 const routes: Routes = 
 [
   {path:'login', component: LoginComponent},
   {path:'', component:HomeComponent},
   {path:'register', component:RegisterComponent},
-  {path:'products/', component:ProductsPageComponent},
-  {path:'products/:name', component:ProductsPageComponent}
+  {path:'products/:id', component:ProductsPageComponent},
+  {path:'teams/:name', component:TeamsComponent},
 
 ];
 

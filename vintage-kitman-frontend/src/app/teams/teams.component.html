@@ -1,9 +1,9 @@
 <div class="max-w-screen-lg mx-auto">
-    <div class="flex flex-row my-20 flex-wrap">
-        <div class="parent w-1/4 flex-col text-center" *ngFor="let team of teamArray"
-        [routerLink]="['/products', team.teamId]">
-            <img src="{{team.logo}}" alt="{{team.name}}" class="hover:cursor-pointer h-20 mx-auto mb-7">
-            <h1 class="text-xl text-white group-hover:hover:underline font-semibold"> {{team.name}}</h1>
-        </div>
+    <div class="flex flex-row my-20 flex-wrap space-x-4">
+        <div class="parent w-1/5 flex-col text-center mb-6 py-5 shadow cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:bg-canary" 
+        *ngFor="let team of teamArray" [routerLink]="['/products', team.teamId]">
+            <img src="{{team.logo}}" alt="{{team.name}}" class="h-20 mx-auto mb-7">
+            <h1 class="text-xl text-white hover:underline font-semibold hover:text-black"> {{team.name}}</h1>
+        </div>        
     </div>
 </div>
