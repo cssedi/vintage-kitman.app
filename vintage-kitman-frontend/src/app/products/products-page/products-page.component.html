@@ -12,7 +12,10 @@
     
                 <div class="animate-fade-down animate-once animate-ease-linear -mr-7 mb-12" *ngFor="let kit of kitArray">
                     <div class="group w-1/4 mb-5 max-w-sm bg-black min-w-[300px] rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[480px] max-h-[500px]">
-                        <mat-icon fontIcon="favorite_border" class="float-right top-5 right-5 z-30 absolute text-black"></mat-icon>
+                        <mat-icon fontIcon="favorite_border" 
+                        matTooltipPosition="above"
+                        matTooltip="Add to wishlist"
+                        class="float-right top-5 right-5 z-30 absolute text-black"></mat-icon>
                         <img class="w-full h-4/5 mx-auto" src="{{kit.frontImage}}" alt="{{kit.name}}">
     
                         <h3 
