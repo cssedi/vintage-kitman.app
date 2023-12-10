@@ -42,61 +42,38 @@ namespace vintage_kitman_API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterVM model)
         {
-            if (!await _roleManager.RoleExistsAsync("CUSTOMER"))
+            try
             {
-                // Create the challenger role
-                await _roleManager.CreateAsync(new IdentityRole("CUSTOMER"));
+                var result = await _authRepository.RegisterUserAsync(model);
+
+                if (result.isSuccess)
+                {
+                    // User registration successful, extract the user information
+                    User user = new User()
+                    {
+                        Email = model.email,
+                        UserName = model.email.Substring(0, model.email.IndexOf("@")),
+                        Name = model.name,
+                        surname = model.surname
+                    };
+
+                    // Generate a token using the user information
+                    var token = GenerateToken(user);
+
+                    // Return a success response with a token
+                    return Ok(new { token });
+                }
+                else
+                {
+                    // User registration failed, return an error response
+                    return BadRequest(new { message = result.Message });
+                }
             }
-            //create a new customer
-            var customer = new User
+            catch (Exception ex)
             {
-                UserName = model.email.Substring(0, model.email.IndexOf("@")),
-                Email = model.email,
-                Name = model.name,
-                surname = model.surname,
-
-            };
-
-            //check if username or email already exists
-            var existingUsername = await _appDbContext.Users
-                .AnyAsync(u => u.UserName == customer.UserName);
-
-            var existingEmail = await _appDbContext.Users
-                .AnyAsync(u => u.Email == customer.Email);
-
-            if (existingUsername)
-            {
-                return BadRequest(new { Message = "Username already taken" });
+                // Handle unexpected exceptions
+                return StatusCode(500, new { message = "An error occurred while processing your request." });
             }
-
-            if (existingEmail)
-            {
-                return BadRequest(new { Message = "Email already taken" });
-            }
-
-            //check if user registration is successful
-            var result = await _userManager.CreateAsync(customer, model.password);
-
-            if (result.Succeeded)
-            {
-                //genrate Confirmation token
-                //var token = await _userManager.GenerateEmailConfirmationTokenAsync(customer);
-                //if (!string.IsNullOrEmpty(token))
-                //{
-
-                //}
-
-                //send email
-            }
-            else
-            {
-                return BadRequest(new { Message = result.Errors });
-            }
-
-            await _userManager.AddToRoleAsync(customer, "CUSTOMER");
-
-
-            return Ok(new { token = GenerateToken(customer) });
         }
 
         [HttpPost("CustomerLogin")]
