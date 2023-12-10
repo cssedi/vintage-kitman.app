@@ -24,6 +24,16 @@ namespace vintage_kitman_API.Data.Repositories.Products
             return kit;
         }
 
+        public Task<List<KitVM>> getKitsByNameAsync(string name)
+        {
+            var kits = _appDbContext.kits.Include(t => t.Team)
+                .Where(k => k.Team.Name.Contains(name) || k.Name.Contains(name))
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                .ToListAsync();
+
+            return kits;
+        }
+
         public async Task<List<KitVM>> getKitsByTeamAsync(int id)
         {
            var kits = await _appDbContext.kits.Where(t=> t.TeamId == id)
