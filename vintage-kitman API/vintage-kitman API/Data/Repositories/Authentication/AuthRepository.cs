@@ -1,18 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using MimeKit;
+using MimeKit.Text;
 using Org.BouncyCastle.Asn1.X509;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Mail;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Xml.Linq;
 using vintage_kitman_API.Model;
+using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels.AuthModels;
-using static System.Net.Mime.MediaTypeNames;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace vintage_kitman_API.Data.Repositories.Authentication
 {
@@ -23,14 +27,17 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly AppDbContext _appDbContext;
 
 
-        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
+        public AuthRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration,
+                                RoleManager<IdentityRole> roleManager, AppDbContext appDbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _roleManager = roleManager;
+            _appDbContext = appDbContext;
         }
 
 
@@ -108,16 +115,63 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             }
         }
 
-        public Task<UserManagerReponse> RegisterUserAsync(RegisterVM registerVM)
+        public async Task<UserManagerReponse> RegisterUserAsync(RegisterVM registerVM)
         {
+            if (!await _roleManager.RoleExistsAsync("CUSTOMER"))
+            {
+                // Create the "CUSTOMER" role if it doesn't exist
+                await _roleManager.CreateAsync(new IdentityRole("CUSTOMER"));
+            }
 
+            var customer = new User
+            {
+                UserName = registerVM.email.Substring(0, registerVM.email.IndexOf("@")),
+                Email = registerVM.email,
+                Name = registerVM.name,
+                surname = registerVM.surname,
+            };
 
-            //send email confirmation
-            var message = new MimeMessage();
-            message.From.Add(MailboxAddress.Parse(_configuration["MailConfig:Email"]));
-            message.Subject = "Account Created";
+            var existingUsername = await _appDbContext.Users.AnyAsync(u => u.UserName == customer.UserName);
+            var existingEmail = await _appDbContext.Users.AnyAsync(u => u.Email == customer.Email);
 
-            var body=@$"<!DOCTYPE html>
+            if (existingUsername)
+            {
+                return new UserManagerReponse
+                {
+                    Message = "Existing user with this email",
+                    isSuccess = false,
+                };
+            }
+
+            if (existingEmail)
+            {
+                return new UserManagerReponse
+                {
+                    Message = "Existing user with this email",
+                    isSuccess = false,
+                };
+            }
+
+            var result = await _userManager.CreateAsync(customer, registerVM.password);
+
+            if (result.Succeeded)
+            {
+                // Generate and send email confirmation token
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(customer);
+
+                // Send email confirmation
+                if (!string.IsNullOrEmpty(token))
+                {
+                    var confirmationLink = $"{_configuration["AppBaseUrl"]}/Account/ConfirmEmail?userId={customer.Id}&token={WebUtility.UrlEncode(token)}";
+
+                    // Continue with your email sending logic using confirmationLink
+                    //send email confirmation
+                    var message = new MimeMessage();
+                    message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
+                    message.To.Add(MailboxAddress.Parse(registerVM.email));
+                    message.Subject = "Account Created";
+
+                    var body = @$"<!DOCTYPE html>
                         <html lang='en'>
                         <head>
                             <meta charset='UTF-8'>
@@ -141,7 +195,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                                             <table style='width:100%; border-collapse: collapse; margin: 20px 10px;' cellpadding='0' cellspacing='0'>
                                                 <tbody>
                                                     <tr>
-                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Dear {{registerVM.name}},</td>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Hi {registerVM.name}!,</td>
                                                     </tr>
                                                     <tr>
                                                         <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Thanks for joining the Vintage Kitman family!</td>
@@ -179,21 +233,47 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                         </html>
                         ";
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate(_configuration["Mail:Email"], _configuration["Mail:Password"]);
-                client.Send(message);
-                client.Disconnect(true);
+                    var bodyBuilder = new BodyBuilder();
+                    bodyBuilder.TextBody = body;
+                    message.Body = new TextPart(TextFormat.Html) { Text = body };
+
+                    using (var client = new SmtpClient())
+                    {
+                        client.Connect("smtp.gmail.com", 587, false);
+                        client.Authenticate(_configuration["EmailConfig:Username"], _configuration["EmailConfig:Password"]);
+                        client.Send(message);
+                        client.Disconnect(true);
+                    }
+
+
+
+                    return new UserManagerReponse
+                    {
+                        Message = "User created successfully! Please check your email for confirmation.",
+                        isSuccess = true,
+                    };
+                }
+                else
+                {
+                    // Handle token generation failure
+                    return new UserManagerReponse
+                    {
+                        Message = "Failed to generate email confirmation token.",
+                        isSuccess = false,
+                    };
+                }
             }
-
-
-
-
-
-
-            message.To.Add(MailboxAddress.Parse(registerVM.email));
+            else
+            {
+                // Handle user creation failure
+                return new UserManagerReponse
+                {
+                    Message = "User creation failed.",
+                    isSuccess = false,
+                };
+            }
         }
+
 
         public async Task<UserManagerReponse> AdminLoginAsync(LoginVM loginVM)
         {
