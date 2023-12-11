@@ -16,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { TeamsComponent } from './teams/teams.component'
+import { TeamsComponent } from './teams/teams.component';
+import { ProductComponent } from './products/product/product.component'
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TeamsComponent } from './teams/teams.component'
     HomeComponent,
     ProductsPageComponent,
     TeamsComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
