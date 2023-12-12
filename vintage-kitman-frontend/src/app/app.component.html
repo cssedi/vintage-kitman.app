@@ -37,7 +37,7 @@
           <div *ngIf="isVisible" class="absolute z-30 bg-black font-normal divide-y divide-gray-100 rounded-lg shadow w-44 text-white">
             <ul class="py-2 text-sm text-gray-700">
               <li *ngFor="let sport of sports" class="h-9">
-                <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/teams', sport.leagues[0]]" 
+                <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/sport-teams', sport.name]"
                 class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
                   <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>

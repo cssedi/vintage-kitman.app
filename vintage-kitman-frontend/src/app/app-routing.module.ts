@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './Authentication/register/register.component';
 import { ProductsPageComponent } from './products/products-page/products-page.component';
 import { TeamsComponent } from './teams/teams.component';
+import { ProductComponent } from './products/product/product.component';
+import { SportTeamsComponent } from './sport-teams/sport-teams.component';
 
 const routes: Routes = 
 [
@@ -13,6 +15,9 @@ const routes: Routes =
   {path:'register', component:RegisterComponent},
   {path:'products/:id', component:ProductsPageComponent},
   {path:'teams/:name', component:TeamsComponent},
+  {path:'product/:id', component:ProductComponent},
+  {path:'sport-teams/:name', component:SportTeamsComponent},
+
 
 ];
 

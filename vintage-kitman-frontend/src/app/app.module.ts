@@ -17,7 +17,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { TeamsComponent } from './teams/teams.component';
-import { ProductComponent } from './products/product/product.component'
+import { ProductComponent } from './products/product/product.component';
+import { SportTeamsComponent } from './sport-teams/sport-teams.component'
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ProductComponent } from './products/product/product.component'
     ProductsPageComponent,
     TeamsComponent,
     ProductComponent,
+    SportTeamsComponent,
   ],
   imports: [
     BrowserModule,
