@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj": {}
+    "C:\\Users\\mangopel\\Desktop\\programming\\vintage kitman\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj": {
+    "C:\\Users\\mangopel\\Desktop\\programming\\vintage kitman\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj",
+        "projectUniqueName": "C:\\Users\\mangopel\\Desktop\\programming\\vintage kitman\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj",
         "projectName": "vintage-kitman API",
-        "projectPath": "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj",
-        "packagesPath": "C:\\Users\\QXZ3N4O\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\QXZ3N4O\\Desktop\\programming\\vintage-kitman.app\\vintage-kitman API\\vintage-kitman API\\obj\\",
+        "projectPath": "C:\\Users\\mangopel\\Desktop\\programming\\vintage kitman\\vintage-kitman API\\vintage-kitman API\\vintage-kitman API.csproj",
+        "packagesPath": "C:\\Users\\mangopel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mangopel\\Desktop\\programming\\vintage kitman\\vintage-kitman API\\vintage-kitman API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\QXZ3N4O\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mangopel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +47,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[12.0.1, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.0.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -75,6 +78,10 @@
               "target": "Package",
               "version": "[4.2.0, )"
             },
+            "NETCore.MailKit": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -99,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

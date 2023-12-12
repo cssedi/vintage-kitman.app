@@ -91,5 +91,18 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(kits);
         }
+
+        [HttpGet("GetKitById/{id}")]
+        public async Task<IActionResult> GetKitById(int id)
+        {
+            var kit = await _productsRepository.getKitByIdAsync(id);
+
+            if(kit == null)
+            {
+                return NotFound(new { message = "No Kit found" });
+            }
+
+            return Ok(kit);
+        }
     }
 }
