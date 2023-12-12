@@ -100,10 +100,10 @@ namespace vintage_kitman_API.NewFolder
                 new Team { TeamId = 15, Name = "England", LeagueId = 8 , Logo = "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/England_national_football_team_crest.svg/1200px-England_national_football_team_crest.svg.png" },
                 new Team { TeamId = 16, Name = "France", LeagueId = 8 , Logo = "https://upload.wikimedia.org/wikipedia/en/thumb/2/23/French_Football_Federation_logo.svg/800px-French_Football_Federation_logo.svg.png" },
                 new Team { TeamId = 17, Name = "Germany", LeagueId = 8 , Logo = "https://static.wikia.nocookie.net/fifa/images/9/9b/Germany.png/revision/latest?cb=20180218192918" },
-                new Team { TeamId = 18, Name = "New Zealand", LeagueId = 9 , Logo = "" },
-                new Team { TeamId = 19, Name = "South Africa", LeagueId = 9 , Logo = "" },
-                new Team { TeamId = 20, Name = "Mercedes", LeagueId = 10 , Logo = "" },
-                new Team { TeamId = 21, Name = "Ferrari", LeagueId = 10 , Logo = "" },
+                new Team { TeamId = 18, Name = "New Zealand", LeagueId = 9 , Logo = "https://upload.wikimedia.org/wikipedia/en/f/fb/All_Blacks_logo.svg" },
+                new Team { TeamId = 19, Name = "South Africa", LeagueId = 9 , Logo = "https://i.pinimg.com/originals/2b/6b/71/2b6b7193800091dfebdfdee96b9d52dc.png" },
+                new Team { TeamId = 20, Name = "Mercedes", LeagueId = 10 , Logo = "https://logolook.net/wp-content/uploads/2022/05/Mercedes-Benz-Logo.svg" },
+                new Team { TeamId = 21, Name = "Ferrari", LeagueId = 10 , Logo = "https://i.pinimg.com/736x/66/90/a5/6690a56d025509839bd609be8f8f8bb8.jpg" },
                 new Team { TeamId = 22, Name = "Golden State Warriors", LeagueId = 11, Logo = "https://1000logos.net/wp-content/uploads/2018/03/Golden-State-Warriors-logo-768x432.png" },
                 new Team { TeamId = 23, Name = "Los Angeles Lakers", LeagueId = 11, Logo = "https://1000logos.net/wp-content/uploads/2017/03/Los-angeles-lakers-768x480.png" }
                 );
@@ -433,7 +433,9 @@ namespace vintage_kitman_API.NewFolder
                         KitId = 52, ProductTypeId = 1,TeamId = 23, Name = "Los Angeles Lakers Home Jersey 2022/23",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/526.jpeg",
                         Price = 900
-                    });
+                    }
+
+                    );
 
 
         }

@@ -9,6 +9,7 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
   baseAPIURL = environment.baseAPIUrl+ "Products/"
+  baseAPIURL2 = environment.baseAPIUrl+ "Categories/"
 
   getAllSports()
   {
@@ -17,6 +18,10 @@ export class CategoriesService {
 
   getKitsByLeagueName(name:string){
     return this.http.get(this.baseAPIURL+"GetKitsByLeague/"+name)
+  }
+
+  getTeamsBySportName(name:string){
+    return this.http.get(this.baseAPIURL2+"GetTeamsBySport/"+name)
   }
 
 }

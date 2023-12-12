@@ -55,5 +55,13 @@ namespace vintage_kitman_API.Data.Repositories.Categories
         {
             throw new NotFoundException("No leagues found for the specified sport");
         }
+
+        public Task<List<TeamVM>> GetTeamsBySport(string name)
+        {
+            var teams = _appDbContext.teams.Include(l => l.League).Where(s => s.League.Sport.Name == name)
+                .Select(t => new TeamVM { Name = t.Name, TeamId = t.TeamId, Logo = t.Logo }).ToListAsync();
+
+            return teams;
+        }
     }
 }
