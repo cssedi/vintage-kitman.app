@@ -15,7 +15,7 @@ const routes: Routes =
   {path:'register', component:RegisterComponent},
   {path:'products/:id', component:ProductsPageComponent},
   {path:'teams/:name', component:TeamsComponent},
-  {path:'product/:id', component:ProductComponent},
+  {path:'product/:name', component:ProductComponent},
   {path:'sport-teams/:name', component:SportTeamsComponent},
 
 
