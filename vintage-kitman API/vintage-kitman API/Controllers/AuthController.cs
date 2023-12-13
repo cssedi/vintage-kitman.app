@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,11 @@ namespace vintage_kitman_API.Controllers
 
                     // Generate a token using the user information
                     var token = GenerateToken(user);
+                    //create new cart for user
+                    await _appDbContext.carts.AddAsync(new Cart { Id = user.Id });
+                    //create new wishlist for user
+
+                    await _appDbContext.SaveChangesAsync();
 
                     // Return a success response with a token
                     return Ok(new { token });
