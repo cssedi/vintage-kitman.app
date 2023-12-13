@@ -11,6 +11,12 @@ namespace vintage_kitman_API.Data.Repositories.Products
         {
             _appDbContext = appDbContext;
         }
+
+        public Task<KitVM> getKitById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<KitVM> getKitByIdAsync(int id)
         {
             var kit = await _appDbContext.kits.Include(t => t.Team)
@@ -20,6 +26,16 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
             if (kit == null)
                 throw new NotFoundException("No kit found for the specified id");
+
+            return kit;
+        }
+
+        public Task<KitVM> getKitByName(string name)
+        {
+            var kit = _appDbContext.kits.Include(t => t.Team)
+                .Where(k => k.Name == name)
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                .FirstOrDefaultAsync();
 
             return kit;
         }
@@ -36,9 +52,9 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
         public async Task<List<KitVM>> getKitsByTeamAsync(int id)
         {
-           var kits = await _appDbContext.kits.Where(t=> t.TeamId == id)
-                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
-                .ToListAsync();
+            var kits = await _appDbContext.kits.Where(t => t.TeamId == id)
+                 .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                 .ToListAsync();
 
             if (kits == null)
                 throw new NotFoundException("No kits found for the specified team");
@@ -58,5 +74,7 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
             return teams;
         }
+
+
     }
 }

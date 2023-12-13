@@ -19,4 +19,10 @@ export class ProductService {
   getKitsByTeam(id:number):Observable<kitVM[]>{
     return this.http.get<kitVM[]>(this.baseAPIURL+"GetKitsByTeam/"+id)
   }
+
+  getKitByName(name:string):Observable<kitVM>{
+    return this.http.get<kitVM>(this.baseAPIURL+"GetKitByName/"+name)
+  }
+
+  
 }

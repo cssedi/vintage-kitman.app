@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './Authentication/login/login.component';
@@ -18,7 +17,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { TeamsComponent } from './teams/teams.component';
 import { ProductComponent } from './products/product/product.component';
-import { SportTeamsComponent } from './sport-teams/sport-teams.component'
+import { SportTeamsComponent } from './sport-teams/sport-teams.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,9 @@ import { SportTeamsComponent } from './sport-teams/sport-teams.component'
     MatSidenavModule,
     MatButtonModule,
     MatTooltipModule,
+    MatButtonToggleModule,
+    MatBadgeModule,
+    MatFormFieldModule
     
 
 

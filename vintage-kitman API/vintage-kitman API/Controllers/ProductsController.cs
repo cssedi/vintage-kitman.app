@@ -92,10 +92,10 @@ namespace vintage_kitman_API.Controllers
             return Ok(kits);
         }
 
-        [HttpGet("GetKitById/{id}")]
-        public async Task<IActionResult> GetKitById(int id)
+        [HttpGet("GetKitByName/{name}")]
+        public async Task<IActionResult> GetKitByName(string name)
         {
-            var kit = await _productsRepository.getKitByIdAsync(id);
+            var kit = await _productsRepository.getKitByName(name);
 
             if(kit == null)
             {

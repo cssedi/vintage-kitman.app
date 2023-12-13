@@ -1,1 +1,69 @@
-<p>product works!</p>
+<div class="flex flex-row my-12 mx-28 h-[500px] space-x-5">
+    <div class="w-2/5 flex-col">
+        <img src="{{kit.frontImage}}" class="w-[400px] h-full">
+        <button class="left-0 right-0 top-5">
+            size guide
+        </button>
+    </div>
+    <div class="w-3/5">
+        <div class="flex flex-col top-0 left-5   ">
+            <h1 class="text-2xl font-bold -top-3  text-white mb-1">
+                {{kit.name}}
+            </h1>
+            <h2 class="text-lg font-bold text-white">
+                R{{kit.price}}.00
+            </h2>
+        </div>
+        <form action="">
+            <div class="mt-9">
+                <div class="flex flex-row justify-between w-[60%]">
+                    <h3 class="text-xl text-white mb-4"> Select size</h3>
+                    <h6 class="text-sm text-grey pt-2 hover:cursor-pointer hover:text-canary hover:underline"> Size guide</h6>
+                </div>
+                <div>
+                    <mat-button-toggle-group 
+                    class=""name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle *ngFor="let size of sizeArray" class="w-16" value="{{size.sizeId}}">{{size.name}}</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="mt-5 flex flex-row space-x-5">
+                    <span class="text-sm font-medium text-white">Customized</span>
+                    <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" (click)="toggleCustom()">
+                        <div class="w-11 h-6 bg-darkgrey peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-canary after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-canary"></div>
+                    </label>
+                </div>
+
+
+                <div class="flex flex-row mt-8 w-[60%]">
+                    <div class="flex flex-col">
+                        <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                        <div class="relative flex items-center max-w-[8rem]">
+                            <button type="button" (click)="decreaseQuantity()" class="border border-gray-300 rounded-s-lg p-3 h-11">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                </svg>
+                            </button>
+                            <input type="text" value="{{quantity}}" class="bg-gray-50 border-x-0 text-black h-11 text-center text-sm block w-full py-2.5" placeholder="999" required>
+                            <button type="button" (click)="increaseQuantity()" class="border border-gray-300 rounded-e-lg p-3 h-11 ">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button 
+                    type="submit"
+                    class="w-1/2 bg-canary text-black  text-lg font-semibold py-2 mt-7 ml-5 hover:cursor-pointer">
+                        <div class="flex flex-row text-center justify-center space-x-2">
+                            <p class="text-center">Add to cart</p>
+                            <mat-icon fontIcon="shopping_cart" class="pt-1"  ></mat-icon>
+                        </div>
+                    </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
