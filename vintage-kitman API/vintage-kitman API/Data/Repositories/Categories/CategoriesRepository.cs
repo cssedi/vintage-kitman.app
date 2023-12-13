@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels.CategoriesModels;
 
@@ -61,7 +62,23 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             var teams = _appDbContext.teams.Include(l => l.League).Where(s => s.League.Sport.Name == name)
                 .Select(t => new TeamVM { Name = t.Name, TeamId = t.TeamId, Logo = t.Logo }).ToListAsync();
 
+            if(teams == null)
+            {
+                throw new NotFoundException("No teams found for the specified sport");
+            }
+
             return teams;
+        }
+
+        public Task<List<Size>> GetAllSizes()
+        {
+            var sizes = _appDbContext.sizes.ToListAsync();
+            if(sizes == null)
+            {
+                throw new NotFoundException("No sizes found");
+            }
+
+            return sizes;
         }
     }
 }
