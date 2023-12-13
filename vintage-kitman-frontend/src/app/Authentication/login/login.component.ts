@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/authentication/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService, private fb:FormBuilder, private router: Router) {  }
+  constructor(private authService:AuthService, private fb:FormBuilder, private router: Router, private location:Location) {  }
 
   //variables
   LoginForm!: FormGroup;
@@ -38,16 +39,15 @@ export class LoginComponent implements OnInit {
     {
       this.authService.CustomerLogin(this.model).subscribe(
       {
-        next: (res)=>{
+        next: (res:any)=>{
           console.log(res)
-          localStorage.setItem("user", JSON.stringify(res))
+          localStorage.setItem("token", JSON.stringify(res.token))
           this.ifIsLoading = true
         },
         complete: ()=>{
           console.log("complete")
           this.ifIsLoading = false
-          this.router.navigate(['products'])
-
+          this.location.back()
         },
         error: (err:any)=>{
           console.log(err)

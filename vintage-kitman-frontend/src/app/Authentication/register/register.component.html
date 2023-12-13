@@ -1,14 +1,14 @@
 <!-- component -->
 <div class="bg-grey-lighter my-12 flex flex-col">
     <div class="container  mx-auto flex-1 flex flex-col items-center justify-center">
-        <div class="px-6 rounded shadow-md text-black w-4/12">
+        <div class="px-6 rounded shadow-md text-black md:w-5/12 xs:w-3/4">
             <div class="left-0 right-0 mx-auto items-center">
                 <img src="/assets/images/vintagekitman-bg-clear.png" class="h-20 mx-auto" alt="">
             </div>
             <h1 class="text-3xl text-white text-center mx-auto">
                 Create an Account
             </h1>
-            <form  [formGroup]="registerForm" (submit)="onSignUp()">
+            <form (submit)="onSignUp()" [formGroup]="registerForm" >
                 <div class="flex flex-row space-x-6">
                     <input 
                     type="text"
@@ -22,10 +22,8 @@
                     formControlName = "surname"
                     placeholder="Surname" />
                 </div>
-            </form>
 
-
-            <input 
+                <input 
                 type="text"
                 class="block border border-grey-light w-full p-3 rounded mb-4"
                 formControlName = "email"
@@ -36,16 +34,31 @@
                 class="block border border-grey-light w-full p-3 rounded mb-4"
                 formControlName = "password"
                 placeholder="Password" />
-            <input 
-                type="password"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="confirm_password"
-                placeholder="Confirm Password" />
 
-            <button
-                type="submit"
-                class="w-full text-center py-3 rounded bg-grey text-white hover:bg-canary hover:text-black  focus:outline-none my-1"
-            >Create Account</button>
+                <div class="flex flex-col">
+                    <input 
+                        type="password"
+                        class="block border border-grey-light w-full p-3 rounded mb-4"
+                        placeholder="Confirm Password"
+                        formControlName="confirmPassword" />
+                        <div *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
+                            {{errorMessage}}
+                        </div>
+                </div>
+
+
+                <div class="button-container">
+                    <button type="submit"
+                        class="w-full text-white bg-grey hover:bg-canary hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <p *ngIf="ifIsLoading==false" 
+                        class="text-sm text-white">Sign in</p>
+                        <div *ngIf="ifIsLoading==true" class="loader mx-auto border-canary"></div>
+                    </button>
+                </div>
+            </form>
+
+
+
         </div>
 
         <div class="text-white  mt-6">
