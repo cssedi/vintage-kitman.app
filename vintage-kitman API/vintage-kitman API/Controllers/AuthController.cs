@@ -60,8 +60,6 @@ namespace vintage_kitman_API.Controllers
 
                     // Generate a token using the user information
                     var token = GenerateToken(user);
-                    //create new cart for user
-                    await _appDbContext.carts.AddAsync(new Cart { Id = user.Id });
                     //create new wishlist for user
 
                     await _appDbContext.SaveChangesAsync();

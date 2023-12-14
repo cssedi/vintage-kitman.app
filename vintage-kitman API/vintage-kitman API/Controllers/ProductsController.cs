@@ -101,7 +101,6 @@ namespace vintage_kitman_API.Controllers
             {
                 return NotFound(new { message = "No Kit found" });
             }
-
             return Ok(kit);
         }
     }
