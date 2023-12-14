@@ -28,6 +28,7 @@ namespace vintage_kitman_API.NewFolder
 
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); 
@@ -129,25 +130,25 @@ namespace vintage_kitman_API.NewFolder
                 .HasData(
                     new Kit
                     {
-                        KitId = 2,ProductTypeId = 3,TeamId =1 ,  Name = "Arsenal Away Jersey 88/90",
+                        KitId = 2,ProductTypeId = 3,TeamId =1 ,  Name = "Arsenal Away Jersey 88-90",
                         FrontImage = "https://soccerkingz.nl/wp-content/uploads/2022/07/546as4g65as-1-1.png",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 3, ProductTypeId = 1, TeamId = 1, Name = "Arsenal Home Jersey 99/00",
+                        KitId = 3, ProductTypeId = 1, TeamId = 1, Name = "Arsenal Home Jersey 99-00",
                         FrontImage = "https://soccerkingz.nl/wp-content/uploads/2022/09/7f8aa5db-1-800x800.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 4, ProductTypeId = 1, TeamId = 2, Name = "Manchester City Home Jersey 2022/23",
+                        KitId = 4, ProductTypeId = 1, TeamId = 2, Name = "Manchester City Home Jersey 2022-23",
                         FrontImage = "https://frostyfooty.com/cdn/shop/files/image_8a218b23-1482-4c92-b7ca-ec9cb0ea13f7.jpg?v=1685456474",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 5, ProductTypeId = 1, TeamId = 2, Name = "Manchester City Home Jersey 2011/12",
+                        KitId = 5, ProductTypeId = 1, TeamId = 2, Name = "Manchester City Home Jersey 2011-12",
                         FrontImage = "https://retrosleague.com/cdn/shop/products/a61_cb91b325-009e-4e88-87f1-fbc954a72908_1946x.jpg?v=1657566430",
                         Price = 900
                     },
@@ -159,169 +160,169 @@ namespace vintage_kitman_API.NewFolder
                     },
                     new Kit
                     {
-                        KitId = 7, ProductTypeId = 3, TeamId = 3, Name = "Liverpool Home Jersey 2011/11",
+                        KitId = 7, ProductTypeId = 3, TeamId = 3, Name = "Liverpool Home Jersey 2011-11",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/440.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 8, ProductTypeId = 3, TeamId = 3, Name = "Liverpool Away Jersey 2001/01",
+                        KitId = 8, ProductTypeId = 3, TeamId = 3, Name = "Liverpool Away Jersey 2001-01",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/456.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 9, ProductTypeId = 2, TeamId = 4, Name = "Tottenham Hotspur Kids Home Jersey 2023/24",
+                        KitId = 9, ProductTypeId = 2, TeamId = 4, Name = "Tottenham Hotspur Kids Home Jersey 2023-24",
                         FrontImage = "https://media.karousell.com/media/photos/products/2023/6/24/tottenham_hotspur_kids_2324_ho_1687582867_5033c5ca_progressive",
                         Price = 600
                     },
                     new Kit
                     {
-                        KitId = 10, ProductTypeId = 1, TeamId = 4, Name = "Tottenham Hotspur Third Jersey 2023/24",
+                        KitId = 10, ProductTypeId = 1, TeamId = 4, Name = "Tottenham Hotspur Third Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1436.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 11, ProductTypeId = 1, TeamId = 4, Name = "Tottenham Hotspur Home Jersey 2006/07",
+                        KitId = 11, ProductTypeId = 1, TeamId = 4, Name = "Tottenham Hotspur Home Jersey 2006-07",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/429.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 12, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Home Jersey 96/97",
+                        KitId = 12, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Home Jersey 96-97",
                         FrontImage = "https://soccerkingz.nl/wp-content/uploads/2022/07/6a5s4gh6523g-1-1-1.png",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 13, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Green Rosey Standard Version Special Jersey 2022/23",
+                        KitId = 13, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Green Rosey Standard Version Special Jersey 2022-23",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/166-scaled.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 14, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Away Jersey 1982/83",
+                        KitId = 14, ProductTypeId = 3, TeamId = 5, Name = "Manchester United Away Jersey 1982-83",
                         FrontImage = "https://soccerkingz.nl/wp-content/uploads/2022/07/65a4g65a4g65-1.png",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 15, ProductTypeId = 3, TeamId = 6, Name = "Newcastle Home Jersey 1995/97",
+                        KitId = 15, ProductTypeId = 3, TeamId = 6, Name = "Newcastle Home Jersey 1995-97",
                         FrontImage = "https://www.fandomkits.net/cdn/shop/products/Newcastle_Home_InsaneKits.com.png?v=1657965593",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 16, ProductTypeId = 1, TeamId = 6, Name = "Newcastle Home Jersey 2023/24",
+                        KitId = 16, ProductTypeId = 1, TeamId = 6, Name = "Newcastle Home Jersey 2023-24",
                         FrontImage = "https://www.fandomkits.net/cdn/shop/files/c650837a.jpg?v=1689615936",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 17, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Away Jersey 2023/24",
+                        KitId = 17, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Away Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1414.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 18, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Home Jersey 2017/18",
+                        KitId = 18, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Home Jersey 2017-18",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/445.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 19, ProductTypeId = 3, TeamId = 7, Name = "Real Madrid Champions League Commemorative Edition Jersey 1997/",
+                        KitId = 19, ProductTypeId = 3, TeamId = 7, Name = "Real Madrid Champions League Commemorative Edition Jersey 1997-98",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/462.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 20, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Dragon Standard Version Special Jersey 22/23",
+                        KitId = 20, ProductTypeId = 1, TeamId = 7, Name = "Real Madrid Dragon Standard Version Special Jersey 22-23",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/142-scaled.jpg",
                         Price = 900
                     },
                     new Kit 
                     {
-                        KitId = 21, ProductTypeId = 2,TeamId = 8, Name = "Barcelona Baby Romper Home Jersey 2023/24",
+                        KitId = 21, ProductTypeId = 2,TeamId = 8, Name = "Barcelona Baby Romper Home Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1526.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 22, ProductTypeId = 1, TeamId = 8, Name = "Barcelona Home Jersey 2023/24",
+                        KitId = 22, ProductTypeId = 1, TeamId = 8, Name = "Barcelona Home Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1410.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 23, ProductTypeId = 3, TeamId = 8, Name = "Barcelona Away Jersey 2003/04",
+                        KitId = 23, ProductTypeId = 3, TeamId = 8, Name = "Barcelona Away Jersey 2003-04",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/475.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 24, ProductTypeId = 3, TeamId = 9, Name = "Inter Home Jersey 1995/96",
+                        KitId = 24, ProductTypeId = 3, TeamId = 9, Name = "Inter Home Jersey 1995-96",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/472.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 25, ProductTypeId = 3, TeamId = 9, Name = "Inter Home Jersey 2004/005",
+                        KitId = 25, ProductTypeId = 3, TeamId = 9, Name = "Inter Home Jersey 2004-005",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/422.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 26, ProductTypeId = 1, TeamId = 10, Name = "Juventus Home Jersey 2014/15",
+                        KitId = 26, ProductTypeId = 1, TeamId = 10, Name = "Juventus Home Jersey 2014-15",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/467.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 27, ProductTypeId = 1, TeamId = 10, Name = "Juventus Gucci Jersey 2023/24",
+                        KitId = 27, ProductTypeId = 1, TeamId = 10, Name = "Juventus Gucci Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/137-scaled.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 28, ProductTypeId = 3, TeamId = 11, Name = "AC Milan Away Jersey 1995/96",
+                        KitId = 28, ProductTypeId = 3, TeamId = 11, Name = "AC Milan Away Jersey 1995-96",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/468.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 29, ProductTypeId = 3,TeamId = 11, Name = "AC Milan Away Jersey 1995/96",
+                        KitId = 29, ProductTypeId = 3,TeamId = 11, Name = "AC Milan Away Jersey 1995-96",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/441.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 30, ProductTypeId = 1, TeamId = 11, Name = "AC Milan Camo Green Standard Version Special Jersey 22/23",
+                        KitId = 30, ProductTypeId = 1, TeamId = 11, Name = "AC Milan Camo Green Standard Version Special Jersey 22-23",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/131.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 31, ProductTypeId = 3, TeamId = 12, Name = "Bayern Munich Home Jersey 1997/98",
+                        KitId = 31, ProductTypeId = 3, TeamId = 12, Name = "Bayern Munich Home Jersey 1997-98",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/426.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 32, ProductTypeId = 2, TeamId = 12, Name = "Bayern Munich Home Baby Romper 2022/23",
+                        KitId = 32, ProductTypeId = 2, TeamId = 12, Name = "Bayern Munich Home Baby Romper 2022-23",
                         FrontImage = "https://d2j6dbq0eux0bg.cloudfront.net/images/64844288/3166492166.jpg",
                         Price = 450
                     },
                     new Kit
                     {
-                        KitId = 33, ProductTypeId = 1, TeamId = 12, Name = "Bayern Munich Home Jersey 2023/24",
+                        KitId = 33, ProductTypeId = 1, TeamId = 12, Name = "Bayern Munich Home Jersey 2023-24",
                         FrontImage = "https://www.fandomkits.net/cdn/shop/files/9c76d112.jpg?v=1684700866",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 34, ProductTypeId = 1, TeamId = 13, Name = "Borussia Dortmund Home Jersey 23/24",
+                        KitId = 34, ProductTypeId = 1, TeamId = 13, Name = "Borussia Dortmund Home Jersey 23-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1409.jpg",
                         Price = 900
                     },
@@ -333,13 +334,13 @@ namespace vintage_kitman_API.NewFolder
                     },
                     new Kit
                     {
-                        KitId = 36, ProductTypeId = 2, TeamId = 14, Name = "Paris Saint Germain Home Kids Jersey 2023/24",
+                        KitId = 36, ProductTypeId = 2, TeamId = 14, Name = "Paris Saint Germain Home Kids Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1494.jpg",
                         Price = 450
                     },
                     new Kit
                     {
-                        KitId = 37, ProductTypeId = 1, TeamId = 14, Name = "Paris Saint Germain Home Jersey 2023/24",
+                        KitId = 37, ProductTypeId = 1, TeamId = 14, Name = "Paris Saint Germain Home Jersey 2023-24",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1408.jpg",
                         Price = 900
                     },
@@ -424,13 +425,13 @@ namespace vintage_kitman_API.NewFolder
                     },
                     new Kit
                     {
-                        KitId = 51, ProductTypeId = 1,TeamId = 22, Name = "Golden State Warriors Home Jersey 2022/23",
+                        KitId = 51, ProductTypeId = 1,TeamId = 22, Name = "Golden State Warriors Home Jersey 2022-23",
                         FrontImage = "https://media.karousell.com/media/photos/products/2023/3/2/jersey_nba_golden_state_warrio_1677763452_37614dc0_progressive.jpg",
                         Price = 900
                     },
                     new Kit
                     {
-                        KitId = 52, ProductTypeId = 1,TeamId = 23, Name = "Los Angeles Lakers Home Jersey 2022/23",
+                        KitId = 52, ProductTypeId = 1,TeamId = 23, Name = "Los Angeles Lakers Home Jersey 2022-23",
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/526.jpeg",
                         Price = 900
                     }
