@@ -117,18 +117,18 @@ export class ProductComponent implements OnInit {
     this.cartItem.CustomName = this.cartForm.value.customName
     this.cartItem.CustomNumber = this.cartForm.value.customNumber
 
-    if(this.cartForm.valid)
-    {
-      var cart = JSON.parse(localStorage.getItem("cart")!)
-      cart.push(this.cartItem)
-      localStorage.setItem("cart", JSON.stringify(cart))
+    if (this.cartForm.valid) {
+      var cart = JSON.parse(localStorage.getItem('cart')!) || [];
+      cart.push(this.cartItem);
+      localStorage.setItem('cart', JSON.stringify(cart));
+  
       // Update the cartItems count in the service
       this.cartService.updateCartItemsCount(cart.length);
-      this.location.back()
-    }    
-    else{
-      console.log("invalid form")
-    } 
+  
+      this.location.back();
+    } else {
+      console.log('invalid form');
+    }
 
 
 }}

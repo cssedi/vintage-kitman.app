@@ -37,7 +37,11 @@ export class AppComponent implements  OnInit {
     {
       localStorage.setItem('cart', JSON.stringify([]));
     }
-    //get cart item value
+    // Fetch the cartItems count from local storage
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.cartItems = storedCart.length;
+
+    // Subscribe to the cartItemsCount$ observable
     this.cartService.cartItemsCount$.subscribe((count) => {
       this.cartItems = count;
     });
