@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SportsVM } from './models/categories/sports-vm';
 import { CategoriesService } from './services/Categories/categories.service';
+import { CartItem } from './models/orders/CartItem-vm';
+import { CartService } from './services/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +15,10 @@ export class AppComponent implements  OnInit {
   isUserVisible: boolean =false
   isDoubleDropDownVisible: boolean =false
   sports: SportsVM[]=[]
+  cartItems: number =0;
+  cart: CartItem[] = []
 
-  constructor(private categoriesService: CategoriesService) 
+  constructor(private categoriesService: CategoriesService,  private cartService: CartService) 
   {}
   ngOnInit(): void {
     this.categoriesService.getAllSports().subscribe({
@@ -26,10 +30,20 @@ export class AppComponent implements  OnInit {
         this.sports.forEach(sport => {
           sport.isDoubleDropDownVisible = false;
         });
-
       }
     })
+
+    if (!localStorage.getItem('cart')) 
+    {
+      localStorage.setItem('cart', JSON.stringify([]));
+    }
+    //get cart item value
+    this.cartService.cartItemsCount$.subscribe((count) => {
+      this.cartItems = count;
+    });
   }
+
+
 
   user: any = localStorage.getItem("user")
   toggleDropDown()
@@ -46,7 +60,6 @@ export class AppComponent implements  OnInit {
 
 toggleDoubleDropDown(sport: SportsVM) {
   sport.isDoubleDropDownVisible = !sport.isDoubleDropDownVisible;
-  console.log(`Double dropdown for ${sport.name} is ${sport.isDoubleDropDownVisible}`);
 }
 
   toggleUserDropDown(){
