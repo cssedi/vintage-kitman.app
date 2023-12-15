@@ -1,30 +1,52 @@
-<div class="flex flex-col">
-    <div class="h-24">
+<div class="flex flex-col"
+>
+    <!-- top of page -->
+    <div class="h-24 pt-8">
+        <div>
+        <div class="flex flex-row space-x-1 hover:cursor-pointer right-0 w-1/4 float-right text-white text-base font-semibold "
+        (click)="toggleDrawer()">
+            <p>
+              Filter  
+            </p>
+            
+            <mat-icon fontIcon="filter_list"
+                class="pt-[1px]">
+
+            </mat-icon>
+        </div>
+        </div>
 
     </div>
     <div class="flex flex-row">
-    <section class="w-1/6">
+        <!-- Side bar -->
+    <!-- <section 
+    *ngIf="isDrawerVisible"
+    class="w-1/5 z-50 ">
 
-    </section>
-    <section class="text-gray-600 body-font ml-9 space-x-3">
-        <div class="container mx-auto space-x-3">
-            <div class="flex flex-wrap">
+
+ 
+    </section> -->
+    <section class="body-font ">
+        <div class="container overflow-x-hidden justify-center">
+            <div class="flex flex-wrap w-full space-x-0">
     
-                <div class="animate-fade-down animate-once animate-ease-linear -mr-7 mb-12" *ngFor="let kit of kitArray">
-                    <div class="group w-1/4 mb-5 max-w-sm bg-black min-w-[300px] rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[480px] max-h-[500px]">
+                <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:1/3" *ngFor="let kit of kitArray">
+                    <div class="group mb-5 max-w-sm bg-black min-w-[270px] xl:ml-6 lg:ml-8 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
+                    [routerLink]="['/product', kit.name]">  
                         <mat-icon fontIcon="favorite_border" 
                         matTooltipPosition="above"
                         matTooltip="Add to wishlist"
-                        class="float-right top-5 right-5 z-30 absolute text-black"></mat-icon>
+                        class="float-right top-8 right-5 z-30 absolute text-black hover:cursor-pointer">
+                    </mat-icon>
                         <img class="w-full h-4/5 mx-auto" src="{{kit.frontImage}}" alt="{{kit.name}}">
     
                         <h3 
                         matTooltipPosition="above"
                         matTooltip="{{kit.name}}"
-                        class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-5">
+                        class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
                             {{kit.name}}
                         </h3>
-                        <div class="pb-3 mx-auto text-center font-semibold mt-6">
+                        <div class="pb-3 mx-auto text-center font-semibold ">
                             <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
                         </div>
     

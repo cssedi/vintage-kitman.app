@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { kitVM } from 'src/app/models/categories/kit-vm';
-import { CategoriesService } from 'src/app/services/Categories/categories.service';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class ProductsPageComponent implements OnInit {
   
   teamId!:number;
   kitArray:kitVM[]=[]
+  isDrawerVisible:boolean=false
 
   constructor(private route:ActivatedRoute,private productsService:ProductService) { }
   ngOnInit(): void {
@@ -26,11 +27,21 @@ export class ProductsPageComponent implements OnInit {
           this.kitArray=reponse as kitVM[]
           console.log(this.teamId)
           console.log(reponse)
-        }
+        },
+        complete:()=>{
+
+        },
+        error:(err)=> {
+          console.log(err)
+        },
+
       }
 
       )
     });  
+  }
+  toggleDrawer(){
+    this.isDrawerVisible=!this.isDrawerVisible
   }
 
 }
