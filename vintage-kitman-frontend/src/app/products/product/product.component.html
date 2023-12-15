@@ -1,50 +1,86 @@
-<div class="flex flex-row my-12 mx-28 h-[500px] space-x-5">
-    <div class="w-2/5 flex-col">
-        <img src="{{kit.frontImage}}" class="w-[400px] h-full">
-        <button class="left-0 right-0 top-5">
-            size guide
-        </button>
+<div *ngIf="displaySuccess"
+  class="bg-green-50 border-b text-sm p-4 flex justify-between"
+>
+  <div>
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"fill="currentColor">
+        <path fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+          clip-rule="evenodd"/>
+      </svg>
+      <p>
+        <span class="font-bold">Info:</span>
+        This is an Success alert
+      </p>
     </div>
-    <div class="w-3/5">
-        <div class="flex flex-col top-0 left-5   ">
-            <h1 class="text-2xl font-bold -top-3  text-white mb-1">
+  </div>
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg"class="h-6 w-6"fill="none"viewBox="0 0 24 24"stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round"stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </div>
+</div>
+<div class="flex lg:flex-row my-12 mx-28 h-[620px] space-x-5 xs:flex-col">
+    <div class="w-2/5 flex-col">
+        <img src="{{kit.frontImage}}" class="w-[400px] h-full max-h-[500px]">
+    </div>
+    <div class="w-3/5 -mt-6">
+        <div class="flex flex-col left-5   ">
+            <h1 class="text-2xl font-bold   text-white mb-1">
                 {{kit.name}}
             </h1>
-            <h2 class="text-lg font-bold text-white">
-                R{{kit.price}}.00
-            </h2>
         </div>
-        <form action="">
+        <form [formGroup]="cartForm" (submit)="addToCart()">
             <div class="mt-9">
-                <div class="flex flex-row justify-between w-[60%]">
-                    <h3 class="text-xl text-white mb-4"> Select size</h3>
+                <div class="flex flex-row justify-between w-[60%] -mt-5">
+                    <h3 class="text-xl text-white mb-4 "> Select size</h3>
                     <h6 class="text-sm text-grey pt-2 hover:cursor-pointer hover:text-canary hover:underline"> Size guide</h6>
                 </div>
                 <div>
-                    <mat-button-toggle-group 
+                    <mat-button-toggle-group formControlName="size"
                     class=""name="fontStyle" aria-label="Font Style">
-                        <mat-button-toggle *ngFor="let size of sizeArray" class="w-16" value="{{size.sizeId}}">{{size.name}}</mat-button-toggle>
+                        <mat-button-toggle *ngFor="let size of sizeArray" class="w-16" value="{{size.name}}">{{size.name}}</mat-button-toggle>
                     </mat-button-toggle-group>
                 </div>
                 <div class="mt-5 flex flex-row space-x-5">
-                    <span class="text-sm font-medium text-white">Customized</span>
+                    <span class="text-sm font-medium text-white">Customize Kit?</span>
                     <label class="relative inline-flex items-center mb-5 cursor-pointer">
                         <input type="checkbox" value="" class="sr-only peer" (click)="toggleCustom()">
                         <div class="w-11 h-6 bg-darkgrey peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-canary after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-canary"></div>
                     </label>
                 </div>
+                <div *ngIf="customizedToggle">
+                    <div class="mb-1" >
+                        <label for="Name" class="block mb- text-sm text-white font-medium">
+                            Custom Name</label>
+                        <div class="relative flex items-center w-1/2">
+                            <input type="email" formControlName="customName"
+                                class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="Cristiano Ronaldo">
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="Custom number"
+                            class="block text-sm font-medium text-gray-900 dark:text-white">Custom number</label>
+                        <div class="relative flex items-center w-1/4 ">
+                            <input type="number" formControlName="customNumber" min="1" max="99" value="1"
+                                class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="7">
+                        </div>    
+                    </div>
+                </div>
 
 
-                <div class="flex flex-row mt-8 w-[60%]">
+                <div class="flex flex-row w-[60%] mt-1">
                     <div class="flex flex-col">
-                        <label for="quantity-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
                         <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" (click)="decreaseQuantity()" class="border border-gray-300 rounded-s-lg p-3 h-11">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                                 </svg>
                             </button>
-                            <input type="text" value="{{quantity}}" class="bg-gray-50 border-x-0 text-black h-11 text-center text-sm block w-full py-2.5" placeholder="999" required>
+                            <input type="number" formControlName="quantity" value="{{quantity}}" class="border-x-0 text-black h-11 text-center text-sm block w-full py-2.5" placeholder="7" required   >
                             <button type="button" (click)="increaseQuantity()" class="border border-gray-300 rounded-e-lg p-3 h-11 ">
                                 <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
@@ -57,13 +93,62 @@
                     class="w-1/2 bg-canary text-black  text-lg font-semibold py-2 mt-7 ml-5 hover:cursor-pointer">
                         <div class="flex flex-row text-center justify-center space-x-2">
                             <p class="text-center">Add to cart</p>
-                            <mat-icon fontIcon="shopping_cart" class="pt-1"  ></mat-icon>
+                            <mat-icon fontIcon="shopping_cart" class="pt-1"></mat-icon>
                         </div>
                     </button>
 
                 </div>
+                <div class="flex flex-row mt-5">
+                    <div class="flex flex-row space-x-2">
+                        <h3 class="text-xl text-white mb-4 "> Total:</h3>
+                        <p class="text-lg font-bold text-white" *ngIf="customizedToggle==false">R{{kit.price}}.00</p>
+                        <p class="text-lg font-bold text-white" *ngIf="customizedToggle==true">R{{kit.price + 50}}.00</p>
+                    </div>
+                </div>
             </div>
         </form>
 
+
     </div>
+</div>
+
+<div
+  class="fixed bg-green-50 border-b text-sm p-4 flex justify-between"
+>
+  <div>
+    <div class="flex items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4 mr-2"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <p>
+        <span class="font-bold">Info:</span>
+        This is an Success alert
+      </p>
+    </div>
+  </div>
+  <div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </div>
 </div>

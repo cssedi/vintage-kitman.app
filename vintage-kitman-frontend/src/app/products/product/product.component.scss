@@ -21,3 +21,10 @@
     -moz-appearance: textfield;
   }
   
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    display: none;
+  }
+  .bg-green-50{
+    background-color: green;
+  }

@@ -7,6 +7,7 @@ import { ProductsPageComponent } from './products/products-page/products-page.co
 import { TeamsComponent } from './teams/teams.component';
 import { ProductComponent } from './products/product/product.component';
 import { SportTeamsComponent } from './sport-teams/sport-teams.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = 
 [
@@ -17,6 +18,7 @@ const routes: Routes =
   {path:'teams/:name', component:TeamsComponent},
   {path:'product/:name', component:ProductComponent},
   {path:'sport-teams/:name', component:SportTeamsComponent},
+  {path:'cart', component:CartComponent},
 
 
 ];

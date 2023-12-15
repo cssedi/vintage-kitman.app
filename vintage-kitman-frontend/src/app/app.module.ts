@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Authentication/login/login.component';
 import { RegisterComponent } from './Authentication/register/register.component';
 import { HomeComponent } from './home/home.component';
-import {  NbInputModule,NbStatusService,  } from '@nebular/theme';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule } from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
@@ -21,6 +21,7 @@ import { SportTeamsComponent } from './sport-teams/sport-teams.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +33,13 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     TeamsComponent,
     ProductComponent,
     SportTeamsComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    NbInputModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
@@ -48,7 +49,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatTooltipModule,
     MatButtonToggleModule,
     MatBadgeModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatPaginatorModule
     
 
 
@@ -56,7 +58,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     
 
   ],
-  providers: [NbStatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
