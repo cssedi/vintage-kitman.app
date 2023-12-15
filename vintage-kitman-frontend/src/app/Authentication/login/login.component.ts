@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   SignIn(){
+    this.ifIsLoading = true
     this.model.email = this.LoginForm.value.email;
     this.model.password = this.LoginForm.value.password;
     //form validation
@@ -42,7 +43,6 @@ export class LoginComponent implements OnInit {
         next: (res:any)=>{
           console.log(res)
           localStorage.setItem("token", JSON.stringify(res.token))
-          this.ifIsLoading = true
         },
         complete: ()=>{
           console.log("complete")

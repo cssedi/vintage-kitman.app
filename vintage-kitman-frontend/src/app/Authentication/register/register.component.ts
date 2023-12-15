@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit{
 
   onSignUp()
   {
+    this.ifIsLoading = true
     this.registerModel.name = this.registerForm.value.name
     this.registerModel.surname= this.registerForm.value.surname
     this.registerModel.email = this.registerForm.value.email
