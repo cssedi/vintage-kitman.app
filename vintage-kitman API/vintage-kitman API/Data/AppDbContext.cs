@@ -25,6 +25,7 @@ namespace vintage_kitman_API.NewFolder
         public DbSet<Orders> orders { get; set; }
         public DbSet<OrderStatus> orderStatuses { get; set; }
         public DbSet<KitOrders> kitOrders { get; set; }
+        public DbSet<CustomOrder> customOrders { get; set; }
 
 
 
