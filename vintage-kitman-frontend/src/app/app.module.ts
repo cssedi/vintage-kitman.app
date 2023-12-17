@@ -22,6 +22,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CartComponent } from './cart/cart.component';
+import { CustomOrderComponent } from './custom-order/custom-order.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CartComponent } from './cart/cart.component';
     ProductComponent,
     SportTeamsComponent,
     CartComponent,
+    CustomOrderComponent,
   ],
   imports: [
     BrowserModule,
