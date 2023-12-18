@@ -41,9 +41,10 @@ export class LoginComponent implements OnInit {
       this.authService.CustomerLogin(this.model).subscribe(
       {
         next: (res:any)=>{
-          console.log(res)
+          let user ={name:res.name, surname:res.surname, email:res.email}
+
           localStorage.setItem('token', res.token)
-        },
+          localStorage.setItem('user', JSON.stringify(user))        },
         complete: ()=>{
           console.log("complete")
           this.ifIsLoading = false

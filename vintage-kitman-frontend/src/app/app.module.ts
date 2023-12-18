@@ -23,6 +23,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CartComponent } from './cart/cart.component';
 import { CustomOrderComponent } from './custom-order/custom-order.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -52,13 +53,8 @@ import { CustomOrderComponent } from './custom-order/custom-order.component';
     MatButtonToggleModule,
     MatBadgeModule,
     MatFormFieldModule,
-    MatPaginatorModule
-    
-
-
-    
-    
-
+    MatPaginatorModule,
+    MatSnackBarModule   
   ],
   bootstrap: [AppComponent]
 })

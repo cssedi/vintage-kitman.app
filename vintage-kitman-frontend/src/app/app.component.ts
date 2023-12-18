@@ -17,6 +17,7 @@ export class AppComponent implements  OnInit {
   sports: SportsVM[]=[]
   cartItems: number =0;
   cart: CartItem[] = []
+  token: boolean = false;
 
   constructor(private categoriesService: CategoriesService,  private cartService: CartService) 
   {}
@@ -45,6 +46,14 @@ export class AppComponent implements  OnInit {
     this.cartService.cartItemsCount$.subscribe((count) => {
       this.cartItems = count;
     });
+
+    //check for token
+    let token = localStorage.getItem("token")
+    if(token)
+    {
+      this.token = true
+    }
+
   }
 
 
