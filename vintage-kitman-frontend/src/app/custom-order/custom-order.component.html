@@ -1,1 +1,130 @@
-<p>custom-order works!</p>
+<div class="my-20 flex flex-row mx-16 max-w-screen-xl space-x-6">
+    <form [formGroup]="customOrderForm">
+        <div class="flex flex-col">
+            <label for="surname" class="block mb-2 text-sm font-medium text-white">Kit 
+              Image
+            </label>
+         
+            <div class="flex w-3/4 h-max-[500px]">
+              <div class="" *ngIf="base64Image">
+                <div for="dropzone-file"
+                  class="relative flex flex-col items-center justify-center w-fit h-fit max-w-[20%] cursor-pointer">
+                  <span class="sr-only">Notifications</span>
+                  <span (click)="clearImageUpload()"
+                    class="absolute inline-flex pl-0.5 pt-0.5 bg-white w-6 h-6 text-xs font-bold text-black border-2 rounded-full -top-2 -right-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                      class="w-4 h-4">
+                      <path fill-rule="evenodd"
+                        d="M5.293 4.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 01-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                  <img class="" [src]="base64Image" *ngIf="base64Image" alt="Uploaded Image" class="object-contain h-full w-full aspect-auto">
+                </div>
+              </div>
+        
+              <!-- Upload image section -->
+              <label for="dropzone-file" *ngIf="!base64Image" (drop)="onImageDrop($event)" (dragover)="onDragOver($event)"
+                class="flex flex-col items-center justify-center w-full h-80 p-5 border-2 border-dashed rounded-none cursor-pointer dark:hover:bg-canary">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <svg aria-hidden="true" class="w-8 h-8 mb-3 text-white" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                    </path>
+                  </svg>
+                  <p class="mb-2 text-center text-sm text-white"><span class="font-semibold">Click to
+                      upload</span> or <span class="text-gray-400">drag and drop</span></p>
+                  <p class="text-xs text-white text-center">SVG, PNG or JPG</p>
+                </div>
+                <input id="dropzone-file" type="file" class="hidden" accept="image/png, image/jpeg, image/svg" (change)="handleFileInput($event)" />
+              </label>
+        
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="mt-6"
+            [ngClass]="{'mt-3': base64Image}">
+                <label for="surname" class="block mb-2 text-sm font-medium text-white">Kit 
+                    Name 
+                </label>
+                <div class="relative flex items-center w-80">
+                    <input type="text" formControlName="kitName"
+                      class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                      placeholder="Inter Milan 2008-09 Away">
+                </div>
+                <div class="mt-9 ">
+                    <div class="flex flex-row justify-between w-full -mt-5">
+                        <h3 class="text-xl text-white mb-4 "> Select size</h3>
+                    </div>
+                <div>
+                    <mat-button-toggle-group 
+                    class=""name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle class="w-16" value="S">S</mat-button-toggle>
+                        <mat-button-toggle class="w-16" value="M">M</mat-button-toggle>
+                        <mat-button-toggle class="w-16" value="L">L</mat-button-toggle>
+                        <mat-button-toggle class="w-16" value="XL">XL</mat-button-toggle>
+                        <mat-button-toggle class="w-16" value="XXL">XXL</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="mt-5 flex flex-row space-x-5">
+                    <span class="text-sm font-medium text-white">Customize Kit?</span>
+                    <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" (click)="toggleCustom()">
+                        <div class="w-11 h-6 bg-darkgrey peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300  rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-canary after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-canary"></div>
+                    </label>
+                </div>
+                <div *ngIf="customizedToggle">
+                    <div class="mb-1" >
+                        <label for="Name" class="block mb- text-sm text-white font-medium">
+                            Custom Name</label>
+                        <div class="relative flex items-center w-1/2">
+                            <input type="email"
+                                class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="Cristiano Ronaldo">
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="Custom number"
+                            class="block text-sm font-medium text-white">Custom number</label>
+                        <div class="relative flex items-center w-1/4 ">
+                            <input type="number" min="1" max="99" value="1"
+                                class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                placeholder="7">
+                        </div>    
+                    </div>
+                </div>
+    
+    
+                <div class="flex flex-row w-full mt-1">
+                    <div class="flex flex-col">
+                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                        <div class="relative flex items-center max-w-[8rem]">
+                            <button type="button" (click)="decreaseQuantity()" class="border border-gray-300 rounded-s-lg p-3 h-11">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                </svg>
+                            </button>
+                            <input type="number" value="{{quantity}}" class="border-x-0 text-black h-11 text-center text-sm block w-full py-2.5" placeholder="7" required   >
+                            <button type="button" (click)="increaseQuantity()" class="border border-gray-300 rounded-e-lg p-3 h-11 ">
+                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button 
+                    type="submit"
+                    class="w-32 bg-canary text-black  text-base font-semibold px-2 mt-7 ml-5 hover:cursor-pointer">
+                        <div class="flex flex-row text-center justify-center space-x-2">
+                            <p class="text-center">Place Order</p>
+                        </div>
+                    </button>
+    
+                </div>
+            </div>
+        </div>
+        </div>
+    </form>
+
+</div>
