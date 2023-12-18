@@ -44,10 +44,10 @@
            data-te-carousel-item
            style="backface-visibility: hidden">
         <img [src]="slide.image" class="block w-full" alt="..." />
-        <div class="absolute inset-x-[15%] top-5 left-5 hidden py-5 text-white md:block">
+        <div class="absolute inset-x-[15%] top-5 left-5 hidden py-5 text-white md:block z-30">
           <h1 class="text-3xl font-bold">{{ slide.content.title }}</h1>
           <p>{{ slide.content.description }}</p>
-          <button class="rounded-md w-32 mt-6 bg-black p-2 text-sm font-semibold text-white">
+          <button class="rounded-md w-32 mt-6 bg-black p-2 text-sm font-semibold text-white" routerLink="{{slide.content.route}}">
             {{ slide.content.buttonText }}
           </button>
         </div>
@@ -67,7 +67,7 @@
     </div>
   
     <!-- Carousel controls - prev item -->
-    <button class="absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+    <button class="absolute bottom-0 left-0 top-0 z-[1] h-20 flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
             type="button"
             (click)="prevSlide()">
       <!-- ... existing code ... -->
@@ -134,9 +134,9 @@
 
 <div class="flex flex-row mt-12">
     <div class="w-1/2 float-left">
-        <img src="https://cdn.midjourney.com/9a002b94-3ac0-4b24-a040-e4083d6cac84/0_3.webp" 
+        <img src="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d5546c2ea916524/6489df77e165894462d71b2f/EPL_Cover.jpg?auto=webp&format=pjpg&width=3840&quality=60" 
         alt="" 
-        class="bg-cover h-[600px] mx-auto">
+        class="bg-cover h-fit mx-auto">
     </div>
     <div></div>
 </div>

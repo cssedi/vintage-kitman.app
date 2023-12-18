@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Get your favourite kits of the 2022/23 season',
       description: 'Some representative placeholder content for the first slide.',
       buttonText: 'Shop Now',
+      route: '/products/1',
     },
 
   },
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'Second slide label',
       description: 'Some representative placeholder content for the second slide.',
       buttonText: 'Shop Now',
+      route: '/products/11',
     },
     
   },
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       title: 'NBA jerseys from all past seasons',
       description: 'Some representative placeholder content for the second slide.',
       buttonText: 'Shop Now',
+      route: '/sport-teams/Basketball',
     },
     
   },
