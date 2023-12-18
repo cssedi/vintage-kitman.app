@@ -4,6 +4,7 @@ import { Size } from '../models/categories/size';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomOrderVM } from '../models/orders/custom-order-vm';
 import { OrderService } from '../services/order/order.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-custom-order',
@@ -17,24 +18,14 @@ export class CustomOrderComponent implements OnInit {
   quantity:number = 1;
   customOrderForm!:FormGroup
   customOrderDetails: CustomOrderVM={customOrderId: 0,size: '',name: '',quantity: 0,image: '',isSourcable: null,customName: null,customNumber: null,message: null}
-  constructor(private categoriesService:CategoriesService, private fb:FormBuilder, private orderService: OrderService) { }
+  constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location) { }
 
   ngOnInit(): void 
   {
-    //sizes
-    this.categoriesService.getAllSizes().subscribe({
-      next:(response)=>{
-        this.sizeArray = response as Size[]
-        console.log(response)
-      },
-      complete:()=>{},
-      error:(err)=>{console.log(err)}
-    })
-
     this.customOrderForm = this.fb.group({
       size: ['', Validators.required],
       name: ['', Validators.required],
-      quantity: [0, Validators.required],
+      quantity: [1, Validators.required],
       customName: [''],
       customNumber: [0]
     })
@@ -49,6 +40,7 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitOrder(){
+
     this.customOrderDetails.size = this.customOrderForm.value.size
     this.customOrderDetails.name = this.customOrderForm.value.name
     this.customOrderDetails.quantity = this.customOrderForm.value.quantity
@@ -56,14 +48,20 @@ export class CustomOrderComponent implements OnInit {
     this.customOrderDetails.customNumber = this.customOrderForm.value.customNumber
     this.customOrderDetails.image = this.base64Image!
 
-    this.orderService.createCustomOrder(this.customOrderDetails).subscribe({
-      next:(response)=>
-      {
-        console.log(response)
-      },
-      complete:()=>{},
-      error:(err)=>{console.log(err)}
-    })
+    if (this.customOrderForm.valid) {
+      this.orderService.createCustomOrder(this.customOrderDetails).subscribe({
+        next:(response)=>
+        {
+          console.log(response)
+        },
+        complete:()=>{this.location.back()},
+        error:(err)=>{console.log(err)}
+      });
+      } 
+      else {
+      console.log('invalid form');
+    }
+
 
 
   }

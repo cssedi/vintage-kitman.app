@@ -28,6 +28,8 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                 IsSourcable = false,
                 CustomName = model.CustomName,
                 CustomNumber = model.CustomNumber,
+                Quantity = model.Quantity,
+                Name = model.Name,
                 Id = userId
             };
 

@@ -6,6 +6,6 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 {
     public interface IOrdersRepository
     {
-        public Task<CustomOrder> CreateCustomOrder(CustomOrderVM model, string userId);
+        public Task<CustomOrderVM> CreateCustomOrder(CustomOrderVM model, string userId);
     }
 }
