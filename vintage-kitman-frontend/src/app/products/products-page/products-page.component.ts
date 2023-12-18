@@ -44,4 +44,8 @@ export class ProductsPageComponent implements OnInit {
     this.isDrawerVisible=!this.isDrawerVisible
   }
 
+  filterProducts(){
+    
+  }
+
 }

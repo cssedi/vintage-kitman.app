@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       {
         next: (res:any)=>{
           console.log(res)
-          localStorage.setItem("token", JSON.stringify(res.token))
+          localStorage.setItem('token', res.token)
         },
         complete: ()=>{
           console.log("complete")

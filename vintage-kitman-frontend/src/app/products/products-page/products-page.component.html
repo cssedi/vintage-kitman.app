@@ -1,63 +1,91 @@
-<div class="flex flex-col"
+<div class="flex flex-col left-0 right-0 mx-12 max-w-screen-xl"
 >
     <!-- top of page -->
-    <div class="h-24 pt-8">
-        <div>
-        <div class="flex flex-row space-x-1 hover:cursor-pointer right-0 w-1/4 float-right text-white text-base font-semibold "
+    <div id="topOfPage" class="flex flex-wrap h-24 pt-8 w-full justify-end max-w-screen-xl">
+        
+        <div class="hover:cursor-pointer text-white text-base font-semibold"
         (click)="toggleDrawer()">
-            <p>
-              Filter  
-            </p>
-            
-            <mat-icon fontIcon="filter_list"
+            <p class="flex flex-row space-x-1">
+              Filter              
+              <mat-icon fontIcon="filter_list"
                 class="pt-[1px]">
 
             </mat-icon>
-        </div>
+            </p>
+            
+
+        
         </div>
 
     </div>
     <div class="flex flex-row">
         <!-- Side bar -->
-    <!-- <section 
-    *ngIf="isDrawerVisible"
-    class="w-1/5 z-50 ">
-
-
- 
-    </section> -->
-    <section class="body-font ">
-        <div class="container overflow-x-hidden justify-center">
-            <div class="flex flex-wrap w-full space-x-0">
-    
-                <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:1/3" *ngFor="let kit of kitArray">
-                    <div class="group mb-5 max-w-sm bg-black min-w-[270px] xl:ml-6 lg:ml-8 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
-                    [routerLink]="['/product', kit.name]">  
-                        <mat-icon fontIcon="favorite_border" 
-                        matTooltipPosition="above"
-                        matTooltip="Add to wishlist"
-                        class="float-right top-8 right-5 z-30 absolute text-black hover:cursor-pointer">
-                    </mat-icon>
-                        <img class="w-full h-4/5 mx-auto" src="{{kit.frontImage}}" alt="{{kit.name}}">
-    
-                        <h3 
-                        matTooltipPosition="above"
-                        matTooltip="{{kit.name}}"
-                        class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
-                            {{kit.name}}
-                        </h3>
-                        <div class="pb-3 mx-auto text-center font-semibold ">
-                            <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+        <section 
+        class="float-left"
+        *ngIf="isDrawerVisible">
+        <div class="relative z-10" (click)="toggleDrawer()">
+            <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
+        
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-screen items-end text-center sm:items-center sm:p-0">
+                <div class="relative h-screen transform overflow-hidden rounded-l-none bg-white text-left shadow-xl transition-all sm:w-full lg:w-1/4">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <mat-icon fontIcon="filter_list" class="text-black h-6 w-6 mb-3"></mat-icon>
+                    </div>
+                    <div class="mt-3 text-center sm:ml-1 sm:mt-0 sm:text-left">
+                        <h3 class="text-xl font-semibold leading-6 text-black">Filter by:</h3>
+                        <hr>
+                        <div class="mt-2">
                         </div>
-    
+                    </div>
                     </div>
                 </div>
-    
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+                </div>
+            </div>
             </div>
         </div>
-    </section>
-    
+        
 
-</div>
+
+    
+        </section>
+        <section class="justify-normal">
+            <div class="container overflow-x-hidden justify-start">
+                <div class="flex flex-wrap w-full space-x-0">
+        
+                    <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray">
+                        <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
+                        [routerLink]="['/product', kit.name]"
+                        [ngClass]="{'ml-40': kitArray.length ==2}">  
+                            <mat-icon fontIcon="favorite_border" 
+                                matTooltipPosition="above"
+                                matTooltip="Add to wishlist"
+                                class="float-right hidden top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                                </mat-icon>
+                            <img class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
+        
+                            <h3 
+                            matTooltipPosition="above"
+                            matTooltip="{{kit.name}}"
+                            class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
+                                {{kit.name}}
+                            </h3>
+                            <div class="pb-3 mx-auto text-center font-semibold ">
+                                <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+                            </div>
+        
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
 
