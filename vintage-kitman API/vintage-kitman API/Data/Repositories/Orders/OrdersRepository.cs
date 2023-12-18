@@ -25,7 +25,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             {
                 Image = model.Image,
                 Size = model.Size,
-                IsSourcable = model.IsSourcable,
+                IsSourcable = false,
                 CustomName = model.CustomName,
                 CustomNumber = model.CustomNumber,
                 Id = userId

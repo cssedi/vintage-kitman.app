@@ -1,7 +1,11 @@
-﻿namespace vintage_kitman_API.Model
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace vintage_kitman_API.Model
 {
     public class CustomOrder
     {
+        [Key]
         public int CustomOrderId { get; set; }
         public string Size { get; set; }
         public string Image { get; set; }
@@ -10,6 +14,7 @@
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
+        [ForeignKey("User")]
         public string Id { get; set; }
         //navigation
         public User User { get; set; }

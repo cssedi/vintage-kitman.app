@@ -20,7 +20,7 @@ namespace vintage_kitman_API.Controllers
             _ordersRepository = ordersRepository;
         }
 
-        [Authorize(AuthenticationSchemes ="Bearer",Roles = "Customer")]
+        [Authorize(AuthenticationSchemes ="Bearer",Roles = "CUSTOMER")]
         [HttpPost("CreateCustomOrder")]
         public async Task<IActionResult> CreateCustomOrder(CustomOrderVM model)
         {
