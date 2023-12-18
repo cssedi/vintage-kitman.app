@@ -21,6 +21,6 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   createCustomOrder(model: CustomOrderVM):Observable<CustomOrderVM>{
-    return this.http.post<CustomOrderVM>(this.baseAPIURL+"CreateCustomOrder", model)
+    return this.http.post<CustomOrderVM>(this.baseAPIURL+"CreateCustomOrder", model, this.httpOptions)
   }
 }
