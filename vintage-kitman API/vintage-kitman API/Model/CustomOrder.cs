@@ -14,7 +14,6 @@ namespace vintage_kitman_API.Model
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
-        [ForeignKey("User")]
         public string Id { get; set; }
         //navigation
         public User User { get; set; }
