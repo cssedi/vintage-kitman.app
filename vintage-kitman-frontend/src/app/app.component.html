@@ -35,7 +35,7 @@
           </button>
           <!-- Dropdown menu -->
           <div *ngIf="isVisible" class="absolute z-30 bg-black font-normal divide-y divide-gray-100 rounded-lg shadow w-44 text-white">
-            <ul class="py-2 text-sm text-gray-700">
+            <ul class="py-2 text-sm">
               <li *ngFor="let sport of sports" class="h-9">
                 <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/sport-teams', sport.name]"
                 class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
@@ -50,6 +50,11 @@
                     </li>
                   </ul>
                 </div>
+              </li>
+              <li class="h-9 py-2" routerLink="custom-order">
+                <button routerLink="custom-order" class="flex flex-row px-4 py- hover:opacity-50"> 
+                  Custom Order
+                </button>
               </li>
             </ul>
           </div>

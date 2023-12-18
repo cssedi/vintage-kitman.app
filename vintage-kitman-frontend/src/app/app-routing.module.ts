@@ -8,6 +8,7 @@ import { TeamsComponent } from './teams/teams.component';
 import { ProductComponent } from './products/product/product.component';
 import { SportTeamsComponent } from './sport-teams/sport-teams.component';
 import { CartComponent } from './cart/cart.component';
+import { CustomOrderComponent } from './custom-order/custom-order.component';
 
 const routes: Routes = 
 [
@@ -19,6 +20,7 @@ const routes: Routes =
   {path:'product/:name', component:ProductComponent},
   {path:'sport-teams/:name', component:SportTeamsComponent},
   {path:'cart', component:CartComponent},
+  {path:'custom-order', component:CustomOrderComponent}
 
 
 ];
