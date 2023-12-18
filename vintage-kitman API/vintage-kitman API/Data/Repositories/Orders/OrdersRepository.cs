@@ -1,4 +1,6 @@
-﻿using vintage_kitman_API.Model;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels;
 using vintage_kitman_API.ViewModels.OrderModels;
@@ -13,20 +15,26 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             _appDbContext = appDbContext;
         }
 
-        public Task<CustomOrder> CreateCustomOrder(CustomOrderVM model)
+        [Authorize(Roles = "Customer", AuthenticationSchemes ="Bearer")]
+        public async Task<CustomOrder> CreateCustomOrder(CustomOrderVM model, string userId)
         {
+            //get user
+            var user = _appDbContext.Users.FirstOrDefault(x => x.Id == userId);
+
             CustomOrder customOrder = new CustomOrder()
             {
                 Image = model.Image,
                 Size = model.Size,
-                IsSourcable= model.IsSourcable,
+                IsSourcable = model.IsSourcable,
                 CustomName = model.CustomName,
-                CustomNumber= model.CustomNumber,
-                Id= model.Id
+                CustomNumber = model.CustomNumber,
+                Id = userId
             };
 
-            _appDbContext.customOrders.AddAsync(customOrder);
-            
+            await _appDbContext.customOrders.AddAsync(customOrder);
+            await _appDbContext.SaveChangesAsync();
+
+            return customOrder;
         }
     }
 }
