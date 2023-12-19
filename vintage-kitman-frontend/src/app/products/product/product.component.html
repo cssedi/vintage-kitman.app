@@ -32,15 +32,20 @@
         </div>
         <form [formGroup]="cartForm" (submit)="addToCart()">
             <div class="mt-9">
-                <div class="flex flex-row justify-between w-[60%] -mt-5">
+                <div class="flex flex-row justify-between xl:w-[50%] -mt-5">
                     <h3 class="text-xl text-white mb-4 "> Select size</h3>
                     <h6 class="text-sm text-grey pt-2 hover:cursor-pointer hover:text-canary hover:underline"> Size guide</h6>
                 </div>
                 <div>
-                    <mat-button-toggle-group formControlName="size"
-                    class=""name="fontStyle" aria-label="Font Style">
-                        <mat-button-toggle *ngFor="let size of sizeArray" class="w-16" value="{{size.name}}">{{size.name}}</mat-button-toggle>
-                    </mat-button-toggle-group>
+                  <mat-button-toggle-group 
+                  formControlName="size"
+                  class=""name="fontStyle" aria-label="Font Style">
+                      <mat-button-toggle class="w-16" value="S">S</mat-button-toggle>
+                      <mat-button-toggle class="w-16" value="M">M</mat-button-toggle>
+                      <mat-button-toggle class="w-16" value="L">L</mat-button-toggle>
+                      <mat-button-toggle class="w-16" value="XL">XL</mat-button-toggle>
+                      <mat-button-toggle class="w-16" value="XXL">XXL</mat-button-toggle>
+                  </mat-button-toggle-group>
                 </div>
                 <div class="mt-5 flex flex-row space-x-5">
                     <span class="text-sm font-medium text-white">Customize Kit?</span>

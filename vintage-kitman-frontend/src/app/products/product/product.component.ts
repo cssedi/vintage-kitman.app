@@ -18,7 +18,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductComponent implements OnInit {
 
    kit:kitVM= {name: '',frontImage: '',price: 0}
-   cartItem:CartItem={KitName: '',KitImage: '',KitPrice: 0,Quantity: 0,SizeId: 0, CustomName: '', CustomNumber: 0}
+   cartItem:CartItem={KitName: '',KitImage: '',KitPrice: 0,Quantity: 0,SizeId: '', CustomName: '', CustomNumber: 0}
    sizeArray: Size[] = []
    customizedToggle:boolean = false;
    kitName:string=''
@@ -59,15 +59,6 @@ export class ProductComponent implements OnInit {
 
     });
 
-    //sizes
-    this.categoriesService.getAllSizes().subscribe({
-      next:(response)=>{
-        this.sizeArray = response as Size[]
-        console.log(response)
-      },
-      complete:()=>{},
-      error:(err)=>{console.log(err)}
-    })
     //form
     this.cartForm = this.fb.group({
       size: ['', Validators.required],
