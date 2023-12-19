@@ -80,8 +80,8 @@ namespace vintage_kitman_API.Controllers
             }
         }
 
-        [HttpPost("CustomerLogin")]
-        public async Task<IActionResult> CustomerLogin(LoginVM model)
+        [HttpPost("UserLogin")]
+        public async Task<IActionResult> UserLogin(LoginVM model)
         {
             var results = await _authRepository.LoginUserAsync(model);
 
@@ -91,7 +91,7 @@ namespace vintage_kitman_API.Controllers
                 }
                 else
                 {
-                    return Ok(new { token = results.token });
+                    return Ok(new { token = results.token, role = results.Role });
                 }
         }
 
@@ -110,6 +110,21 @@ namespace vintage_kitman_API.Controllers
             }
         }
 
+        [HttpPost("SeedAdmins")]
+
+        public async Task<IActionResult> SeedAdmins()
+        {
+            var admins= await _authRepository.SeedAdmins();
+
+            if (admins.isSuccess)
+            {
+                return Ok(admins);
+            }
+            else
+            {
+                return BadRequest(new {message= "an error occured in seeding admins"});
+            }
+        }
 
         private string GenerateToken(User customer)
         {

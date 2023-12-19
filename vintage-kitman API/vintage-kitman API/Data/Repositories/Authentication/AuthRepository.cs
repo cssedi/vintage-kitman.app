@@ -57,14 +57,46 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             else
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
+                //if user is admin
                 if (userRoles.Contains("ADMIN"))
                 {
-                    //return response if email not found in the database
+                    // Create a claims 
+                    var claims = new[]
+                    {
+                    new Claim(ClaimTypes.Role, "ADMIN"),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Surname, user.surname),
+                    };
+
+                    //Create the the singin in key 
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+
+                    // Create a token 
+                    var token = new JwtSecurityToken
+                    (
+                        issuer: _configuration["Jwt:Issuer"],
+                        audience: _configuration["Jwt:Audience"],
+                        claims: claims,
+                        expires: DateTime.Now.AddDays(30),
+                        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                    );
+
+                    string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
                     return new UserManagerReponse
                     {
-                        Message = "Not Authroized",
-                        isSuccess = false,
+                        token = tokenString,
+                        isSuccess = true,
+                        Date = DateTime.Now,
+                        username = user.UserName,
+                        Role= "ADMIN",
+                        email = user.Email,
+                        name = user.Name,
+                        surname = user.surname,
                     };
+
                 }
             //check if the password is correct
                 var result = await _userManager.CheckPasswordAsync(user, loginVM.password);
@@ -77,9 +109,11 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                         isSuccess = false
                     };
                 }
-                // Create a claims 
-                var claims = new[]
+                else
                 {
+                    // Create a claims 
+                    var claims = new[]
+                    {
                     new Claim(ClaimTypes.Role, "CUSTOMER"),
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -87,31 +121,34 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     new Claim(ClaimTypes.Surname, user.surname),
                 };
 
-                //Create the the singin in key 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
+                    //Create the the singin in key 
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
 
-                // Create a token 
-                var token = new JwtSecurityToken
-                (
-                    issuer: _configuration["Jwt:Issuer"],
-                    audience: _configuration["Jwt:Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(30),
-                    signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-                );
+                    // Create a token 
+                    var token = new JwtSecurityToken
+                    (
+                        issuer: _configuration["Jwt:Issuer"],
+                        audience: _configuration["Jwt:Audience"],
+                        claims: claims,
+                        expires: DateTime.Now.AddDays(30),
+                        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                    );
 
-                string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+                    string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-                return new UserManagerReponse
-                {
-                    token = tokenString,
-                    isSuccess = true,
-                    Date = DateTime.Now,
-                    username = user.UserName,
-                    email = user.Email,
-                    name = user.Name,
-                    surname = user.surname,
-                };
+                    return new UserManagerReponse
+                    {
+                        token = tokenString,
+                        isSuccess = true,
+                        Date = DateTime.Now,
+                        username = user.UserName,
+                        Role = "CUSTOMER",
+                        email = user.Email,
+                        name = user.Name,
+                        surname = user.surname,
+                    };
+                }
+
             }
         }
 
@@ -274,7 +311,6 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             }
         }
 
-
         public async Task<UserManagerReponse> AdminLoginAsync(LoginVM loginVM)
         {
             // Find the user 
@@ -329,6 +365,51 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 };
             }
                
+        }
+
+        public async Task<UserManagerReponse> SeedAdmins()
+        {
+            if (!await _roleManager.RoleExistsAsync("ADMIN"))
+            {
+                // Create the ADMIN role
+                await _roleManager.CreateAsync(new IdentityRole("ADMIN"));
+            }
+            var Owner = new User
+            {
+                Name = "Ntobeko",
+                UserName = "tobacz086",
+                Email = "tobacz086@gmail.com",
+                surname = "Ntombela",         
+            };
+
+            var result = await _userManager.CreateAsync(Owner, "PotLuck#182");
+
+            if (!result.Succeeded)
+            {
+                return new UserManagerReponse { isSuccess = false, Message= result.Errors.ToString() };
+            }
+
+            await _userManager.AddToRoleAsync(Owner, "ADMIN");
+
+            var admin = new User
+            {
+                Name = "Vintage",
+                UserName = "vintagekitman",
+                Email = "VintageKitman1@gmail.com",
+                surname = "Kitman",
+            };
+
+            var result1 = await _userManager.CreateAsync(admin, "PotLuck#182");
+
+            if (!result1.Succeeded)
+            {
+                return new UserManagerReponse { isSuccess = false, Message = result1.Errors.ToString() };
+            }
+            await _userManager.AddToRoleAsync(admin, "ADMIN");
+
+
+            return new UserManagerReponse { isSuccess = true, Message = "Admins seeded" };
+
         }
     }
 }
