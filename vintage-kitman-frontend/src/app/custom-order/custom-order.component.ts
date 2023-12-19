@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomOrderVM } from '../models/orders/custom-order-vm';
 import { OrderService } from '../services/order/order.service';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-custom-order',
@@ -18,7 +19,8 @@ export class CustomOrderComponent implements OnInit {
   quantity:number = 1;
   customOrderForm!:FormGroup
   customOrderDetails: CustomOrderVM={customOrderId: 0,size: '',name: '',quantity: 0,image: '',isSourcable: null,customName: null,customNumber: null,message: null}
-  constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location) { }
+  constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,
+              private snackBar:MatSnackBar) { }
 
   ngOnInit(): void 
   {
@@ -40,7 +42,6 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitOrder(){
-
     this.customOrderDetails.size = this.customOrderForm.value.size
     this.customOrderDetails.name = this.customOrderForm.value.name
     this.customOrderDetails.quantity = this.customOrderForm.value.quantity
@@ -52,7 +53,9 @@ export class CustomOrderComponent implements OnInit {
       this.orderService.createCustomOrder(this.customOrderDetails).subscribe({
         next:(response)=>
         {
-          console.log(response)
+          this.snackBar.open('Order has been placed', 'Close', {
+            duration: 7000
+          });
         },
         complete:()=>{this.location.back()},
         error:(err)=>{console.log(err)}
