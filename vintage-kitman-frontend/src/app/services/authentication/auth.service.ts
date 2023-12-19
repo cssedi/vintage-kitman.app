@@ -14,9 +14,9 @@ export class AuthService {
 
   baseAPIUrl= environment.baseAPIUrl+'Auth/'
 
-  CustomerLogin(data:LoginVM)
+  UserLogin(data:LoginVM)
   {
-    return this.http.post(this.baseAPIUrl+"CustomerLogin",data)
+    return this.http.post(this.baseAPIUrl+"UserLogin",data)
   }
 
   customerRegister(model: RegisterVM):Observable<RegisterVM>

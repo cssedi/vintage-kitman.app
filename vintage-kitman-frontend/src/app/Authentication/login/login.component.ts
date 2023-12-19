@@ -2,7 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 import { LoginVM } from 'src/app/models/authentication/login-vm';
+import { TokenData } from 'src/app/models/authentication/tokendata';
 import { AuthService } from 'src/app/services/authentication/auth.service';
 
 @Component({
@@ -17,12 +19,8 @@ export class LoginComponent implements OnInit {
   //variables
   LoginForm!: FormGroup;
   ifIsLoading: boolean = false;
-  model:LoginVM=
-  {
-    email: '',
-    password: ''
-  }
-
+  model:LoginVM= { email: '',password: '' }
+  userDetails = {name:'', surname:'', email:''}
 
   ngOnInit(): void {
     this.LoginForm = this.fb.group({
@@ -38,14 +36,26 @@ export class LoginComponent implements OnInit {
     //form validation
     if(this.LoginForm.valid)
     {
-      this.authService.CustomerLogin(this.model).subscribe(
+      this.authService.UserLogin(this.model).subscribe(
       {
-        next: (res:any)=>{
-          let user ={name:res.name, surname:res.surname, email:res.email}
+        next: (res:any)=>
+        {
 
           localStorage.setItem('token', res.token)
-          localStorage.setItem('user', JSON.stringify(user))        },
-        complete: ()=>{
+          if(res.role == "ADMIN")
+          {
+            localStorage.setItem("6gj6KgI7l0ffhv", "true")
+          }
+          //set user details
+          let decoded:TokenData = jwtDecode(res.token)
+          this.userDetails.name = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
+          this.userDetails.surname = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname']
+          this.userDetails.email = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
+          localStorage.setItem("user", JSON.stringify(this.userDetails))
+
+        },
+        complete: ()=>
+        {
           console.log("complete")
           this.ifIsLoading = false
           this.location.back()
