@@ -4,6 +4,7 @@
     {
         public string token { get; set; }
         public string? Message { get; internal set; }
+        public string Role { get; set; }
         public bool isSuccess { get; internal set; }
         public DateTime Date { get; internal set; }
 
