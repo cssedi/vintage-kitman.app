@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ForgotPasswordVM } from 'src/app/models/authentication/forgotpassword-vm';
 import { LoginVM } from 'src/app/models/authentication/login-vm';
 import { RegisterVM } from 'src/app/models/authentication/register-vm';
+import { ResetPasswordVM } from 'src/app/models/authentication/reset-password-vm';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -27,5 +28,10 @@ export class AuthService {
 
   forgotPassword(model:ForgotPasswordVM):Observable<ForgotPasswordVM>{
     return this.http.post<ForgotPasswordVM>(this.baseAPIUrl+"ForgotPassword", model)
+  }
+
+  resetPassword(model: ResetPasswordVM) : Observable<ResetPasswordVM>{
+    return this.http.post<ResetPasswordVM>(this.baseAPIUrl+"ResetPassword", model);
+
   }
 }
