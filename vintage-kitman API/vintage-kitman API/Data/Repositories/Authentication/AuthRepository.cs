@@ -193,6 +193,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
 
             if (result.Succeeded)
             {
+                await _appDbContext.Wishlists.AddAsync(new Wishlist { Id = customer.Id });
                 // Generate and send email confirmation token
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(customer);
 

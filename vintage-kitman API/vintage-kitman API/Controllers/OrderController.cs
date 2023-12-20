@@ -36,5 +36,23 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(order);
         }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "CUSTOMER")]
+        [HttpPost("AddToWishlist")]
+        public async Task<IActionResult> AddToWishlist(WishlistVM model)
+        {
+            //get user details
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
+            model.Id = userId;
+            var wishlist = await _ordersRepository.AddToWishlist(model);
+
+            if (wishlist == null)
+            {
+                return NotFound(new { message = "Wishlist not created" });
+            }
+
+            return Ok(wishlist);
+        }
     }
 }
