@@ -10,6 +10,7 @@ import { SportTeamsComponent } from './sport-teams/sport-teams.component';
 import { CartComponent } from './cart/cart.component';
 import { CustomOrderComponent } from './custom-order/custom-order.component';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 
 const routes: Routes = 
 [
@@ -22,7 +23,8 @@ const routes: Routes =
   {path:'sport-teams/:name', component:SportTeamsComponent},
   {path:'cart', component:CartComponent},
   {path:'custom-order', component:CustomOrderComponent},
-  {path:'forgot-password', component:ForgotPasswordComponent}
+  {path:'forgot-password', component:ForgotPasswordComponent},
+  {path:'reset-password', component:ResetPasswordComponent}
 
 
 

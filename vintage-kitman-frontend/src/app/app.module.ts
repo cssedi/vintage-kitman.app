@@ -25,6 +25,7 @@ import { CartComponent } from './cart/cart.component';
 import { CustomOrderComponent } from './custom-order/custom-order.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot
     CartComponent,
     CustomOrderComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
