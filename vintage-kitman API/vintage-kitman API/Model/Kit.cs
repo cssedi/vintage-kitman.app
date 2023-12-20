@@ -13,6 +13,7 @@
         public ProductType ProductType { get; set; }
         public Team Team { get; set; }
         public ICollection<KitOrders> kitOrders { get; set; }
+        public ICollection<Wishlist> WishlistItems { get; set; }
 
 
     }

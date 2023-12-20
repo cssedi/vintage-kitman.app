@@ -8,5 +8,6 @@ namespace vintage_kitman_API.Model
         public string surname { get; set; }
 
         public ICollection<CustomOrder> CustomOrders { get; set; }
+        public Wishlist Wishlist { get; set; }
     }
 }

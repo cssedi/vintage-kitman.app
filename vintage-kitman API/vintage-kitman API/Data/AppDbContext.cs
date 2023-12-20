@@ -26,6 +26,7 @@ namespace vintage_kitman_API.NewFolder
         public DbSet<OrderStatus> orderStatuses { get; set; }
         public DbSet<KitOrders> kitOrders { get; set; }
         public DbSet<CustomOrder> customOrders { get; set; }
+        public DbSet<Wishlist> Wishlists { get; set; }
 
 
 
@@ -38,6 +39,10 @@ namespace vintage_kitman_API.NewFolder
             modelBuilder.Entity<KitOrders>()
                 .HasKey(ko => new { ko.KitId, ko.OrderId });
 
+            modelBuilder.Entity<Wishlist>()
+                .HasOne(w => w.User)
+                .WithOne(u => u.Wishlist)
+                .HasForeignKey<Wishlist>(w => w.Id);
 
             //seed data
             modelBuilder.Entity<Sport>()
