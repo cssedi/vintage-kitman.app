@@ -411,5 +411,64 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return new UserManagerReponse { isSuccess = true, Message = "Admins seeded" };
 
         }
+
+        public async Task<RequestPasswordResetVM> ResetPasswordAsync(RequestPasswordResetVM vm)
+        {
+            var user = await _userManager.FindByEmailAsync(vm.email);
+            if (user == null)
+            {
+                return new RequestPasswordResetVM { email = vm.email, Message = vm.Message = " Email not found" };
+            }
+            else
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var userId = user.Id; // get user ID
+                var callbackUrl = "http://localhost:4200/reset-password/?token=" + Uri.EscapeDataString(token) + "&userId=" + Uri.EscapeDataString(userId);
+
+                var body = $@"<!DOCTYPE html>
+                <html>
+                <head>
+                  <title>Forgot Password</title>
+                </head>
+                <body>
+                  <div style='font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 700px; margin: 0 auto; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); background-color: #f8f8f8;'>
+                    <tbody style='text-align: center;width:100%;margin-bottom: 30px; background-color: #000000;'>
+                        <tr style='background-color: #000000;''>
+                            <img src ='https://i.ibb.co/n3SX2cC/image-3.png' 
+                            style='background-color: #000000; height: 85px; margin: 0 auto; display: block; width: max-content; object-fit: contain;'/>
+                        </tr>
+                    </tbody>
+                    <div style='text-align: center; font-size: 24px; margin-bottom: 30px;margin-top: 10px;'>Forgot Your Password?</div>
+                    <p>Hi {user.Name} {user.surname} ,</p>
+                    <p>No worries, we've got you covered. Click the link below to reset your password:</p>
+                    <p>
+                      <a href='{callbackUrl}' target='_blank' style='display: block; text-align: center; background-color: #000; color: #fff; text-decoration: none; font-weight: bold; padding: 12px 20px; border-radius: 5px;'>Click here to reset</a>
+                    </p>
+                    <p>If you did not make this request or made it by mistake, please ignore this email. Your password will remain the same.</p>
+                    <div style='text-align: center; margin-top: 30px; color: #888;'>Thank you,<br> Vintage Kitman Team </div>
+                  </div>
+                </body>
+                </html>";
+
+                var message = new MimeMessage();
+                message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
+                message.To.Add(new MailboxAddress("", vm.email));
+                message.Subject = "Forgot Password";
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = body;
+                message.Body = new TextPart(TextFormat.Html) { Text = body };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(_configuration["EmailConfig:Username"], _configuration["EmailConfig:Password"]);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+            return new RequestPasswordResetVM { email = vm.email, Message = vm.Message = " Email sent to customer" };
+
+        }
     }
 }

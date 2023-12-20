@@ -6,6 +6,6 @@ export interface CartItem{
         Quantity: number;
         CustomName?: string;
         CustomNumber?: number | null;
-        SizeId: number;
+        SizeId: string;
       
 }

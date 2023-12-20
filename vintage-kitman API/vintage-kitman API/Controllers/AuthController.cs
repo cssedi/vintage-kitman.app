@@ -111,7 +111,6 @@ namespace vintage_kitman_API.Controllers
         }
 
         [HttpPost("SeedAdmins")]
-
         public async Task<IActionResult> SeedAdmins()
         {
             var admins= await _authRepository.SeedAdmins();
@@ -124,6 +123,14 @@ namespace vintage_kitman_API.Controllers
             {
                 return BadRequest(new {message= "an error occured in seeding admins"});
             }
+        }
+
+        [HttpPost("ForgotPassword/{email}")]
+        public async Task<IActionResult> ForgotPassword(RequestPasswordResetVM model)
+        {
+            var result = await _authRepository.ResetPasswordAsync(model);   
+
+            return Ok(result);
         }
 
         private string GenerateToken(User customer)

@@ -8,5 +8,6 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<UserManagerReponse> LoginUserAsync(LoginVM loginVM);
         public Task<UserManagerReponse> AdminLoginAsync(LoginVM loginVM);
         public Task<UserManagerReponse> SeedAdmins();
+        public Task<RequestPasswordResetVM> ResetPasswordAsync(RequestPasswordResetVM model);
     }
 }
