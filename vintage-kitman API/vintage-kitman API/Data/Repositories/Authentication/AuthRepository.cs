@@ -412,7 +412,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
 
         }
 
-        public async Task<RequestPasswordResetVM> ResetPasswordAsync(RequestPasswordResetVM vm)
+        public async Task<RequestPasswordResetVM> ForgetPasswordAsync(RequestPasswordResetVM vm)
         {
             var user = await _userManager.FindByEmailAsync(vm.email);
             if (user == null)
@@ -470,5 +470,26 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return new RequestPasswordResetVM { email = vm.email, Message = vm.Message = " Email sent to customer" };
 
         }
+        public async Task<ResetPasswordVM> ResetPasswordAsync(ResetPasswordVM model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user == null)
+            {
+                return new ResetPasswordVM { Message = "User not found" };
+            }
+            else
+            {
+                var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+                if (result.Succeeded)
+                {
+                    return new ResetPasswordVM { Message = "Password reset successful" };
+                }
+                else
+                {
+                    return new ResetPasswordVM { Message = "Password reset failed" };
+                }
+            }
+        }
+
     }
 }

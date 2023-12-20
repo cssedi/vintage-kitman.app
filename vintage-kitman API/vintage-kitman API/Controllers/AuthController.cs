@@ -128,7 +128,15 @@ namespace vintage_kitman_API.Controllers
         [HttpPost("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword(RequestPasswordResetVM model)
         {
-            var result = await _authRepository.ResetPasswordAsync(model);   
+            var result = await _authRepository.ForgetPasswordAsync(model);   
+
+            return Ok(result);
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM model)
+        {
+            var result = await _authRepository.ResetPasswordAsync(model);
 
             return Ok(result);
         }
