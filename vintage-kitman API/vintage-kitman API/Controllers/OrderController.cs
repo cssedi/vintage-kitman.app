@@ -54,5 +54,23 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(wishlist);
         }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "CUSTOMER")]
+        [HttpGet("GetWishList")]
+        public async Task<IActionResult> GetWishList()
+        {
+            //get user details
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
+
+            var wishlist = await _ordersRepository.GetWishList(userId);
+
+            if (wishlist == null)
+            {
+                return NotFound(new { message = "Wishlist empty" });
+            }
+
+            return Ok(wishlist);
+        }
     }
 }

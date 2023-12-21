@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using vintage_kitman_API.Model;
 using vintage_kitman_API.ViewModels;
+using vintage_kitman_API.ViewModels.CategoriesModels;
 using vintage_kitman_API.ViewModels.OrderModels;
 
 namespace vintage_kitman_API.Data.Repositories.Orders
@@ -9,5 +10,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
     {
         public Task<CustomOrder> CreateCustomOrder(CustomOrderVM model, string userId);
         public Task<WishlistVM> AddToWishlist(WishlistVM model);
+        public Task<List<KitVM>> GetWishList(string userId);
+
     }
 }

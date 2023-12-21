@@ -4,6 +4,7 @@ using System.Security.Claims;
 using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels;
+using vintage_kitman_API.ViewModels.CategoriesModels;
 using vintage_kitman_API.ViewModels.OrderModels;
 
 namespace vintage_kitman_API.Data.Repositories.Orders
@@ -58,6 +59,27 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             await _appDbContext.SaveChangesAsync();
 
             return model;
+        }
+
+        public Task<List<KitVM>> GetWishList(string userId)
+        {
+            var user = _appDbContext.Users.FirstOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var wishlist = _appDbContext.UserWishlists.Where(x => x.Id == userId)
+                .Include(x => x.Kit)
+                .Select(x=> new KitVM { FrontImage = x.Kit.FrontImage, Name = x.Kit.Name, Price = x.Kit.Price}).ToListAsync();
+
+            if(wishlist == null)
+            {
+                return null;
+            }
+
+            return wishlist;
+  
         }
     }
 }
