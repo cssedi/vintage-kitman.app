@@ -26,6 +26,7 @@ import { CustomOrderComponent } from './custom-order/custom-order.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ResetPasswordComponent } from './Authentication/reset-password/reset-pa
     CustomOrderComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,
