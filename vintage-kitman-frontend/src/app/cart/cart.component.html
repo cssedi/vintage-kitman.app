@@ -12,10 +12,11 @@
                 *ngFor="let cartItem of cartArray">
                 <div class="flex flex-row w-3/5 space-x-3">
                     <div class="w-1/2">
-                        <img src="{{cartItem.KitImage}}" alt="{{cartItem.KitName}}" class="h-full mx-auto mb-7 object-cover">
+                        <img src="{{cartItem.KitImage}}" alt="{{cartItem.KitName}}" 
+                            [routerLink]="['/product', cartItem.KitName]" class="h-full mx-auto mb-7 object-cover hover:cursor-pointer">
                     </div>
                     <div class="flex flex-col w-1/2">
-                        <h4 class="text-base text-white group-hover:underline group-hover:text-black"> {{cartItem.KitName}} (Size: {{cartItem.SizeId}})</h4>
+                        <h4 class="text-base text-white group-hover:underline group-hover:text-black hover:cursor-pointer" [routerLink]="['/product', cartItem.KitName]"> {{cartItem.KitName}} (Size: {{cartItem.SizeId}})</h4>
                         <div class="flex flex-col h-12 mt-1" *ngIf="cartItem.CustomName != '' && cartItem.CustomNumber != 0">
                             <h6 class="text-grey">Custom Name: {{cartItem.CustomName}}</h6>
                             <h6 class="text-grey">Custom Number: {{cartItem.CustomNumber}}</h6>
