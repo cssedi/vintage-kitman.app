@@ -64,7 +64,10 @@ export class AppComponent implements  OnInit {
 
 
   signOut(){
-    localStorage.clear()
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
+    localStorage.removeItem("6gj6KgI7l0ffhv")
+    
     window.location.reload()
     
   }
