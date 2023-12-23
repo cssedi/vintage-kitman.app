@@ -28,6 +28,7 @@ import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
     ResetPasswordComponent,
     WishlistComponent,
     PlacedOrdersComponent,
+    MyOrdersComponent,
   ],
   imports: [
     BrowserModule,

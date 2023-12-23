@@ -13,6 +13,7 @@ import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 const routes: Routes = 
 [
@@ -28,7 +29,8 @@ const routes: Routes =
   {path:'forgot-password', component:ForgotPasswordComponent},
   {path:'reset-password', component:ResetPasswordComponent},
   {path:'wishlist', component:WishlistComponent},
-  {path:'placed-orders', component:PlacedOrdersComponent}
+  {path:'placed-orders', component:PlacedOrdersComponent},
+  {path:'my-orders', component:MyOrdersComponent},
 
 
 
