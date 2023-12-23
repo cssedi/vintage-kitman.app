@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   LoginForm!: FormGroup;
   ifIsLoading: boolean = false;
   model:LoginVM= { email: '',password: '' }
-  userDetails = {name:'', surname:'', email:''}
+  userDetails = {name:'', surname:'', email:'', role:''}
 
   ngOnInit(): void {
     this.LoginForm = this.fb.group({
@@ -51,14 +51,24 @@ export class LoginComponent implements OnInit {
           this.userDetails.name = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
           this.userDetails.surname = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname']
           this.userDetails.email = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
+          this.userDetails.role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
           localStorage.setItem("user", JSON.stringify(this.userDetails))
+
+
 
         },
         complete: ()=>
         {
-          console.log("complete")
+            this.router.navigate(['/sport-teams/Football']).then(() => {
+              window.location.reload();
+            });
+            //if admin
+            if(this.userDetails.role == "ADMIN"){
+              this.router.navigate(['/placed-orders']).then(() => {
+                window.location.reload();
+              });
+            }
           this.ifIsLoading = false
-          this.location.back()
         },
         error: (err:any)=>{
           console.log(err)
@@ -68,5 +78,4 @@ export class LoginComponent implements OnInit {
     }
 
   }
-
 }
