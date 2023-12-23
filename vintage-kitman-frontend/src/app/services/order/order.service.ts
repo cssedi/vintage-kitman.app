@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { kitVM } from 'src/app/models/categories/kit-vm';
 import { CustomOrderVM } from 'src/app/models/orders/custom-order-vm';
 import { wishlistVM } from 'src/app/models/orders/wishlist-vm';
 import { environment } from 'src/environments/environment.development';
@@ -27,5 +28,9 @@ export class OrderService {
 
   addToWishlist(model:wishlistVM):Observable<wishlistVM>{
     return this.http.post<wishlistVM>(this.baseAPIURL+"AddToWishlist", model, this.httpOptions)
+  }
+
+  getWishlist():Observable<kitVM[]>{ 
+    return this.http.get<kitVM[]>(this.baseAPIURL+"GetWishlist", this.httpOptions)
   }
 }
