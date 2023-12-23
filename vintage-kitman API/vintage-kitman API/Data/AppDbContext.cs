@@ -45,6 +45,9 @@ namespace vintage_kitman_API.NewFolder
                 .WithOne(u => u.Wishlist)
                 .HasForeignKey<Wishlist>(w => w.Id);
 
+            modelBuilder.Entity<UserWishlist>()
+                .HasKey(uw => new { uw.KitId, uw.Id });
+
             //seed data
             modelBuilder.Entity<Sport>()
                 .HasData
