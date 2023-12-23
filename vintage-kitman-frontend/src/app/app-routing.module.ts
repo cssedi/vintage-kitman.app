@@ -12,6 +12,7 @@ import { CustomOrderComponent } from './custom-order/custom-order.component';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
 
 const routes: Routes = 
 [
@@ -26,7 +27,8 @@ const routes: Routes =
   {path:'custom-order', component:CustomOrderComponent},
   {path:'forgot-password', component:ForgotPasswordComponent},
   {path:'reset-password', component:ResetPasswordComponent},
-  {path:'wishlist', component:WishlistComponent}
+  {path:'wishlist', component:WishlistComponent},
+  {path:'placed-orders', component:PlacedOrdersComponent}
 
 
 

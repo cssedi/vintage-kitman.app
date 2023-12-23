@@ -27,6 +27,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     WishlistComponent,
+    PlacedOrdersComponent,
   ],
   imports: [
     BrowserModule,
