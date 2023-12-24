@@ -11,9 +11,9 @@ import { CartComponent } from './cart/cart.component';
 import { CustomOrderComponent } from './custom-order/custom-order.component';
 import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
-import { WishlistComponent } from './wishlist/wishlist.component';
-import { PlacedOrdersComponent } from './placed-orders/placed-orders.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { WishlistComponent } from './customer-dashboard/wishlist/wishlist.component';
+import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-orders.component';
+import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
 
 const routes: Routes = 
 [

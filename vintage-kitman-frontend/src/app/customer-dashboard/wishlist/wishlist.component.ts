@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../services/order/order.service';
-import { kitVM } from '../models/categories/kit-vm';
+import { OrderService } from '../../services/order/order.service';
+import { kitVM } from '../../models/categories/kit-vm';
 
 @Component({
   selector: 'app-wishlist',
