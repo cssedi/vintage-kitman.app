@@ -30,6 +30,7 @@ import { WishlistComponent } from './customer-dashboard/wishlist/wishlist.compon
 import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-orders.component';
 import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
+import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/
     PlacedOrdersComponent,
     MyOrdersComponent,
     ViewCustomOrdersComponent,
+    ShippingAddressComponent,
   ],
   imports: [
     BrowserModule,

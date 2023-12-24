@@ -14,6 +14,8 @@ import { ResetPasswordComponent } from './Authentication/reset-password/reset-pa
 import { WishlistComponent } from './customer-dashboard/wishlist/wishlist.component';
 import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-orders.component';
 import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
+import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
+import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
 
 const routes: Routes = 
 [
@@ -31,6 +33,8 @@ const routes: Routes =
   {path:'wishlist', component:WishlistComponent},
   {path:'placed-orders', component:PlacedOrdersComponent},
   {path:'my-orders', component:MyOrdersComponent},
+  {path:'shipping-address', component:ShippingAddressComponent},
+  {path:"view-custom-orders", component:ViewCustomOrdersComponent},
 
 
 
