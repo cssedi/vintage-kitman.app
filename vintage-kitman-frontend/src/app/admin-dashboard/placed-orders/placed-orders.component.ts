@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class PlacedOrdersComponent {
 
+  month:Date = new Date();
+  Audits:any[] = []
 }
