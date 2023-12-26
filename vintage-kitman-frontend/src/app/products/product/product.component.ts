@@ -8,6 +8,7 @@ import { Size } from 'src/app/models/categories/size';
 import { CartItem } from 'src/app/models/orders/CartItem-vm';
 import { CategoriesService } from 'src/app/services/Categories/categories.service';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { OrderService } from 'src/app/services/order/order.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -18,7 +19,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductComponent implements OnInit {
 
    kit:kitVM= {name: '',frontImage: '',price: 0}
-   cartItem:CartItem={KitName: '',KitImage: '',KitPrice: 0,Quantity: 0,SizeId: '', CustomName: '', CustomNumber: 0}
+   cartItem:CartItem={KitName: '', KitImage: '', KitPrice: 0, Quantity: 0, SizeId: '', CustomName: '', CustomNumber: 0,isCustomed: false}
    sizeArray: Size[] = []
    customizedToggle:boolean = false;
    kitName:string=''
@@ -27,7 +28,7 @@ export class ProductComponent implements OnInit {
    displaySuccess:boolean = false;
 
 
-  constructor(private route:ActivatedRoute,private productsService:ProductService, private categoriesService:CategoriesService, private fb:FormBuilder,
+  constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService, private fb:FormBuilder,
               private location:Location,  private cartService: CartService) { }
   
   ngOnInit(): void {
@@ -101,7 +102,7 @@ export class ProductComponent implements OnInit {
     this.cartItem.KitPrice = this.kit.price
     if(this.customizedToggle)
     {
-      this.cartItem.KitPrice += 50
+      this.cartItem.isCustomed = true
     }
     this.cartItem.Quantity = this.quantity
     this.cartItem.SizeId = this.cartForm.value.size
@@ -115,7 +116,7 @@ export class ProductComponent implements OnInit {
   
       // Update the cartItems count in the service
       this.cartService.updateCartItemsCount(cart.length);
-  
+      
       this.location.back();
     } else {
       console.log('invalid form');
