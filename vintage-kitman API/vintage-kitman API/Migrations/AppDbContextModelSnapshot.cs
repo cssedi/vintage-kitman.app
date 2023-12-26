@@ -170,6 +170,33 @@ namespace vintage_kitman_API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("vintage_kitman_API.Model.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"), 1L, 1);
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("postalAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("vintage_kitman_API.Model.Country", b =>
                 {
                     b.Property<int>("CountryId")
@@ -261,6 +288,48 @@ namespace vintage_kitman_API.Migrations
                             Flag = "https://www.countryflags.io/au/flat/64.png",
                             Name = "Australia"
                         });
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.CustomOrder", b =>
+                {
+                    b.Property<int>("CustomOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomOrderId"), 1L, 1);
+
+                    b.Property<string>("CustomName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CustomNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsSourcable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CustomOrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("customOrders");
                 });
 
             modelBuilder.Entity("vintage_kitman_API.Model.Kit", b =>
@@ -776,7 +845,10 @@ namespace vintage_kitman_API.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SizeId")
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SizeId")
                         .HasColumnType("int");
 
                     b.HasKey("KitId", "OrderId");
@@ -1258,6 +1330,9 @@ namespace vintage_kitman_API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -1319,6 +1394,49 @@ namespace vintage_kitman_API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.UserWishlist", b =>
+                {
+                    b.Property<int>("KitId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("WishListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("KitId", "Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WishListId");
+
+                    b.ToTable("UserWishlists");
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.Wishlist", b =>
+                {
+                    b.Property<int>("WishListId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WishListId"), 1L, 1);
+
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("WishListId");
+
+                    b.HasIndex("Id")
+                        .IsUnique()
+                        .HasFilter("[Id] IS NOT NULL");
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("CountrySport", b =>
@@ -1387,6 +1505,24 @@ namespace vintage_kitman_API.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("vintage_kitman_API.Model.Address", b =>
+                {
+                    b.HasOne("vintage_kitman_API.Model.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.CustomOrder", b =>
+                {
+                    b.HasOne("vintage_kitman_API.Model.User", "User")
+                        .WithMany("CustomOrders")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("vintage_kitman_API.Model.Kit", b =>
                 {
                     b.HasOne("vintage_kitman_API.Model.ProductType", "ProductType")
@@ -1418,17 +1554,13 @@ namespace vintage_kitman_API.Migrations
                         .WithMany("kitOrders")
                         .HasForeignKey("OrderId1");
 
-                    b.HasOne("vintage_kitman_API.Model.Size", "Size")
+                    b.HasOne("vintage_kitman_API.Model.Size", null)
                         .WithMany("Kits")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SizeId");
 
                     b.Navigation("Kit");
 
                     b.Navigation("Order");
-
-                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("vintage_kitman_API.Model.League", b =>
@@ -1470,8 +1602,40 @@ namespace vintage_kitman_API.Migrations
                     b.Navigation("League");
                 });
 
+            modelBuilder.Entity("vintage_kitman_API.Model.UserWishlist", b =>
+                {
+                    b.HasOne("vintage_kitman_API.Model.Kit", "Kit")
+                        .WithMany("UserWishlistItems")
+                        .HasForeignKey("KitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("vintage_kitman_API.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("vintage_kitman_API.Model.Wishlist", null)
+                        .WithMany("UserWishlistItems")
+                        .HasForeignKey("WishListId");
+
+                    b.Navigation("Kit");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.Wishlist", b =>
+                {
+                    b.HasOne("vintage_kitman_API.Model.User", "User")
+                        .WithOne("Wishlist")
+                        .HasForeignKey("vintage_kitman_API.Model.Wishlist", "Id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("vintage_kitman_API.Model.Kit", b =>
                 {
+                    b.Navigation("UserWishlistItems");
+
                     b.Navigation("kitOrders");
                 });
 
@@ -1508,6 +1672,20 @@ namespace vintage_kitman_API.Migrations
             modelBuilder.Entity("vintage_kitman_API.Model.Team", b =>
                 {
                     b.Navigation("Kits");
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.User", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("CustomOrders");
+
+                    b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("vintage_kitman_API.Model.Wishlist", b =>
+                {
+                    b.Navigation("UserWishlistItems");
                 });
 #pragma warning restore 612, 618
         }
