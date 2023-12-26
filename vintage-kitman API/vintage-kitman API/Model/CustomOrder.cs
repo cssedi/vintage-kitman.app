@@ -15,8 +15,10 @@ namespace vintage_kitman_API.Model
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
         public string Id { get; set; }
+        public int CustomOrderStatusId { get; set; }
         //navigation
         public User User { get; set; }
+        public CustomOrderStatus CustomOrderStatus { get; set; }
 
     }
 }
