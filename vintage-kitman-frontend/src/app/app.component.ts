@@ -12,6 +12,7 @@ import { Route, Router } from '@angular/router';
 })
 export class AppComponent implements  OnInit {
   //drop downs
+  title!:string
   isVisible: boolean =false
   isUserVisible: boolean =false
   isDoubleDropDownVisible: boolean =false
