@@ -81,5 +81,29 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             return wishlist;
   
         }
+
+        public CartTotalVM GetCartTotal(List<CartVM> model)
+        {
+            var totalPrice = 0;
+            foreach (var item in model)
+            {                
+                if(item.IsCustomed == true)
+                {
+                    totalPrice += item.KitPrice + 50;
+                }
+                else
+                {
+                    totalPrice += item.KitPrice;
+                }
+            }   
+
+            CartTotalVM cartTotal = new CartTotalVM()
+            {
+                Total = totalPrice
+            };
+
+            return cartTotal;
+            
+        }
     }
 }

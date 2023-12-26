@@ -72,5 +72,14 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(wishlist);
         }
+
+        [HttpPost("GetCartTotalPrice")]
+        public async Task<IActionResult> GetCartTotalPrice(List<CartVM> model)
+        {
+            var total = _ordersRepository.GetCartTotal(model);
+            
+
+            return Ok(new { total = total.Total });
+        }
     }
 }
