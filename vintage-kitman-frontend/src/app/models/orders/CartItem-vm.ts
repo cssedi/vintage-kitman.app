@@ -4,6 +4,7 @@ export interface CartItem{
         KitImage: string;
         KitPrice: number;
         Quantity: number;
+        isCustomed: boolean;
         CustomName?: string;
         CustomNumber?: number | null;
         SizeId: string;
