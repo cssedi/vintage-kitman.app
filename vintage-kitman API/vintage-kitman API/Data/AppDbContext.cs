@@ -28,9 +28,7 @@ namespace vintage_kitman_API.NewFolder
         public DbSet<CustomOrder> customOrders { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<UserWishlist> UserWishlists { get; set; }
-
-
-
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
