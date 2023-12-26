@@ -31,7 +31,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/@nebular/theme/styles/prebuilt/dark.css"
+              "./dist/custom-theme.scss"
             ],
             "scripts": []
           },

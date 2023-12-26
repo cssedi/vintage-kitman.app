@@ -15,16 +15,16 @@
     <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
         <li>
-          <div class="items-center justify-between w-full=" id="navbar-search">
+          <form [formGroup]="searchForm" (submit)="search(searchForm.get('searchTerm')?.value)" class="items-center justify-between w-full" id="navbar-search">
             <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <input formControlName="searchTerm" type="text" id="search-navbar" class="block w-full text-black p-2 text-sm border rounded-lg" placeholder="Search...">
+              <button type="submit" class="absolute inset-y-0 end-0 flex items-center ps-3 ">
+                <svg class="w-4 h-4 mr-2 hover:cursor-pointer z-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                 </svg>
-              </div>
-              <input type="text" id="search-navbar" class="block w-full text-black p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500" placeholder="Search...">
+              </button>
             </div>
-          </div>
+          </form>
         </li>
         <li>
           <button (click)="toggleDropDown()" class="flex items-center text-white justify-between w-full mt-2 px-3 text-gray-900 rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-aut0"
@@ -183,7 +183,7 @@
                 </button>
             </li>
               <li class="flex flex-row space-x-1" routerLink="/my-orders">
-                <button  class="flex flex-row block px-4 hover:text-canary space-x-1">
+                <button  class="flex flex-row px-4 hover:text-canary space-x-1">
                     <mat-icon fontIcon="shopping_basket"></mat-icon> 
                     <p class="mt-1">
                       My Orders
