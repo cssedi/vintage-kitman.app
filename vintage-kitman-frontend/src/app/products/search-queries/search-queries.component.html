@@ -1,1 +1,150 @@
-<p>search-queries works!</p>
+<div class="flex flex-col left-0 right-0 mx-12 max-w-screen-xl"
+>
+    <!-- top of page -->
+    <div id="topOfPage" class="flex flex-wrap h-24 pt-8 w-full justify-end max-w-screen-xl">
+        
+        <div class="hover:cursor-pointer text-white text-base font-semibold"
+        (click)="toggleDrawer()">
+            <p class="flex flex-row space-x-1">
+              Filter              
+              <mat-icon fontIcon="filter_list"
+                class="pt-[1px]">
+
+            </mat-icon>
+            </p>
+            
+
+        
+        </div>
+
+    </div>
+    <div class="flex flex-row">
+        <!-- Side bar -->
+        <section 
+        class="float-left"
+        *ngIf="isDrawerVisible">
+        <div class="relative z-10" (click)="toggleDrawer()">
+            <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
+        
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-screen items-end text-center sm:items-center sm:p-0">
+                <div class="relative h-screen transform overflow-hidden rounded-l-none bg-white text-left shadow-xl transition-all sm:w-full lg:w-1/4">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                        <mat-icon fontIcon="filter_list" class="text-black h-6 w-6 mb-3"></mat-icon>
+                    </div>
+                    <div class="mt-3 text-center sm:ml-1 sm:mt-0 sm:text-left">
+                        <h3 class="text-xl font-semibold leading-6 text-black">Filter by:</h3>
+                        <hr>
+                        <div class="mt-2">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+
+
+    
+        </section>
+        <section class="justify-normal">
+            <div class="container overflow-x-hidden justify-start">
+                <div class="flex flex-wrap w-full space-x-0">
+        
+                    <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3" *ngFor="let kit of kitArray"
+                    [ngClass]="{'mr-16': kitArray.length ==2}">
+                        <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
+                        *ngIf="!displaySignInError; else errorBlock">  
+                            <mat-icon fontIcon="favorite_border" 
+                                matTooltipPosition="above"
+                                matTooltip="Add to wishlist"
+                                (click)="addToWishlist(kit)"
+                                class="float-right hidden top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                            </mat-icon>
+                            <img [routerLink]="['/product', kit.name]"
+                            class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
+        
+                            <h3 [routerLink]="['/product', kit.name]"
+                            matTooltipPosition="above"
+                            matTooltip="{{kit.name}}"
+                            class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
+                                {{kit.name}}
+                            </h3>
+                            <div class="pb-3 mx-auto text-center font-semibold ">
+                                <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- <div class="min-h-screen absolute items-center justify-center z-30 ml-auto">
+    <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity "></div>
+    <div class="loader w-50 h-50 aspect-w-1 aspect-h-1"></div>
+</div> -->
+<ng-template #errorBlock>
+    <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!--
+        Background backdrop, show/hide based on modal state.
+    
+        Entering: "ease-out duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+        Leaving: "ease-in duration-200"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
+    
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <!--
+            Modal panel, show/hide based on modal state.
+    
+            Entering: "ease-out duration-300"
+                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                To: "opacity-100 translate-y-0 sm:scale-100"
+            Leaving: "ease-in duration-200"
+                From: "opacity-100 translate-y-0 sm:scale-100"
+                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            -->
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">You need to sign in</h3>
+                    <div class="mt-2">
+                    <p class="text-sm text-gray-500">You need to sign in to add products to your wish list</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button type="button" class="inline-flex w-full justify-center rounded-md bg-darkgrey px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" routerLink="/login">Sign In</button>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" (click)="back()">Cancel</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</ng-template>
+
+  
+

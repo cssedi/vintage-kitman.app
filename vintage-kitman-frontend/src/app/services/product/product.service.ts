@@ -23,6 +23,9 @@ export class ProductService {
   getKitByName(name:string):Observable<kitVM>{
     return this.http.get<kitVM>(this.baseAPIURL+"GetKitByName/"+name)
   }
+  searchKits(searchTerm:string):Observable<kitVM[]>{
+    return this.http.get<kitVM[]>(this.baseAPIURL+"SearchKits/"+searchTerm)
 
+  }
   
 }
