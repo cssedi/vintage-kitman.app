@@ -89,11 +89,11 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             {                
                 if(item.IsCustomed == true)
                 {
-                    totalPrice += item.KitPrice + 50;
+                    totalPrice += (item.KitPrice+50) * item.Quantity;
                 }
                 else
                 {
-                    totalPrice += item.KitPrice;
+                    totalPrice += item.KitPrice * item.Quantity;
                 }
             }   
 

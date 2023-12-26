@@ -78,7 +78,6 @@ namespace vintage_kitman_API.Controllers
         {
             var total = _ordersRepository.GetCartTotal(model);
             
-
             return Ok(new { total = total.Total });
         }
     }
