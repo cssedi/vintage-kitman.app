@@ -103,5 +103,18 @@ namespace vintage_kitman_API.Controllers
             }
             return Ok(kit);
         }
+
+        [HttpGet("SearchKits/{searchTerm}")]
+        public async Task<IActionResult> SearchKits(string searchTerm)
+        {
+            var kits = await _productsRepository.searchKits(searchTerm);
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No Kits Found" });
+            }
+
+            return Ok(kits);
+        }
     }
 }

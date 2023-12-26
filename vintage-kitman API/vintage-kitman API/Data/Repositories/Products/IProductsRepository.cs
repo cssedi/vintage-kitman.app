@@ -11,6 +11,7 @@ namespace vintage_kitman_API.Data.Repositories.Products
         public Task<List<KitVM>> getKitsByNameAsync(string name);
         public Task<KitVM> getKitByName(string name);
         public Task<KitVM> getKitById(Guid id);
+        public Task<List<KitVM>> searchKits(string searchString);
 
 
     }

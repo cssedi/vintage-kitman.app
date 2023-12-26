@@ -75,6 +75,19 @@ namespace vintage_kitman_API.Data.Repositories.Products
             return teams;
         }
 
+        public async Task<List<KitVM>> searchKits(string searchString)
+        {
+            var kits = await _appDbContext.kits
+                .Where(k => k.Name.Contains(searchString))
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                .ToListAsync();
 
+            if(kits == null)
+            {
+                throw new NotFoundException("No kits found for the specified search");
+            }
+
+            return kits;
+        }
     }
 }
