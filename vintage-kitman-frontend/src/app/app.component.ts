@@ -4,6 +4,7 @@ import { CategoriesService } from './services/Categories/categories.service';
 import { CartItem } from './models/orders/CartItem-vm';
 import { CartService } from './services/cart/cart.service';
 import { Route, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +23,10 @@ export class AppComponent implements  OnInit {
   cart: CartItem[] = []
   token: boolean = false;
   admin:boolean = false;
+  searchForm!:FormGroup
 
-  constructor(private categoriesService: CategoriesService,  private cartService: CartService, private route: Router) 
+  constructor(private categoriesService: CategoriesService,  private cartService: CartService, private fb: FormBuilder,
+              private router:Router) 
   {}
 
   ngOnInit(): void {
@@ -61,6 +64,12 @@ export class AppComponent implements  OnInit {
       this.token=true
     }
     this.userDetails = JSON.parse(localStorage.getItem("user") || '{}')
+    //initialise search form
+    this.searchForm = this.fb.group({
+      searchTerm: ['']
+    })
+
+    
   }
 
 
@@ -75,7 +84,7 @@ export class AppComponent implements  OnInit {
 
 
 
-
+  //dropdown functions
   toggleDropDown()
   {
     this.isVisible=! this.isVisible
@@ -101,6 +110,12 @@ export class AppComponent implements  OnInit {
     this.isVisible=false
     this.isUserVisible=false
     this.isDoubleDropDownVisible=false
+  }
+
+  //search functions
+  search(searchTerm:string){
+    searchTerm = this.searchForm.get('searchTerm')?.value
+    this.router.navigate(['search-query/'+searchTerm])
   }
 
 }
