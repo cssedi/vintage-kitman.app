@@ -31,6 +31,7 @@ import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-or
 import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
 import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
+import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shi
     MyOrdersComponent,
     ViewCustomOrdersComponent,
     ShippingAddressComponent,
+    SearchQueriesComponent,
   ],
   imports: [
     BrowserModule,
