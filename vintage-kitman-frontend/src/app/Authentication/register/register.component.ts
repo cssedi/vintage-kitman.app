@@ -70,6 +70,7 @@ export class RegisterComponent implements OnInit{
     }
     else
     {
+      this.ifIsLoading = false
       this.displayError = false
     }
 
