@@ -30,7 +30,15 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDBConnection"),
+    sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5, // Adjust the maximum number of retries
+            maxRetryDelay: TimeSpan.FromSeconds(30), // Adjust the delay between retries
+            errorNumbersToAdd: null // You can specify specific error numbers to trigger retries
+        );
+    });
     options.EnableSensitiveDataLogging();
 
 });
