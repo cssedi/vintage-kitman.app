@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment.development';
 export class CategoriesService {
 
   constructor(private http: HttpClient) { }
-  baseAPIURL = environment.baseAPIUrl+ "Products/"
-  baseAPIURL2 = environment.baseAPIUrl+ "Categories/"
+  baseAPIURL = environment.deployedAPIURL+ "Products/"
+  baseAPIURL2 = environment.deployedAPIURL+ "Categories/"
 
   getAllSports()
   {

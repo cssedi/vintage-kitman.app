@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  baseAPIUrl= environment.baseAPIUrl+'Auth/'
+  baseAPIUrl= environment.deployedAPIURL+'Auth/'
 
   UserLogin(data:LoginVM)
   {

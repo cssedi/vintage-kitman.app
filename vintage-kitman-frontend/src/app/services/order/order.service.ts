@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class OrderService {
 
-  baseAPIURL = environment.baseAPIUrl+ "Order/"
+  baseAPIURL = environment.deployedAPIURL+ "Order/"
   token = localStorage.getItem('token')
   httpOptions = {
     headers: new HttpHeaders({
