@@ -1,4 +1,4 @@
-<div class="flex flex-row h-fit mx-12 my-10" >
+<div class="flex flex-row h-fit mx-12 my-10 overflow-x-hidden" >
     <div class="flex flex-col">
         <div>
             <h2 class="text-2xl text-white mb-4"> Your Items</h2>
@@ -53,8 +53,11 @@
         
         
                 </div>
-                <div class="text-center text-white text-2xl mt-5" *ngIf="cartArray.length ==0">
+                <div class="text-center text-white text-2xl mt-5 h-44" *ngIf="cartArray.length ==0">
                     Your Cart is Empty!
+                    <div>
+                        <a routerLink="/sport-teams/Football" class="text-base hover:text-canary">Continue shopping</a>
+                    </div>
                 </div>
         
             </div>
