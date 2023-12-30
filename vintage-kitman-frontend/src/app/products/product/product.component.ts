@@ -19,7 +19,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class ProductComponent implements OnInit {
 
    kit:kitVM= {name: '',frontImage: '',price: 0}
-   cartItem:CartItem={KitName: '', KitImage: '', KitPrice: 0, Quantity: 0, SizeId: '', CustomName: '', CustomNumber: 0,isCustomed: false}
+   cartItem:CartItem={KitName: '', Quantity: 0, isCustomed: false, SizeId: '', CustomName: '', CustomNumber: 0, KitPrice: 0,KitImage: ''}
    sizeArray: Size[] = []
    customizedToggle:boolean = false;
    kitName:string=''
@@ -103,6 +103,7 @@ export class ProductComponent implements OnInit {
     if(this.customizedToggle)
     {
       this.cartItem.isCustomed = true
+      this.cartItem.KitPrice = this.kit.price + 50
     }
     this.cartItem.Quantity = this.quantity
     this.cartItem.SizeId = this.cartForm.value.size
@@ -111,9 +112,20 @@ export class ProductComponent implements OnInit {
 
     if (this.cartForm.valid) {
       var cart = JSON.parse(localStorage.getItem('cart')!) || [];
-      cart.push(this.cartItem);
-      localStorage.setItem('cart', JSON.stringify(cart));
-  
+
+      // increase quantity if cart contains the same item
+      cart.forEach((item:CartItem) => {
+        if(item.KitName == this.cartItem.KitName && item.isCustomed == this.cartItem.isCustomed && item.SizeId == this.cartItem.SizeId && item.CustomName == this.cartItem.CustomName && item.CustomNumber == this.cartItem.CustomNumber)
+        {
+          item.Quantity += this.cartItem.Quantity
+          localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        else{
+          cart.push(this.cartItem);
+          localStorage.setItem('cart', JSON.stringify(cart));
+        }
+      });
+
       // Update the cartItems count in the service
       this.cartService.updateCartItemsCount(cart.length);
       
