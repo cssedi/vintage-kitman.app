@@ -32,6 +32,8 @@ import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.comp
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
 import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
 import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
+import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
+import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { SearchQueriesComponent } from './products/search-queries/search-queries
     ViewCustomOrdersComponent,
     ShippingAddressComponent,
     SearchQueriesComponent,
+    ViewTeamsComponent,
+    ViewLeaguesComponent,
   ],
   imports: [
     BrowserModule,
