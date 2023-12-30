@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ForgotPasswordVM } from 'src/app/models/authentication/forgotpassword-vm';
 import { LoginVM } from 'src/app/models/authentication/login-vm';
 import { RegisterVM } from 'src/app/models/authentication/register-vm';
@@ -12,9 +12,18 @@ import { environment } from 'src/environments/environment.development';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
+    
+    baseAPIUrl= environment.deployedAPIURL+'Auth/'
+    //authentication variables
+    isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+    isAdminSubject = new BehaviorSubject<boolean>(false);
+  
+    isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+    isAdmin$ = this.isAdminSubject.asObservable();
 
-  baseAPIUrl= environment.deployedAPIURL+'Auth/'
+  constructor(private http:HttpClient) {}
+
+
 
   UserLogin(data:LoginVM)
   {
@@ -34,4 +43,19 @@ export class AuthService {
     return this.http.post<ResetPasswordVM>(this.baseAPIUrl+"ResetPassword", model);
 
   }
+
+  setAuthenticationStatus(isAuthenticated: boolean, isAdmin: boolean) {
+
+
+    // Store authentication status in localStorage
+    localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
+    localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
+
+    this.isAuthenticatedSubject.next(isAuthenticated);
+    this.isAdminSubject.next(isAdmin);
+}
+
+
+
+
 }

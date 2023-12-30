@@ -5,31 +5,37 @@ import { CartItem } from './models/orders/CartItem-vm';
 import { CartService } from './services/cart/cart.service';
 import { Route, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from './services/authentication/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements  OnInit {
+export class AppComponent implements  OnInit, AfterViewInit {
   //drop downs
   title!:string
   isVisible: boolean =false
   isUserVisible: boolean =false
   isDoubleDropDownVisible: boolean =false
+  //auth
+  isAdmin:boolean = false
+  isAuthenticated:boolean = false
   userDetails = {name:'', surname:'', email:''}
+  //arrays
   sports: SportsVM[]=[]
   cartItems: number =0;
   cart: CartItem[] = []
-  token: boolean = false;
-  admin:boolean = false;
+  //search
   searchForm!:FormGroup
 
   constructor(private categoriesService: CategoriesService,  private cartService: CartService, private fb: FormBuilder,
-              private router:Router) 
-  {}
+              private router:Router, private authService:AuthService){}
+
 
   ngOnInit(): void {
+
     this.categoriesService.getAllSports().subscribe({
       next: (response)=>{
 
@@ -55,28 +61,42 @@ export class AppComponent implements  OnInit {
       this.cartItems = count;
     });
 
-    //check for token
-    if(localStorage.getItem("6gj6KgI7l0ffhv") == "true")
-    {
-      this.admin = true  
-    }
-    else if(localStorage.getItem("token")){
-      this.token=true
-    }
     this.userDetails = JSON.parse(localStorage.getItem("user") || '{}')
     //initialise search form
     this.searchForm = this.fb.group({
       searchTerm: ['']
     })
 
+    // Check localStorage for authentication status and admin status
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      // Update your component property based on the authentication status
+      this.isAuthenticated = isAuthenticated;
+      if(localStorage.getItem("isAuthenticated") == "true")
+        this.isAuthenticated = true
+      else
+        this.isAuthenticated = false
+    });
+
+    this.authService.isAdmin$.subscribe((isAdmin) => {
+      // Update your component property based on the admin status
+      this.isAdmin = isAdmin;
+      if(localStorage.getItem("isAdmin") == "true")
+        this.isAdmin = true
+      else
+        this.isAdmin = false
+    });
     
   }
 
-
+  ngAfterViewInit(): void {
+    this.userDetails = JSON.parse(localStorage.getItem("user") || '{}')
+  }
+  
   signOut(){
     localStorage.removeItem("user")
     localStorage.removeItem("token")
-    localStorage.removeItem("6gj6KgI7l0ffhv")
+    localStorage.removeItem("isAdmin")
+    localStorage.removeItem("isAuthenticated")
     
     window.location.reload()
     

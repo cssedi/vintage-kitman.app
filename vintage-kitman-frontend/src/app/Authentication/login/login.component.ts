@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
@@ -14,13 +14,15 @@ import { AuthService } from 'src/app/services/authentication/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService, private fb:FormBuilder, private router: Router, private location:Location) {  }
+  constructor(private authService:AuthService, private fb:FormBuilder, private router: Router,
+              private cdr:ChangeDetectorRef, private zone:NgZone) {  }
 
   //variables
   LoginForm!: FormGroup;
   ifIsLoading: boolean = false;
   model:LoginVM= { email: '',password: '' }
   userDetails = {name:'', surname:'', email:'', role:''}
+  // isAdmin:boolean = false
 
   ngOnInit(): void {
     this.LoginForm = this.fb.group({
@@ -53,28 +55,31 @@ export class LoginComponent implements OnInit {
           this.userDetails.email = decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
           this.userDetails.role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
           localStorage.setItem("user", JSON.stringify(this.userDetails))
+          this.authService.setAuthenticationStatus(true, this.userDetails.role === 'ADMIN');
 
-
-
+          this.cdr.detectChanges();
+          this.zone.run(() => 
+          {
+            this.authService.setAuthenticationStatus(true, this.userDetails.role === 'ADMIN');
+          });
+        
         },
         complete: ()=>
         {
-            this.router.navigate(['/sport-teams/Football']).then(() => {
-              window.location.reload();
-            });
-            //if admin
-            if(this.userDetails.role == "ADMIN"){
-              this.router.navigate(['/placed-orders']).then(() => {
-                window.location.reload();
-              });
-            }
+          if(this.userDetails.role == "CUSTOMER")
+            this.router.navigate(['/sport-teams/Football']);
+          //if admin
+          else if(this.userDetails.role == "ADMIN")   
+            this.router.navigate(['/placed-orders'])
+          //end loading
           this.ifIsLoading = false
         },
-        error: (err:any)=>{
+        error: (err:any)=>  
+        { 
           console.log(err)
           this.ifIsLoading = false
         }
-     })
+      })
     }
 
   }

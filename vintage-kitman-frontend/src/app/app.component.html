@@ -1,6 +1,6 @@
 
-
-<nav class=" border-gray-200 bg-black" *ngIf="!token && admin ==false">
+<!-- Signed out nav bar -->
+<nav class=" border-gray-200 bg-black" *ngIf="!isAuthenticated">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" >
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/assets/images/vintagekitman-bg-clear.png" class="h-14  " alt="Flowbite Logo">
@@ -94,8 +94,8 @@
     </div>
   </div>
 </nav>
-
-<nav class=" border-gray-200 bg-black" *ngIf="token && admin == false">
+<!-- Signed in navbar -->
+<nav class=" border-gray-200 bg-black" *ngIf="isAuthenticated && !isAdmin">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" >
     <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/assets/images/vintagekitman-bg-clear.png" class="h-14  " alt="Flowbite Logo">
@@ -222,12 +222,9 @@
       </ul>
     </div>
   </div>
-</nav>
-
-
-
-
-<ng-container *ngIf="admin">
+</nav>  
+<!-- Admin navbar -->
+<ng-container *ngIf="isAuthenticated && isAdmin">
   <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened class="w-1/6">
       <ul class="space-y-2 font-medium text-black mt-3 ml-5">
@@ -294,7 +291,7 @@
 
 
 
-<div (click)="collapseAll()" *ngIf="!admin">
+<div (click)="collapseAll()" *ngIf="!isAdmin">
   <router-outlet ></router-outlet>
 </div>
 
@@ -343,9 +340,9 @@
                   </svg>
                 <span class="sr-only">Facebook page</span>
             </a>
-            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+            <a href="https://www.instagram.com/vintage__kitman/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
                 <img src="https://i.ibb.co/LtMbHTg/image-2.png" class="w-4 h-4">
-                <span class="sr-only">Twitter page</span>
+                <span class="sr-only">Instagram page</span>
             </a>
         </div>
     </div>
