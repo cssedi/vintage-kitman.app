@@ -34,6 +34,8 @@ import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shi
 import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
 import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
 import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
+import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.component';
+import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-league
     SearchQueriesComponent,
     ViewTeamsComponent,
     ViewLeaguesComponent,
+    ViewSportsComponent,
+    ViewKitsComponent,
   ],
   imports: [
     BrowserModule,

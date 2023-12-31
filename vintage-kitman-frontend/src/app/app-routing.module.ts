@@ -17,6 +17,10 @@ import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.comp
 import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
 import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
+import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.component';
+import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
+import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
+import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
 
 const routes: Routes = 
 [
@@ -36,7 +40,13 @@ const routes: Routes =
   {path:'my-orders', component:MyOrdersComponent},
   {path:'shipping-address', component:ShippingAddressComponent},
   {path:"view-custom-orders", component:ViewCustomOrdersComponent},
-  {path:"search-query/:name", component:SearchQueriesComponent}
+  {path:"search-query/:name", component:SearchQueriesComponent},
+  {path:'view-sports', component:ViewSportsComponent},
+  {path:'view-leagues/:name', component:ViewLeaguesComponent},
+  {path:'view-teams/:name', component:ViewTeamsComponent},
+  {path:'view-kits/:name', component:ViewKitsComponent},
+
+
 
 
 
