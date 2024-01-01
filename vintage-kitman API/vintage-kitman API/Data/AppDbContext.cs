@@ -120,19 +120,10 @@ namespace vintage_kitman_API.NewFolder
             modelBuilder.Entity<ProductType>()
                 .HasData(
                 new ProductType { ProductTypeId = 1, Name = "Adults New Kit" },
-                new ProductType { ProductTypeId = 2, Name = "Childrens Kit" },
+                new ProductType { ProductTypeId = 2, Name = "Childrens Kit", SizeChart= "https://i.ibb.co/pvCSb7M/Kids-size-Chart.png" },
                 new ProductType { ProductTypeId = 3, Name = "Adults Retro Kit" }
                 );
 
-            modelBuilder.Entity<Size>()
-                .HasData(
-                new Size { SizeId = 1, Name = "XS" },
-                new Size { SizeId = 2, Name = "S" },
-                new Size { SizeId = 3, Name = "M" },
-                new Size { SizeId = 4, Name = "L" },
-                new Size { SizeId = 5, Name = "XL" },
-                new Size { SizeId = 6, Name = "XXL"  }
-                );
 
             modelBuilder.Entity<Kit>()
                 .HasData(
