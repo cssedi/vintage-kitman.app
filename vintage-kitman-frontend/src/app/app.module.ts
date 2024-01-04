@@ -36,6 +36,7 @@ import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.comp
 import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
 import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.component';
 import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
+import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.compone
     ViewLeaguesComponent,
     ViewSportsComponent,
     ViewKitsComponent,
+    BlogsComponent,
   ],
   imports: [
     BrowserModule,

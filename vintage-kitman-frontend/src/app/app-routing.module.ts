@@ -21,6 +21,7 @@ import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.c
 import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
 import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
 import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
+import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
 
 const routes: Routes = 
 [
@@ -45,6 +46,7 @@ const routes: Routes =
   {path:'view-leagues/:name', component:ViewLeaguesComponent},
   {path:'view-teams/:name', component:ViewTeamsComponent},
   {path:'view-kits/:name', component:ViewKitsComponent},
+  {path:'blogs', component:BlogsComponent}
 
 
 
