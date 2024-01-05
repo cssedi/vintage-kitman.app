@@ -1,3 +1,5 @@
+import { ApplicationUser } from "../authentication/appuser";
+
 export interface CustomOrderVM {
     customOrderId: number;
     size: string;
@@ -8,5 +10,6 @@ export interface CustomOrderVM {
     customName: string| null;
     customNumber: number | null;
     message: string | null;
+    user: ApplicationUser|null;
   }
   
