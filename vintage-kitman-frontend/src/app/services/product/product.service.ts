@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ProductService {
   constructor(private http: HttpClient) { }
-  baseAPIURL = environment.deployedAPIURL+ "Products/"
+  baseAPIURL = environment.baseAPIUrl+ "Products/"
 
   getTeamsByLeagueName(name:string):Observable<TeamsVM[]>{
     return this.http.get<TeamsVM[]>(this.baseAPIURL+"GetTeamsByLeague/"+name)

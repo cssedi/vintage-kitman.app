@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class OrderService {
 
-  baseAPIURL = environment.deployedAPIURL+ "Order/"
+  baseAPIURL = environment.baseAPIUrl+ "Order/"
   token = localStorage.getItem('token')
   httpOptions = {
     headers: new HttpHeaders({
@@ -39,5 +39,8 @@ export class OrderService {
   getCartTotal(array: CartItem[]):Observable<CartTotalVM>{
     return this.http.post<CartTotalVM>(this.baseAPIURL+"GetCartTotalPrice", array)
 
+  }
+  getAllCustomOrders():Observable<CustomOrderVM[]>{ 
+    return this.http.get<CustomOrderVM[]>(this.baseAPIURL+"GetAllCustomOrders", this.httpOptions)
   }
 }

@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment.development';
 export class AuthService {
 
     
-    baseAPIUrl= environment.deployedAPIURL+'Auth/'
+    baseAPIUrl= environment.baseAPIUrl+'Auth/'
     //authentication variables
     isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     isAdminSubject = new BehaviorSubject<boolean>(false);
