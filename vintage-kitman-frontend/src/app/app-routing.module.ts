@@ -14,7 +14,7 @@ import { ResetPasswordComponent } from './Authentication/reset-password/reset-pa
 import { WishlistComponent } from './customer-dashboard/wishlist/wishlist.component';
 import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-orders.component';
 import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
-import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
+import { ShippingAddressComponent } from './customer-dashboard/shipping-address/shipping-address.component';
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
 import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
 import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.component';

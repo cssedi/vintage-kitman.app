@@ -30,7 +30,7 @@ import { WishlistComponent } from './customer-dashboard/wishlist/wishlist.compon
 import { PlacedOrdersComponent } from './admin-dashboard/placed-orders/placed-orders.component';
 import { MyOrdersComponent } from './customer-dashboard/my-orders/my-orders.component';
 import { ViewCustomOrdersComponent } from './admin-dashboard/view-custom-orders/view-custom-orders.component';
-import { ShippingAddressComponent } from './admin-dashboard/shipping-address/shipping-address.component';
+import { ShippingAddressComponent } from './customer-dashboard/shipping-address/shipping-address.component';
 import { SearchQueriesComponent } from './products/search-queries/search-queries.component';
 import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
 import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-leagues.component';
