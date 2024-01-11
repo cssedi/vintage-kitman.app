@@ -141,6 +141,9 @@ namespace vintage_kitman_API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("GetCartTotalPrice")]
+        public async Task<IActionResult> GetCartTotalPrice() { }
+
         private string GenerateToken(User customer)
         {
             // Create a claims 

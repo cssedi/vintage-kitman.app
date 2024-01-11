@@ -32,7 +32,10 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                 CustomNumber = model.CustomNumber,
                 Quantity = model.Quantity,
                 Name = model.Name,
-                Id = userId
+                Id = userId,
+                //assign order status of placed
+                CustomOrderStatusId= 1,
+
             };
 
             await _appDbContext.customOrders.AddAsync(customOrder);
@@ -86,14 +89,16 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         {
             var totalPrice = 0;
             foreach (var item in model)
-            {                
+            {
+                var kit = _appDbContext.kits.Where(k => k.Name == item.KitName).FirstOrDefault();
                 if(item.IsCustomed == true)
                 {
-                    totalPrice += (item.KitPrice+50) * item.Quantity;
+                    //fixed price for customed kits
+                    totalPrice += (kit.Price+50) * item.Quantity;
                 }
                 else
                 {
-                    totalPrice += item.KitPrice * item.Quantity;
+                    totalPrice += kit.Price * item.Quantity;
                 }
             }   
 
@@ -104,6 +109,37 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
             return cartTotal;
             
+        }
+        public List<CustomOrderVM> GetAllCustomOrders()
+        {
+            var customOrders= _appDbContext.customOrders.Include(u=> u.User)
+                .Select(cu=> new CustomOrderVM 
+                {Id =cu.Id, Image=cu.Image, Quantity=cu.Quantity, CustomName =cu.CustomName,
+                 CustomNumber= cu.CustomNumber, IsSourcable=false, User = cu.User,
+                Size= cu.Size, Name = cu.Name}).
+                Where(cu=> cu.IsSourcable == false).
+                ToList();
+
+            var userIds = customOrders.Select(cu => cu.Id).ToList();
+            foreach (var item in userIds)
+            {
+                var user = _appDbContext.Users.Where(u => u.Id == item).FirstOrDefault();
+                if(user != null)
+                {
+                    var userOrders = customOrders.Where(cu => cu.Id == item).ToList();
+                    foreach (var order in userOrders)
+                    {
+                        order.User = user;
+                    }
+                }
+            }   
+
+
+            if(customOrders == null)
+            {
+                return null;
+            }
+            return customOrders;
         }
     }
 }

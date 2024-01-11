@@ -434,8 +434,14 @@ namespace vintage_kitman_API.NewFolder
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/526.jpeg",
                         Price = 900
                     }
-
                     );
+
+            modelBuilder.Entity<CustomOrderStatus>()
+                .HasData(
+                new CustomOrderStatus { CustomOrderStatusId = 1, Name = "Placed" },
+                new CustomOrderStatus { CustomOrderStatusId = 2, Name = "Found" },
+                new CustomOrderStatus { CustomOrderStatusId = 3, Name = "Not Found" }
+                 );
 
 
         }
