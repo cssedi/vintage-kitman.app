@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using vintage_kitman_API.Data.Repositories.Categories;
 
@@ -39,6 +40,20 @@ namespace vintage_kitman_API.Controllers
             }
 
             return Ok(sizes);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpGet("GetLeaguesBySport/{name}")]
+        public async Task<IActionResult> GetLeaguesBySport(string name)
+        {
+            var leagues = _categoriesRepository.getLeaguesBySport(name);
+
+            if (leagues == null)
+            {
+                return NotFound(new { message = "No Leagues Found" });
+            }
+
+            return Ok(leagues);
         }
 
 
