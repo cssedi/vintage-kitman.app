@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using vintage_kitman_API.Data.Repositories.Categories;
+using vintage_kitman_API.ViewModels.CategoriesModels;
 
 namespace vintage_kitman_API.Controllers
 {
@@ -54,6 +55,34 @@ namespace vintage_kitman_API.Controllers
             }
 
             return Ok(leagues);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpPost("CreateTeam")]
+        public async Task<IActionResult> CreateTeam(TeamVM model)
+        {
+            var team = await _categoriesRepository.CreateTeam(model);
+
+            if (team == null)
+            {
+                return NotFound(new { message = "Team not created" });
+            }
+
+            return Ok(team);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpDelete("DeleteTeam/{name}")]
+        public async Task<IActionResult> DeleteTeam(string name)
+        {
+            var team = await _categoriesRepository.DeleteTeam(name);
+
+            if (team == null)
+            {
+                return NotFound(new { message = "Team not found" });
+            }
+
+            return Ok(team);
         }
 
 

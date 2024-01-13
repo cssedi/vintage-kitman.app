@@ -81,5 +81,37 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             }
             return leagues;
         }
+        //creates
+        public async Task<Team> CreateTeam(TeamVM team)
+        {
+            var newTeam = new Team
+            {
+                Name = team.Name,
+                Logo = team.Logo,
+                LeagueId= _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name).LeagueId,
+                //get league from route param
+                League = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name)
+            };
+
+            await _appDbContext.teams.AddAsync(newTeam);
+            await _appDbContext.SaveChangesAsync();
+
+            return newTeam;
+        }
+
+        public Task<Team> DeleteTeam(string name)
+        {
+           var team = _appDbContext.teams.FirstOrDefault(t => t.Name == name);
+
+            if(team == null)
+            {
+                throw new NotFoundException("No team found for the specified name");
+            }
+
+            _appDbContext.teams.Remove(team);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(team);
+        }
     }
 }
