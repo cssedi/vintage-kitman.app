@@ -23,7 +23,7 @@
                             <tr>
                                 <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                     <div class="flex items-center gap-x-3">
-                                        <span class="font-medium ">League Name</span>
+                                        <span class="font-medium ">Sport Name</span>
 
                                     </div>
                                 </th>
@@ -50,7 +50,9 @@
                                     <p class="text-sm font-normal text-gray-600 dark:text-gray-400">{{sport.name}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                    <a [routerLink]="['/view-leagues', sport.name]" class="text-sm font-normal hover:text-canary">View Leagues</a>
+                                    <a *ngIf="sport.leagues.length > 0" [routerLink]="['/view-leagues', sport.name]" class="text-sm font-normal hover:text-canary">View Leagues</a>
+                                    <a *ngIf="sport.leagues.length == 0" class="text-sm font-normal text-canary">No Leagues</a>
+
                                 </td>
                              
                                 <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">to do </td> -->

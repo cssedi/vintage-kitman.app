@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Size } from 'src/app/models/categories/size';
@@ -12,6 +12,13 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
   baseAPIURL = environment.baseAPIUrl+ "Products/"
   baseAPIURL2 = environment.baseAPIUrl+ "Categories/"
+  token = localStorage.getItem('token')
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`
+    })
+  };
 
   getAllSports()
   {
@@ -27,6 +34,9 @@ export class CategoriesService {
   }
   getAllSizes():Observable<Size[]>{
     return this.http.get<Size[]>(this.baseAPIURL2+"GetAllSizes")
+  }
+  getLeagueBySportName(name:string){
+    return this.http.get(this.baseAPIURL2+"GetLeaguesBySport/"+name, this.httpOptions)
   }
 
 }
