@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TeamsVM } from 'src/app/models/categories/teams-vm';
+import { CategoriesService } from 'src/app/services/Categories/categories.service';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -13,15 +15,21 @@ export class ViewTeamsComponent implements OnInit {
 
   leagueName!:string;
   teamArray:TeamsVM[]=[]
+  //modals
   showCreateModal:boolean=false;
+  deleteModal:boolean=false;
+  //forms
   createForm!: FormGroup;
   formSubmitted:boolean=false;
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
+  //objects
+  teamObject:TeamsVM={teamId:0,name:'',logo:'', league:{name: '',teams: []}}
 
 
 
-  constructor(private route:ActivatedRoute,private productsService:ProductService, private fb:FormBuilder) { }
+  constructor(private route:ActivatedRoute,private productsService:ProductService, private fb:FormBuilder, private categoriesService:CategoriesService,
+              private snackBar:MatSnackBar) { }
   
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -46,11 +54,58 @@ export class ViewTeamsComponent implements OnInit {
 
     this.createForm = this.fb.group({
       name: [''],
-      logo: ['']
     })
   }
 
-  createTeam(){}
+  createTeam(){
+    debugger
+    this.formSubmitted=true;
+    this.teamObject.name=this.createForm.value.name
+    this.teamObject.logo=this.base64Image!
+    this.teamObject.league.name=this.leagueName
+    this.categoriesService.createTeam(this.teamObject).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete:()=>{
+        this.showCreateModal=false
+        this.ngOnInit()
+        this.formSubmitted=false;
+        this.clearImageUpload()
+        this.snackBar.open("Team created successfully", "Close", {duration:3000})
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+
+  }
+  viewDeleteModal(teamObj: TeamsVM){
+    this.deleteModal=true;
+    this.teamObject=teamObj
+  }
+  closeDeleteModal(){
+    this.deleteModal=false;
+  }
+  deleteTeam(team:TeamsVM){
+    team = this.teamObject
+    this.categoriesService.deleteTeam(team.name).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete:()=>{
+        this.deleteModal=false;
+        this.ngOnInit()
+        this.snackBar.open("Team deleted successfully", "Close", {duration:3000})
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+
+  }
+
+
 
 
 
@@ -85,7 +140,6 @@ export class ViewTeamsComponent implements OnInit {
     
       reader.onload = () => {
         this.base64Image = reader.result as string;
-        console.log(this.base64Image);
       };
     
       reader.readAsDataURL(file);
