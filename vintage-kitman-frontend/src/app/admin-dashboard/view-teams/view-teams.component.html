@@ -129,15 +129,15 @@
                      placeholder="Enter team name" 
                      class="w-full py-1.5 text-gray-700 bg-white border rounded-lg md:w-80 placeholder-gray-400/70 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none">
                      <p *ngIf="createForm.controls['name'].invalid && (formSubmitted || createForm.controls['name'].touched)"
-                     class="bottom-0 text-xs text-red-600 dark:text-red-400">This field is required!</p>
+                     class="bottom-0 text-xs text-txtRed">This field is required!</p>
                         </div>
                         <div class="flex items-center justify-center w-full  " >
                             <div class="c w-full" *ngIf="base64Image">
                                 <div for="dropzone-file"
-                                    class=" relative flex flex-col items-center justify-center w-full h-64 border-2 border-blue-300  rounded-lg cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    class=" relative flex flex-col items-center justify-center w-full h-64 border-2 rounded-lg cursor-pointer">
                                     <span class="sr-only">Notifications</span>
                                     <span (click)="clearImageUpload()" class="absolute inline-flex items-center bg-white justify-center w-6 h-6 text-xs font-bold border-2 rounded-full -top-2 -right-2 ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-red-400 dark:text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                                         <path fill-rule="evenodd" d="M5.293 4.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 01-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                       </svg>
                                     </span>
@@ -147,9 +147,9 @@
             
                             <!-- Upload image section -->
                             <label for="dropzone-file" *ngIf="!base64Image" (drop)="onImageDrop($event)"  (dragover)="onDragOver($event)"
-                                class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed rounded-lg cursor-pointer">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-blue-400" fill="none" stroke="currentColor"
+                                    <svg aria-hidden="true" class="w-10 h-10 mb-3" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">

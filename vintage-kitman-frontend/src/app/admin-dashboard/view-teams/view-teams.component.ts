@@ -24,9 +24,7 @@ export class ViewTeamsComponent implements OnInit {
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
   //objects
-  teamObject:TeamsVM={teamId:0,name:'',logo:'', league:{name: '',teams: []}}
-
-
+  teamObject:TeamsVM={teamId:0,name:'',logo:'', league:{name: '',teams: [], sport: {name: '', leagues: []}}}
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private fb:FormBuilder, private categoriesService:CategoriesService,
               private snackBar:MatSnackBar) { }
