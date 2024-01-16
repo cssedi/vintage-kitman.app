@@ -82,23 +82,45 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             return leagues;
         }
         //creates
-        public async Task<Team> CreateTeam(TeamVM team)
+        public Task<Team> CreateTeam(TeamVM team)
         {
-            var newTeam = new Team
+            try
             {
-                Name = team.Name,
-                Logo = team.Logo,
-                LeagueId= _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name).LeagueId,
-                //get league from route param
-                League = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name)
+                var newTeam = new Team
+                {
+                    Name = team.Name,
+                    Logo = team.Logo,
+                    LeagueId = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name).LeagueId,
+                    //get league from route param
+                    League = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name)
+                };
+
+                _appDbContext.teams.Add(newTeam);
+                _appDbContext.SaveChanges();
+
+                return Task.FromResult(newTeam);
+            }
+            catch (Exception)
+            {
+                return Task.FromResult<Team>(null); 
+
+            }
+        }
+        public async Task<League> CreateLeague(LeagueVM league)
+        {
+            var sportId = _appDbContext.sports.FirstOrDefault(s => s.Name == league.Sport.Name).SportId;
+            var newLeague = new League
+            {
+                Name = league.Name,
+                SportId = sportId,
             };
 
-            await _appDbContext.teams.AddAsync(newTeam);
+            await _appDbContext.leagues.AddAsync(newLeague);
             await _appDbContext.SaveChangesAsync();
 
-            return newTeam;
+            return newLeague;
         }
-
+        //delete
         public Task<Team> DeleteTeam(string name)
         {
            var team = _appDbContext.teams.FirstOrDefault(t => t.Name == name);
@@ -112,6 +134,21 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             _appDbContext.SaveChanges();
 
             return Task.FromResult(team);
+        }
+
+        public Task<League> DeleteLeague(string name)
+        {
+            var league = _appDbContext.leagues.FirstOrDefault(l => l.Name == name);
+
+            if(league == null)
+            {
+                throw new NotFoundException("No league found for the specified name");
+            }
+
+            _appDbContext.leagues.Remove(league);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(league);
         }
     }
 }
