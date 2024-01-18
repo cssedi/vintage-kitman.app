@@ -12,7 +12,7 @@ import { CategoriesService } from 'src/app/services/Categories/categories.servic
 })
 export class ViewLeaguesComponent implements OnInit {
   Leagues: LeaguesVM[] = []
-  leagueName: string = ''
+  sportName: string = ''
   //modals
   showCreateModal: boolean = false;
   deleteModal: boolean = false;
@@ -27,9 +27,9 @@ export class ViewLeaguesComponent implements OnInit {
               private snackBar:MatSnackBar) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.leagueName = params.get('name')!;
+            this.sportName = params.get('name')!;
       // Fetch products based on the leagueId using your ProductService
-      this.categoriesService.getLeagueBySportName(this.leagueName).subscribe({
+      this.categoriesService.getLeagueBySportName(this.sportName).subscribe({
         // Handle the retrieved products
         next: (reponse) => {
           this.Leagues = reponse as LeaguesVM[]
@@ -54,7 +54,7 @@ export class ViewLeaguesComponent implements OnInit {
   createLeague() {
     this.formSubmitted = true;
     this.leagueObject.name = this.createLeagueForm.value.name
-    this.leagueObject.sport.name = this.leagueName
+    this.leagueObject.sport.name = this.sportName
     this.categoriesService.createLeague(this.leagueObject).subscribe({
       next: (response) => 
       {
