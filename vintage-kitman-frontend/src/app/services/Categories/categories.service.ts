@@ -53,6 +53,10 @@ export class CategoriesService {
   createSport(model:SportsVM):Observable<SportsVM>{
     return this.http.post<SportsVM>(this.baseAPIURL2+"CreateSport", model, this.httpOptions)
   }
+  //update endpoints
+  updateTeam(name: string, model:TeamsVM):Observable<TeamsVM>{
+    return this.http.put<TeamsVM>(this.baseAPIURL2+"UpdateTeam/"+name, model, this.httpOptions)
+  }
 
   //delete endpoints
   deleteTeam(name:string){

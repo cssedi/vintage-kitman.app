@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TeamsVM } from 'src/app/models/categories/teams-vm';
@@ -18,11 +18,14 @@ export class ViewTeamsComponent implements OnInit {
   //modals
   showCreateModal:boolean=false;
   deleteModal:boolean=false;
+  editModal:boolean=false;
   //forms
   createForm!: FormGroup;
+  updateForm!:FormGroup;
   formSubmitted:boolean=false;
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
+  selectedClub!:string
   //objects
   teamObject:TeamsVM={teamId:0,name:'',logo:'', league:{name: '',teams: [], sport: {name: '', leagues: []}}}
 
@@ -51,12 +54,14 @@ export class ViewTeamsComponent implements OnInit {
     });  
 
     this.createForm = this.fb.group({
-      name: [''],
+      name: ['', Validators.required],
+    })
+    this.updateForm = this.fb.group({
+      name: ['', Validators.required],
     })
   }
 
   createTeam(){
-    debugger
     this.formSubmitted=true;
     this.teamObject.name=this.createForm.value.name
     this.teamObject.logo=this.base64Image!
@@ -78,9 +83,35 @@ export class ViewTeamsComponent implements OnInit {
     })
 
   }
+  updateTeam(){
+    this.formSubmitted=true
+    this.teamObject.name = this.updateForm.value.name
+    this.teamObject.logo = this.base64Image!
+    this.categoriesService.updateTeam(this.selectedClub, this.teamObject)
+    .subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete: ()=>{
+        this.editModal=false
+        this.ngOnInit()
+        this.formSubmitted=false;
+        this.updateForm.reset()
+        this.clearImageUpload()
+        this.snackBar.open("Team updated successfully", "Close", {duration:3000})
+      }
+
+    })
+  }
   viewDeleteModal(teamObj: TeamsVM){
     this.deleteModal=true;
     this.teamObject=teamObj
+  }
+  viewEditModal(team:TeamsVM){
+    this.teamObject = team
+    this.editModal=true
+    this.base64Image = this.teamObject.logo
+    this.selectedClub = team.name
   }
   closeDeleteModal(){
     this.deleteModal=false;
@@ -109,7 +140,11 @@ export class ViewTeamsComponent implements OnInit {
 
   toggleCreateModal(){
     this.showCreateModal=!this.showCreateModal
-    console.log(this.showCreateModal)
+    this.clearImageUpload()
+  }
+  toggleEditModal(){
+    this.editModal=!this.editModal
+    this.clearImageUpload()
   }
 
     //Images
