@@ -15,7 +15,6 @@ namespace vintage_kitman_API.NewFolder
 
         }
         public DbSet<User> users { get; set; }
-        public DbSet<Country> countries { get; set; }
         public DbSet<Sport> sports { get; set; }
         public DbSet<Team> teams { get; set; }
         public DbSet<League> leagues { get; set; }
@@ -73,21 +72,6 @@ namespace vintage_kitman_API.NewFolder
                 new League { LeagueId = 11, Name = "NBA", SportId = 5 }
                 );
 
-            modelBuilder.Entity<Country>()
-                .HasData(
-                new Country { CountryId = 1, Name = "England", Flag = "https://www.countryflags.io/gb/flat/64.png" },
-                new Country { CountryId = 2, Name = "Spain", Flag = "https://www.countryflags.io/es/flat/64.png" },
-                new Country { CountryId = 3, Name = "Italy", Flag = "https://www.countryflags.io/it/flat/64.png" },
-                new Country { CountryId = 4, Name = "Germany", Flag = "https://www.countryflags.io/de/flat/64.png" },
-                new Country { CountryId = 5, Name = "France", Flag = "https://www.countryflags.io/fr/flat/64.png" },
-                new Country { CountryId = 6, Name = "Netherlands", Flag = "https://www.countryflags.io/nl/flat/64.png" },
-                new Country { CountryId = 7, Name = "Saudi Arabia", Flag = "https://www.countryflags.io/sa/flat/64.png" },
-                new Country { CountryId = 8, Name = "USA", Flag = "https://www.countryflags.io/us/flat/64.png" },
-                new Country { CountryId = 9, Name = "New Zealand", Flag = "https://www.countryflags.io/nz/flat/64.png" },
-                new Country { CountryId = 10, Name = "South Africa", Flag = "https://www.countryflags.io/za/flat/64.png" },
-                new Country { CountryId = 11, Name = "Argentina", Flag = "https://www.countryflags.io/ar/flat/64.png" },
-                new Country { CountryId = 12, Name = "Australia", Flag = "https://www.countryflags.io/au/flat/64.png" }
-                );
 
             modelBuilder.Entity<Team>()
                 .HasData(
