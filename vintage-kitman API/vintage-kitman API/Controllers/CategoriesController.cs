@@ -85,19 +85,19 @@ namespace vintage_kitman_API.Controllers
             return Ok(team);
         }
 
-        //[Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
-        //[HttpPut("UpdateTeam")]
-        //public async Task<IActionResult> UpdateTeam(TeamVM model)
-        //{
-        //    var team = await _categoriesRepository.UpdateTeam(model);
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPut("UpdateTeam/{name}")]
+        public async Task<IActionResult> UpdateTeam(string name,TeamVM model)
+        {
+            var team = await _categoriesRepository.UpdateTeam(name, model);
 
-        //    if (team == null)
-        //    {
-        //        return NotFound(new { message = "Team not found" });
-        //    }
+            if (team == null)
+            {
+                return NotFound(new { message = "Team not found" });
+            }
 
-        //    return Ok(team);
-        //}
+            return Ok(team);
+        }
 
         [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
         [HttpPost("CreateLeague")]
@@ -127,6 +127,30 @@ namespace vintage_kitman_API.Controllers
             return Ok(league);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPost("CreateSport")]
+        public async Task<IActionResult> CreateSport(SportVM model)
+        {
+            
+            var sport = await _categoriesRepository.CreateSport(model);
+            if(sport == null)
+            {
+                return BadRequest("Could not create sport");
+            }
+            return Ok(sport);
+        }
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpDelete("DeleteSport/{name}")]
+        public async Task<IActionResult> DeleteSport(string name)
+        {
+            var sport = await _categoriesRepository.DeleteSport(name);
 
+            if (sport == null)
+            {
+                return NotFound(new { message = "Sport not found" });
+            }
+
+            return Ok(sport);
+        }
     }
 }

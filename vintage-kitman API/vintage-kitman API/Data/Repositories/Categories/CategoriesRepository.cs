@@ -84,15 +84,15 @@ namespace vintage_kitman_API.Data.Repositories.Categories
         //creates
         public Task<Team> CreateTeam(TeamVM team)
         {
+            var leagueId = _appDbContext.leagues.Where(l => l.Name == team.League.Name).Select(l => l.LeagueId).FirstOrDefault();
+
             try
             {
                 var newTeam = new Team
                 {
                     Name = team.Name,
                     Logo = team.Logo,
-                    LeagueId = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name).LeagueId,
-                    //get league from route param
-                    League = _appDbContext.leagues.FirstOrDefault(l => l.Name == team.League.Name)
+                    LeagueId = leagueId
                 };
 
                 _appDbContext.teams.Add(newTeam);
@@ -106,21 +106,26 @@ namespace vintage_kitman_API.Data.Repositories.Categories
 
             }
         }
-        public async Task<League> CreateLeague(LeagueVM league)
+
+
+        //teams
+        public Task<Team> UpdateTeam(string name, TeamVM model)
         {
-            var sportId = _appDbContext.sports.FirstOrDefault(s => s.Name == league.Sport.Name).SportId;
-            var newLeague = new League
+            //get team
+            var team = _appDbContext.teams.Where(t => t.Name == name).FirstOrDefault();
+            if(team == null)
             {
-                Name = league.Name,
-                SportId = sportId,
-            };
+                throw new NotFoundException("No team found");
+            }
+            //update team
+            team.Name = model.Name;
+            team.Logo = model.Logo;
+            //
+            _appDbContext.SaveChanges();
+            return Task.FromResult(team);
 
-            await _appDbContext.leagues.AddAsync(newLeague);
-            await _appDbContext.SaveChangesAsync();
-
-            return newLeague;
         }
-        //delete
+
         public Task<Team> DeleteTeam(string name)
         {
            var team = _appDbContext.teams.FirstOrDefault(t => t.Name == name);
@@ -135,7 +140,21 @@ namespace vintage_kitman_API.Data.Repositories.Categories
 
             return Task.FromResult(team);
         }
+        //leagues
+        public Task<League> CreateLeague(LeagueVM league)
+        {
+            var sportId = _appDbContext.sports.Where(s => s.Name == league.Sport.Name).Select(s => s.SportId).FirstOrDefault();
+            var newLeague = new League
+            {
+                Name = league.Name,
+                SportId = sportId,
+            };
 
+            _appDbContext.leagues.Add(newLeague);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(newLeague);
+        }
         public Task<League> DeleteLeague(string name)
         {
             var league = _appDbContext.leagues.FirstOrDefault(l => l.Name == name);
@@ -149,6 +168,33 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             _appDbContext.SaveChanges();
 
             return Task.FromResult(league);
+        }
+        //Sports
+        public Task<Sport> CreateSport(SportVM sport)
+        {
+            var newSport = new Sport
+            {
+                Name = sport.Name,
+            };
+
+            _appDbContext.sports.Add(newSport);
+            _appDbContext.SaveChanges();
+            return Task.FromResult(newSport);
+        }
+
+        public Task<Sport> DeleteSport(string name)
+        {
+            var sport = _appDbContext.sports.FirstOrDefault(l => l.Name == name);
+
+            if (sport == null)
+            {
+                throw new NotFoundException("No league found for the specified name");
+            }
+
+            _appDbContext.sports.Remove(sport);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(sport);
         }
     }
 }

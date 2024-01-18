@@ -15,9 +15,14 @@ namespace vintage_kitman_API.Data.Repositories.Categories
         //create 
         public Task<Team> CreateTeam(TeamVM sport);
         public Task<League> CreateLeague(LeagueVM league);
+        public Task<Sport> CreateSport(SportVM sport);
+        //update
+        public Task<Team> UpdateTeam(string name, TeamVM model);
         //delete
         public Task<Team> DeleteTeam(string name);
         public Task<League> DeleteLeague(string name);
+        public Task<Sport> DeleteSport(string name);
+
 
     }
 }
