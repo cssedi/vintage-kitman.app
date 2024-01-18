@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeaguesVM } from 'src/app/models/categories/leagues-vm';
 import { Size } from 'src/app/models/categories/size';
+import { SportsVM } from 'src/app/models/categories/sports-vm';
 import { TeamsVM } from 'src/app/models/categories/teams-vm';
 import { environment } from 'src/environments/environment.development';
 
@@ -49,6 +50,9 @@ export class CategoriesService {
   createLeague(model:LeaguesVM):Observable<LeaguesVM>{
     return this.http.post<LeaguesVM>(this.baseAPIURL2+"CreateLeague", model, this.httpOptions)
   }
+  createSport(model:SportsVM):Observable<SportsVM>{
+    return this.http.post<SportsVM>(this.baseAPIURL2+"CreateSport", model, this.httpOptions)
+  }
 
   //delete endpoints
   deleteTeam(name:string){
@@ -57,5 +61,8 @@ export class CategoriesService {
 
   deleteLeague(name:string){
     return this.http.delete(this.baseAPIURL2+"DeleteLeague/"+name, this.httpOptions)
+  }
+  deleteSport(name:string){
+    return this.http.delete(this.baseAPIURL2+"DeleteSport/"+name, this.httpOptions)
   }
 }
