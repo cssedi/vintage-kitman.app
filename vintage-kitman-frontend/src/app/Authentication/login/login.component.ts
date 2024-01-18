@@ -67,12 +67,15 @@ export class LoginComponent implements OnInit {
         complete: ()=>
         {
           if(this.userDetails.role == "CUSTOMER")
-            this.router.navigate(['/sport-teams/Football']);
+            this.router.navigate(['/sport-teams/Football'])
+          .then(() => {window.location.reload();});
           //if admin
           else if(this.userDetails.role == "ADMIN")   
             this.router.navigate(['/placed-orders'])
+          .then(() => {window.location.reload();});
           //end loading
           this.ifIsLoading = false
+          window.location.reload();
         },
         error: (err:any)=>  
         { 

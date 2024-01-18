@@ -1,8 +1,4 @@
-:host ::ng-deep .mat-tab-group .mat-tab-label {
-    color: black !important;
-  }
-  
-  :host ::ng-deep .mat-tab-group .mat-tab-label.mat-tab-label-active {
-    color: red !important;
-  }
-  
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: yellow;
+  height: 10px;
+} 

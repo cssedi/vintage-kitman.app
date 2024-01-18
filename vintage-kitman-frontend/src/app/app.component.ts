@@ -7,6 +7,8 @@ import { Route, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from './services/authentication/auth.service';
 import { Observable } from 'rxjs';
+import { OrderService } from './services/order/order.service';
+import { CustomOrderVM } from './models/orders/custom-order-vm';
 
 @Component({
   selector: 'app-root',
@@ -27,15 +29,15 @@ export class AppComponent implements  OnInit, AfterViewInit {
   sports: SportsVM[]=[]
   cartItems: number =0;
   cart: CartItem[] = []
+  customOrders:CustomOrderVM [] = []
   //search
   searchForm!:FormGroup
 
   constructor(private categoriesService: CategoriesService,  private cartService: CartService, private fb: FormBuilder,
-              private router:Router, private authService:AuthService){}
+              private router:Router, private authService:AuthService, private ordersService:OrderService){}
 
 
   ngOnInit(): void {
-
     this.categoriesService.getAllSports().subscribe({
       next: (response)=>{
 
@@ -85,6 +87,19 @@ export class AppComponent implements  OnInit, AfterViewInit {
       else
         this.isAdmin = false
     });
+
+    //sidebar value
+    this.ordersService.getAllCustomOrders().subscribe(
+      {  
+        next: (res:any)=>{
+          this.customOrders = res as CustomOrderVM[]
+          console.log(res)
+        },
+        error: (err:any)=>{
+          console.log(err)
+        }
+      }
+      )
     
   }
 

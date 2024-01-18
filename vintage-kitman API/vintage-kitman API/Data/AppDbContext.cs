@@ -60,17 +60,17 @@ namespace vintage_kitman_API.NewFolder
             modelBuilder.Entity<League>()
                 .HasData
                 (
-                new League { LeagueId = 1, Name = "Premier League", SportId = 1, IsWomensLeague=false },
-                new League { LeagueId = 2, Name = "La Liga", SportId = 1, IsWomensLeague=false },
-                new League { LeagueId = 3, Name = "Serie A", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 4, Name = "Bundesliga", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 5, Name = "Ligue 1", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 6, Name="Saudi Pro League", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 7, Name="MLS", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 8, Name = "National Football Teams", SportId = 1, IsWomensLeague = false },
-                new League { LeagueId = 9, Name = "National Rugby Teams", SportId = 2, IsWomensLeague = false },
-                new League { LeagueId = 10, Name = "Formula 1", SportId = 4, IsWomensLeague = false },
-                new League { LeagueId = 11, Name = "NBA", SportId = 5, IsWomensLeague = false }
+                new League { LeagueId = 1, Name = "Premier League", SportId = 1},
+                new League { LeagueId = 2, Name = "La Liga", SportId = 1},
+                new League { LeagueId = 3, Name = "Serie A", SportId = 1},
+                new League { LeagueId = 4, Name = "Bundesliga", SportId = 1 },
+                new League { LeagueId = 5, Name = "Ligue 1", SportId = 1 },
+                new League { LeagueId = 6, Name="Saudi Pro League", SportId = 1 },
+                new League { LeagueId = 7, Name="MLS", SportId = 1 },
+                new League { LeagueId = 8, Name = "National Football Teams", SportId = 1 },
+                new League { LeagueId = 9, Name = "National Rugby Teams", SportId = 2 },
+                new League { LeagueId = 10, Name = "Formula 1", SportId = 4 },
+                new League { LeagueId = 11, Name = "NBA", SportId = 5 }
                 );
 
             modelBuilder.Entity<Country>()
@@ -434,8 +434,14 @@ namespace vintage_kitman_API.NewFolder
                         FrontImage = "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/526.jpeg",
                         Price = 900
                     }
-
                     );
+
+            modelBuilder.Entity<CustomOrderStatus>()
+                .HasData(
+                new CustomOrderStatus { CustomOrderStatusId = 1, Name = "Placed" },
+                new CustomOrderStatus { CustomOrderStatusId = 2, Name = "Found" },
+                new CustomOrderStatus { CustomOrderStatusId = 3, Name = "Not Found" }
+                 );
 
 
         }

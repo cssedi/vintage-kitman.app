@@ -78,7 +78,7 @@ namespace vintage_kitman_API.Data.Repositories.Products
         public async Task<List<KitVM>> searchKits(string searchString)
         {
             var kits = await _appDbContext.kits
-                .Where(k => k.Name.Contains(searchString))
+                .Where(k => k.Name.Contains(searchString) || k.Team.Name.Contains(searchString) || k.Team.League.Name.Contains(searchString))
                 .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
                 .ToListAsync();
 

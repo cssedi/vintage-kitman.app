@@ -141,6 +141,8 @@ namespace vintage_kitman_API.Controllers
             return Ok(result);
         }
 
+
+
         private string GenerateToken(User customer)
         {
             // Create a claims 

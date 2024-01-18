@@ -8,7 +8,9 @@ module.exports = {
       white: "#ffffff",
       canary: "#FFE520",
       grey:"#515052",
-      darkgrey: "#333138"
+      darkgrey: "#333138",
+      txtRed:"#E26D5A"
+
     },
     screens: {
       xs:'400px',

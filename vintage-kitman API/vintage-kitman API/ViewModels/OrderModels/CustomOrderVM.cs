@@ -14,5 +14,6 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public int? CustomNumber { get; set; }
         public string Id { get; set; }
         //navigation
+        public User User { get; set; }
     }
 }

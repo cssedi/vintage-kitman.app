@@ -9,8 +9,15 @@ namespace vintage_kitman_API.Data.Repositories.Categories
         public Task<List<LeagueVM>> GetLeagueById(int sportId);
         public Task<List<TeamVM>> GetTeamsByLeagueAsync(string name);
         public Task<List<TeamVM>> GetTeamsBySport(string name);
-
+        public List<LeagueVM> getLeaguesBySport(string name);
         public Task<List<Size>> GetAllSizes();
+
+        //create 
+        public Task<Team> CreateTeam(TeamVM sport);
+        public Task<League> CreateLeague(LeagueVM league);
+        //delete
+        public Task<Team> DeleteTeam(string name);
+        public Task<League> DeleteLeague(string name);
 
     }
 }

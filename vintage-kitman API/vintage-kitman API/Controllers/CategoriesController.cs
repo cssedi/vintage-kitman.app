@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using vintage_kitman_API.Data.Repositories.Categories;
+using vintage_kitman_API.ViewModels.CategoriesModels;
 
 namespace vintage_kitman_API.Controllers
 {
@@ -39,6 +41,90 @@ namespace vintage_kitman_API.Controllers
             }
 
             return Ok(sizes);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpGet("GetLeaguesBySport/{name}")]
+        public async Task<IActionResult> GetLeaguesBySport(string name)
+        {
+            var leagues = _categoriesRepository.getLeaguesBySport(name);
+
+            if (leagues == null)
+            {
+                return NotFound(new { message = "No Leagues Found" });
+            }
+
+            return Ok(leagues);
+        }
+
+        //[Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpPost("CreateTeam")]
+        public async Task<IActionResult> CreateTeam(TeamVM model)
+        {
+            var team = _categoriesRepository.CreateTeam(model);
+
+            if (team == null)
+            {
+                return NotFound(new { message = "Team not created" });
+            }
+
+            return Ok(team);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpDelete("DeleteTeam/{name}")]
+        public async Task<IActionResult> DeleteTeam(string name)
+        {
+            var team = await _categoriesRepository.DeleteTeam(name);
+
+            if (team == null)
+            {
+                return NotFound(new { message = "Team not found" });
+            }
+
+            return Ok(team);
+        }
+
+        //[Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        //[HttpPut("UpdateTeam")]
+        //public async Task<IActionResult> UpdateTeam(TeamVM model)
+        //{
+        //    var team = await _categoriesRepository.UpdateTeam(model);
+
+        //    if (team == null)
+        //    {
+        //        return NotFound(new { message = "Team not found" });
+        //    }
+
+        //    return Ok(team);
+        //}
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpPost("CreateLeague")]
+        public async Task<IActionResult> CreateLeague(LeagueVM model)
+        {
+            var league = await _categoriesRepository.CreateLeague(model);
+
+            if (league == null)
+            {
+                return NotFound(new { message = "League not created" });
+            }
+
+            return Ok(league);
+        }
+
+        [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
+        [HttpDelete("DeleteLeague/{name}")]
+        public async Task<IActionResult> DeleteLeague(string name)
+        {
+            var league = await _categoriesRepository.DeleteLeague(name);
+
+            if (league == null)
+            {
+                return NotFound(new { message = "League not found" });
+            }
+
+            return Ok(league);
         }
 
 

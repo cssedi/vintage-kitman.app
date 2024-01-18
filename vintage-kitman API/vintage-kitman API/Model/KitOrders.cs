@@ -1,4 +1,6 @@
-﻿namespace vintage_kitman_API.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace vintage_kitman_API.Model
 {
     public class KitOrders
     {

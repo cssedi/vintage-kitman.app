@@ -16,7 +16,7 @@ export class TeamsComponent implements OnInit {
   
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.leagueName = params.get('name')?.replace('%20', ' ')!;
+      this.leagueName = params.get('name')!;
       // Fetch products based on the leagueId using your ProductService
       this.productsService.getTeamsByLeagueName(this.leagueName).subscribe({
         // Handle the retrieved products

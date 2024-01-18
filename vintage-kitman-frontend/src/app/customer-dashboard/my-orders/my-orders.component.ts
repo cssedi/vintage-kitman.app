@@ -8,5 +8,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class MyOrdersComponent {
 
+  isError:boolean = true
   color: string = '#FFE520';
 }
