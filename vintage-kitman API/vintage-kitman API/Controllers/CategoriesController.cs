@@ -126,7 +126,7 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(league);
         }
-
+        //Sport
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         [HttpPost("CreateSport")]
         public async Task<IActionResult> CreateSport(SportVM model)
@@ -139,6 +139,21 @@ namespace vintage_kitman_API.Controllers
             }
             return Ok(sport);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPut("UpdateSport/{name}")]
+        public async Task<IActionResult> UpdateSport(string name, SportVM model)
+        {
+            var team = await _categoriesRepository.UpdateSport(name, model);
+
+            if (team == null)
+            {
+                return NotFound(new { message = "Sport not found" });
+            }
+
+            return Ok(team);
+        }
+
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         [HttpDelete("DeleteSport/{name}")]
         public async Task<IActionResult> DeleteSport(string name)

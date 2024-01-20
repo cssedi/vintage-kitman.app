@@ -125,6 +125,18 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             return Task.FromResult(team);
 
         }
+        public Task<Sport> UpdateSport(string name, SportVM model)
+        {
+            //get sport
+            var sport = _appDbContext.sports.Where(s=>s.Name == name).FirstOrDefault();
+            //update
+            sport.Name = model.Name;
+            //save changes
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(sport);
+
+        }
 
         public Task<Team> DeleteTeam(string name)
         {
@@ -189,6 +201,14 @@ namespace vintage_kitman_API.Data.Repositories.Categories
             if (sport == null)
             {
                 throw new NotFoundException("No league found for the specified name");
+            }
+
+            var leagues = _appDbContext.leagues.Where(l=>l.SportId == sport.SportId).ToList();
+
+            if (leagues.Any())
+            {
+                var errorMessage = "Could not delete Sport, please delete leagues first";
+                throw new NotFoundException(errorMessage);
             }
 
             _appDbContext.sports.Remove(sport);
