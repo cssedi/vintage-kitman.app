@@ -45,6 +45,24 @@ namespace vintage_kitman_API.NewFolder
             modelBuilder.Entity<UserWishlist>()
                 .HasKey(uw => new { uw.KitId, uw.Id });
 
+            //deletion rules
+            //sport > league rule
+            modelBuilder.Entity<Sport>()
+                .HasMany(l => l.Leagues)
+                .WithOne(s => s.Sport)
+                .OnDelete(DeleteBehavior.Restrict);
+            //league > team rule
+            modelBuilder.Entity<League>()
+                .HasMany(t => t.Teams)
+                .WithOne(l => l.League)
+                .OnDelete(DeleteBehavior.Restrict);
+            //team > kit rule
+            modelBuilder.Entity<Team>()
+                .HasMany(k=> k.Kits)
+                .WithOne(t=>t.Team) 
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             //seed data
             modelBuilder.Entity<Sport>()
                 .HasData
