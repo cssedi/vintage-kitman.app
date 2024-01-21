@@ -16,9 +16,11 @@ export class ViewSportsComponent implements OnInit {
   //modals
   showCreateModal: boolean = false;
   deleteModal: boolean = false;
-  updateModal: boolean = false;
+  editModal:boolean=false;
   //forms
   createSportForm!: FormGroup
+  updateForm!:FormGroup
+  selectedSport!: string;
   //object
   sportObj: SportsVM={name: '',leagues: []}
   formSubmitted:boolean = false
@@ -38,6 +40,9 @@ export class ViewSportsComponent implements OnInit {
        }
     )  
     this.createSportForm = this.fb.group({
+      name: ['', Validators.required]
+    })
+    this.updateForm = this.fb.group({
       name: ['', Validators.required]
     })
 
@@ -66,6 +71,24 @@ export class ViewSportsComponent implements OnInit {
 
 
   }
+  updateSport(){
+    this.formSubmitted=true
+    this.sportObj.name = this.updateForm.value.name
+    this.categoriesService.updateSport(this.selectedSport, this.sportObj)
+    .subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete: ()=>{
+        this.editModal=false
+        this.ngOnInit()
+        this.formSubmitted=false;
+        this.updateForm.reset()
+        this.snackBar.open("Team updated successfully", "Close", {duration:3000})
+      }
+
+    })
+  }
   deleteSport(sport:SportsVM){
     sport = this.sportObj
     this.categoriesService.deleteSport(sport.name).subscribe({
@@ -88,10 +111,18 @@ export class ViewSportsComponent implements OnInit {
     this.showCreateModal = !this.showCreateModal 
     this.createSportForm.reset()
   }
+  toggleEditModal(){
+    this.editModal=!this.editModal
+  }
 
   viewDeleteModal(sportObj: SportsVM){
     this.deleteModal=true;
     this.sportObj=sportObj
+  }
+  viewEditModal(sport:SportsVM){
+    this.sportObj = sport
+    this.editModal=true
+    this.selectedSport = sport.name
   }
 
   closeDeleteModal(){

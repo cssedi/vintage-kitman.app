@@ -1,5 +1,5 @@
 <div class=" h-screen overflow-x-hidden mt-8"
-[ngClass]="{ 'bg-black opacity-60': showCreateModal ||deleteModal||updateModal}">
+[ngClass]="{ 'bg-black opacity-60': showCreateModal ||deleteModal||editModal}">
 >
     <p class="text-white font-semibold text-3xl ml-3">Sports</p>
 
@@ -66,7 +66,7 @@
                                             </svg>
                                         </button>
                                          <!--Update button -->   
-                                        <button class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
+                                        <button (click)="viewEditModal(sport)" class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                             </svg>
@@ -127,8 +127,60 @@
     </div>
 </div>
 </div>
+<!-- Update modal -->
+<div class="fixed top-0 left-0 right-0 z-50  inset-0 flex items-center justify-center mb-auto" *ngIf="editModal">
+    <div class="fixed inset-0 bg-gray-900 opacity-75 transition-opacity"
+        [ngClass]="{ 'opacity-100': editModal, 'opacity-0': !editModal }"></div>
+    <div class="bg-white rounded-lg animate-jump-in"
+        [ngClass]="{ 'scale-100': editModal, 'scale-95': !editModal }">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-jump-in">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                  Edit Sport
+                </h3>
+                <button  (click)="toggleEditModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <form (submit)="updateSport()" [formGroup]="updateForm" >
+                        
+                        
+                    <div class="mb-6 ">
+                        <label for="email" class="block mb-2 text-sm font-medium  dark:text-white">Name</label>
+                        <input 
+                        [(ngModel)]="sportObj.name"
+                        formControlName="name"
+                        name="name"
+                        type="text" 
+                 placeholder="Love Emoji" 
+                 [ngClass]="{'border-red-500': (updateForm.get('name')?.touched || formSubmitted) && updateForm.get('name')?.invalid, 'border-gray-400': !updateForm.get('name')?.invalid || !formSubmitted }"
+                 class="w-full py-1.5 px-2 bg-white border rounded-lg md:w-80  rtl:pr-11 rtl:pl-5 focus:outline-none">
+                 <p *ngIf="updateForm.controls['name'].invalid && (formSubmitted || updateForm.controls['name'].touched)"
+                 class="bottom-0 text-xs text-red-600 dark:text-red-400">This field is required!</p>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-4">
+                        <button type="submit" class="bg-grey focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary ">
+                             Update
+                        </button>
+                        <button type="button" (click)="toggleEditModal()" class="bg-grey inline-flex items-center hover:text-white border hover:bg-txtRed focus:ring-4 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">
+                            Cancel
+                        </button>
+                    </div>
+        
+                </form>
+            </div>
 
-<!-- delete team modal -->
+        </div>
+    </div>
+</div>
+<!-- delete sport modal -->
 <div class="fixed top-0 left-0 right-0 z-50  inset-0 flex items-center justify-center mb-auto" *ngIf="deleteModal">
     <div class="fixed inset-0 bg-gray-900 opacity-75 transition-opacity"
         [ngClass]="{ 'opacity-100': deleteModal, 'opacity-0': !deleteModal }"></div>
