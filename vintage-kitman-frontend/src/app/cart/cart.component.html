@@ -23,16 +23,16 @@
                         </div>
                         <div class="flex flex-row w-[60%] mt-2">
                             <div class="flex flex-col">
-                                <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Quantity:</label>
+                                <label for="quantity" class="block mb-2 text-sm font-medium text-white"> Quantity:</label>
                                 <div class="relative flex items-center max-w-[8rem]">
                                     <button type="button" (click)="decreaseQuantity(cartItem)" class="border border-gray-300 rounded-s-lg p-3 h-8">
-                                        <svg class="w-3 h-3 pb-2 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                        <svg class="w-3 h-3 pb-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                                         </svg>
                                     </button>
                                     <input type="number" value="{{cartItem.Quantity}}" class="border-x-0 text-black h-8 text-center text-sm block w-full py-2.5" placeholder="7" required   >
                                     <button type="button" (click)="increaseQuantity(cartItem)" class="border border-gray-300 rounded-e-lg p-3 h-8 ">
-                                        <svg class="w-3 h-3 -mt-1 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                        <svg class="w-3 h-3 -mt-1 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
                                         </svg>
                                     </button>

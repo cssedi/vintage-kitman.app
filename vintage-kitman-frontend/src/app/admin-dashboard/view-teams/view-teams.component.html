@@ -110,7 +110,7 @@
                     <h3 class="text-xl ">
                        Add Team
                     </h3>
-                    <button (click)="toggleCreateModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="small-modal">
+                    <button (click)="toggleCreateModal()" type="button" class="bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:text-white" data-modal-hide="small-modal">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -121,10 +121,10 @@
                 <div class="p-6 space-y-6">
                     <form  [formGroup]="createForm" (submit)="createTeam()" >
                         <div class="mb-6 ">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                            <label for="name" class="block mb-2 text-sm font-medium dark:text-white">Name</label>
                             <input  
                             formControlName="name"
-                            [ngClass]="{'border-red-500': (createForm.get('name')?.touched || formSubmitted) && createForm.get('name')?.invalid, 'border-gray-400': !createForm.get('name')?.invalid || !formSubmitted }"
+                            [ngClass]="{'border-txtRed': (createForm.get('name')?.touched || formSubmitted) && createForm.get('name')?.invalid, 'border-gray-400': !createForm.get('name')?.invalid || !formSubmitted }"
                             type="text" 
                      placeholder="Enter team name" 
                      class="w-full py-1.5 text-gray-700 bg-white border rounded-lg md:w-80 placeholder-gray-400/70 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none">
@@ -213,16 +213,16 @@
 
 <!-- Update modal -->
 <div class="fixed top-0 left-0 right-0 z-50  inset-0 flex items-center justify-center mb-auto" *ngIf="editModal">
-    <div class="fixed inset-0 bg-gray-900 opacity-75 transition-opacity"
+    <div class="fixed inset-0  opacity-75 transition-opacity"
         [ngClass]="{ 'opacity-100': editModal, 'opacity-0': !editModal }"></div>
     <div class="bg-white rounded-lg animate-jump-in"
         [ngClass]="{ 'scale-100': editModal, 'scale-95': !editModal }">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-jump-in">
+        <div class="relative bg-white rounded-lg shadow animate-jump-in">
             <!-- Modal header -->
             <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                  Edit Medal
+                  Edit Team
                 </h3>
                 <button  (click)="toggleEditModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -233,24 +233,22 @@
             </div>
             <!-- Modal body -->
             <div class="p-6 space-y-6">
-                <form (submit)="updateTeam()" [formGroup]="updateForm" >
-                        
-                        
+                <form (submit)="updateTeam()" [formGroup]="updateForm" >                      
                     <div class="mb-6 ">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <label for="email" class="block mb-2 text-sm font-medium dark:text-white">Name</label>
                         <input 
-                        [(ngModel)]="teamObject.name"
+                        value="{{teamObject.name}}"
                         formControlName="name"
                         name="name"
                         type="text" 
-                 placeholder="Love Emoji" 
+                 placeholder="Real Madrid" 
                  [ngClass]="{'border-red-500': (updateForm.get('name')?.touched || formSubmitted) && updateForm.get('name')?.invalid, 'border-gray-400': !updateForm.get('name')?.invalid || !formSubmitted }"
-                 class="w-full py-1.5 text-gray-700 bg-white border rounded-lg md:w-80 placeholder-gray-400/70 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none">
+                 class="w-full py-1.5 px-1.5 text-gray-700 bg-white border rounded-lg md:w-80 placeholder-gray-400/70 rtl:pr-11 rtl:pl-5 focus:outline-none">
                  <p *ngIf="updateForm.controls['name'].invalid && (formSubmitted || updateForm.controls['name'].touched)"
                  class="bottom-0 text-xs text-red-600 dark:text-red-400">This field is required!</p>
                     </div>
                     <div class="mb-6 ">
-                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Challenge Type</label>
+                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
           
                     </div>
 
@@ -259,7 +257,7 @@
                             <div for="dropzone-file"
                                 class=" relative flex flex-col items-center justify-center w-full h-64 border-2 border-blue-300  rounded-lg cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <span class="sr-only">Notifications</span>
-                                <span (click)="clearImageUpload()" class="absolute inline-flex items-center bg-white justify-center w-6 h-6 text-xs font-bold text-white border-2 border-red-500 rounded-full -top-2 -right-2 dark:border-gray-900">
+                                <span (click)="clearImageUpload()" class="absolute inline-flex items-center bg-black justify-center w-6 h-6 text-xs font-bold text-white border-2 border-red-500 rounded-full -top-2 -right-2 dark:border-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-red-400 dark:text-gray-600">
                                     <path fill-rule="evenodd" d="M5.293 4.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 01-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                   </svg>

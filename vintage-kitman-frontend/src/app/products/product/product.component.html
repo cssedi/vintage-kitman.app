@@ -30,7 +30,7 @@
                 {{kit.name}}
             </h1>
         </div>
-        <form [formGroup]="cartForm" (submit)="addToCart()">
+        <form (submit)="addToCart()" [formGroup]="cartForm" >
             <div class="mt-9">
                 <div class="flex flex-row justify-between xl:w-[50%] -mt-5">
                     <h3 class="text-xl text-white mb-4 "> Select size</h3>
@@ -78,16 +78,16 @@
 
                 <div class="flex flex-row w-[60%] mt-1">
                     <div class="flex flex-col">
-                        <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label>
+                        <label for="quantity" class="block mb-2 text-sm font-medium text-white">Choose quantity:</label>
                         <div class="relative flex items-center max-w-[8rem]">
                             <button type="button" (click)="decreaseQuantity()" class="border border-gray-300 rounded-s-lg p-3 h-11">
-                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                                 </svg>
                             </button>
                             <input type="number" formControlName="quantity" value="{{quantity}}" class="border-x-0 text-black h-11 text-center text-sm block w-full py-2.5" placeholder="7" required   >
-                            <button type="button" (click)="increaseQuantity()" class="border border-gray-300 rounded-e-lg p-3 h-11 ">
-                                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <button type="button" (click)="increaseQuantity()" class="border  rounded-e-lg p-3 h-11 ">
+                                <svg class="w-3 h-3 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
                                 </svg>
                             </button>
