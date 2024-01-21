@@ -112,27 +112,40 @@ export class ProductComponent implements OnInit {
 
     if (this.cartForm.valid) {
       var cart = JSON.parse(localStorage.getItem('cart')!) || [];
-
-      // increase quantity if cart contains the same item
-      cart.forEach((item:CartItem) => {
-        if(item.KitName == this.cartItem.KitName && item.isCustomed == this.cartItem.isCustomed && item.SizeId == this.cartItem.SizeId && item.CustomName == this.cartItem.CustomName && item.CustomNumber == this.cartItem.CustomNumber)
-        {
-          item.Quantity += this.cartItem.Quantity
-          localStorage.setItem('cart', JSON.stringify(cart));
-        }
-        else{
-          cart.push(this.cartItem);
-          localStorage.setItem('cart', JSON.stringify(cart));
+    
+      // Check if the cart already contains the item
+      var existingItemIndex = -1;
+      cart.forEach((item: CartItem, index: number) => {
+        if (
+          item.KitName == this.cartItem.KitName &&
+          item.isCustomed == this.cartItem.isCustomed &&
+          item.SizeId == this.cartItem.SizeId &&
+          item.CustomName == this.cartItem.CustomName &&
+          item.CustomNumber == this.cartItem.CustomNumber
+        ) {
+          existingItemIndex = index;
         }
       });
-
+    
+      if (existingItemIndex !== -1) {
+        // If item exists, increase its quantity
+        cart[existingItemIndex].Quantity += this.cartItem.Quantity;
+      } else {
+        // If item doesn't exist, add it to the cart
+        cart.push(this.cartItem);
+      }
+    
       // Update the cartItems count in the service
       this.cartService.updateCartItemsCount(cart.length);
-      
+    
+      // Save the updated cart to localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+    
       this.location.back();
     } else {
       console.log('invalid form');
     }
+    
 
 
 }}
