@@ -18,10 +18,9 @@ export class CustomOrderComponent implements OnInit {
   customizedToggle:boolean = false;
   quantity:number = 1;
   customOrderForm!:FormGroup
-  customOrderDetails: CustomOrderVM={
-    customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null  }
-  constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,
-              private snackBar:MatSnackBar) { }
+  displaySignInError:boolean=false
+  customOrderDetails: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null  }
+  constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,private snackBar:MatSnackBar) { }
 
   ngOnInit(): void 
   {
@@ -59,7 +58,10 @@ export class CustomOrderComponent implements OnInit {
           });
         },
         complete:()=>{this.location.back()},
-        error:(err)=>{console.log(err)}
+        error:(err)=>{
+          this.displaySignInError = true
+          console.log(this.displaySignInError)
+        }
       });
       } 
       else {
@@ -69,6 +71,10 @@ export class CustomOrderComponent implements OnInit {
 
 
   }
+  back(){
+    window.history.back();
+  }
+
 
   increaseQuantity()
   {
