@@ -1,7 +1,7 @@
-<div class="flex flex-col left-0 right-0 mx-12 max-w-screen-xl"
+<div class="flex flex-col left-0 right-0 max-w-screen-xl items-center justify-between mx-auto"
 >
     <!-- top of page -->
-    <div id="topOfPage" class="flex flex-wrap h-24 pt-8 w-full justify-end max-w-screen-xl">
+    <div id="topOfPage" class="flex flex-wrap h-24 pt-8 mr-3 w-full justify-end max-w-screen-xl">
         
         <div class="hover:cursor-pointer text-white text-base font-semibold"
         (click)="toggleDrawer()">
@@ -55,13 +55,12 @@
 
     
         </section>
-        <section class="justify-normal">
-            <div class="container overflow-x-hidden justify-start">
+        <section class="justify-center">
+            <div class="overflow-x-hidden max-w-screen-xl items-center justify-between mx-auto">
                 <div class="flex flex-wrap w-full space-x-0">
-        
                     <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray"
                     [ngClass]="{'mr-16': kitArray.length ==2}">
-                        <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
+                        <div class="group mb-5 max-w-xs bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px] max-h-[500px]"
                         *ngIf="!displaySignInError; else errorBlock">  
                             <mat-icon fontIcon="favorite_border" 
                                 matTooltipPosition="above"

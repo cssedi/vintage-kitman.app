@@ -1,4 +1,4 @@
-<div class="flex flex-row h-fit mx-12 my-10 overflow-x-hidden" >
+<div class="flex flex-row h-fit my-10 overflow-x-hidden max-w-screen-xl items-center justify-between mx-auto" >
     <div class="flex flex-col">
         <div>
             <h2 class="text-2xl text-white mb-4"> Your Items</h2>
@@ -8,7 +8,7 @@
             <div class="w-2/3"
             [ngClass]="{'w-screen': cartArray.length ==0}">
         
-                <div class="flex flex-row mt-5 justify-between"
+                <div class="flex lg:flex-row mt-5 justify-between sm:flex-col"
                 *ngFor="let cartItem of cartArray">
                 <div class="flex flex-row w-3/5 space-x-3">
                     <div class="w-1/2">
@@ -61,7 +61,7 @@
                 </div>
         
             </div>
-            <div class="flex- flex-col w-1/3 h-44 mx-8 border border-darkgrey shadow-sm p-7 " *ngIf="cartArray.length >0" >
+            <div class="flex flex-col w-1/3 h-fit mx-8 border border-darkgrey shadow-sm p-7" *ngIf="cartArray.length >0" >
                 <div class="flex flex-row justify-between">
                     <h1 class="text-2xl mt-3 text-white font-semibold">
                         Your Total:
@@ -74,15 +74,13 @@
                     </h1>
                 </div>
                 <div class="flex-col">
-                    <button class="flex flex-row space-x-2 w-full bg-canary text-black text-lg font-semibold py-2 mt-1 hover:cursor-pointer justify-center">
+                    <button routerLink="/checkout" class="flex flex-row space-x-2 w-full bg-canary text-black text-lg font-semibold py-2 mt-1 hover:cursor-pointer justify-center">
                         <p class="">Checkout</p>
-                     </button>
-                     <p class="text-grey text-sm mt-3">
+                    </button>
+                     <p class="relative text-grey text-sm mt-3">
                             *Shipping costs will be calculated at checkout
                      </p>
                 </div>
-
-                
             </div>
         </div>
     </div>

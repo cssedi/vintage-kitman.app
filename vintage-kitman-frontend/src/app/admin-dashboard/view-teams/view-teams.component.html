@@ -121,7 +121,7 @@
                 <div class="p-6 space-y-6">
                     <form  [formGroup]="createForm" (submit)="createTeam()" >
                         <div class="mb-6 ">
-                            <label for="name" class="block mb-2 text-sm font-medium dark:text-white">Name</label>
+                            <label for="name" class="block mb-2 text-sm font-medium text-white">Name</label>
                             <input  
                             formControlName="name"
                             [ngClass]="{'border-txtRed': (createForm.get('name')?.touched || formSubmitted) && createForm.get('name')?.invalid, 'border-gray-400': !createForm.get('name')?.invalid || !formSubmitted }"
