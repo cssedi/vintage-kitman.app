@@ -492,5 +492,11 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             }
         }
 
+        public async Task<User> AdminGetUserDetails(string id)
+        {
+            var user = await _appDbContext.Users.Include(u=> u.Addresses).Where(u=> u.Id == id).FirstAsync();
+
+            return user;
+        }
     }
 }

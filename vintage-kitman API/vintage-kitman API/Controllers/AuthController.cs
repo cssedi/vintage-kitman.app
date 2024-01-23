@@ -141,6 +141,20 @@ namespace vintage_kitman_API.Controllers
             return Ok(result);
         }
 
+        [Authorize(AuthenticationSchemes ="Bearer", Roles ="ADMIN")]
+        [HttpGet("AdminGetCustomerDetails/{customerId}")]
+        public async Task<IActionResult> AdminGetCustomerDetails(string customerId)
+        {
+            var user = await _authRepository.AdminGetUserDetails(customerId);
+
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(user);
+        }
+
 
 
         private string GenerateToken(User customer)

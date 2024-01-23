@@ -1,4 +1,5 @@
-﻿using vintage_kitman_API.ViewModels.AuthModels;
+﻿using vintage_kitman_API.Model;
+using vintage_kitman_API.ViewModels.AuthModels;
 
 namespace vintage_kitman_API.Data.Repositories.Authentication
 {
@@ -10,5 +11,6 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<UserManagerReponse> SeedAdmins();
         public Task<RequestPasswordResetVM> ForgetPasswordAsync(RequestPasswordResetVM model);
         public Task<ResetPasswordVM> ResetPasswordAsync(ResetPasswordVM model);
+        public Task<User> AdminGetUserDetails(string id);
     }
 }
