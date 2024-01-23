@@ -11,6 +11,6 @@ export interface ApplicationUser {
     surname: string;
     address: string;
     addresses: Address[];
-    customOrders: CustomOrderVM[];
-    wishlist: wishlistVM;
+    customOrders: CustomOrderVM[] | null;
+    wishlist: wishlistVM | null;
   }
