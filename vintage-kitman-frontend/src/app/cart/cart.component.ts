@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartItem } from '../models/orders/CartItem-vm';
 import { CartService } from '../services/cart/cart.service';
 import { OrderService } from '../services/order/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -12,11 +13,10 @@ export class CartComponent implements OnInit {
   cartArray: CartItem[] = [];
   totalCost: number = 0;
   ifIsLoading:boolean = false
+  displaySignInError:boolean = false
 
-  constructor(private cartService:CartService, private orderService:OrderService) {
 
-    
-  }
+  constructor(private cartService:CartService, private orderService:OrderService, private router:Router) {}
   ngOnInit(): void 
   {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -106,6 +106,21 @@ export class CartComponent implements OnInit {
       complete: ()=>{this.ifIsLoading=false},
       error:(err)=>{this.ifIsLoading = false}
     })
+  }
+
+  back(){
+    window.history.back();
+  }
+
+  checkSignInStatus(){
+    var token = localStorage.getItem("token")
+
+    if(!token){
+      this.displaySignInError =true
+    }
+    else{
+      this.router.navigate(['/checkout'])
+    }
   }
 
 
