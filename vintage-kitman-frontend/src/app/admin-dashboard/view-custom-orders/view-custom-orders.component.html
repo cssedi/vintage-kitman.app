@@ -30,13 +30,13 @@
 
                                     </div>
                                 </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                     <div class="flex items-center gap-x-3">
                                         <span class="font-medium text-white">Image</span>
 
                                     </div>
                                 </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                     <div class="flex items-center gap-x-3">
                                         <span class="font-medium text-white">Name(Size)</span>
 
@@ -48,16 +48,10 @@
 
                                     </div>
                                 </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                     <div class="flex items-center gap-x-3">
-                                        <span class="font-medium "></span>
-
+                                        <span class="font-medium text-white">Action</span>
                                     </div>
-                                </th>
-
-
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    
                                 </th>
                             </tr>
                         </thead>
@@ -69,29 +63,35 @@
                                     <p class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.user?.name +" "+ order.user!.surname}}</p>
                                 </td>
                                 <td class=" flex flex-col px-4 py-4 text-sm font-medium whitespace-nowrap">
-                                    <img class="w-24" src="{{order.image}}">
+                                    <img class="w-24 hover:cursor-pointer" src="{{order.image}}" (click)="viewImageFullScreen(order)">
                                     <p *ngIf="order.customName != ''" class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.customName}}</p>
                                     <p *ngIf="order.customNumber != 0" class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.customNumber}}</p>
                                 </td>
-                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <p class="text-sm font-normal">
-                                        {{order.name}}({{order.size}})
+                                        {{order.name}}<b>({{order.size}})</b>
                                     </p>
                                 </td>
-                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                    <p class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.quantity}}</p>
+                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                    <p class="text-sm font-normal">{{order.quantity}}</p>
                                 </td>
-                                <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                    <p class="text-sm font-normal text-gray-600 dark:text-gray-400"></p>
-                                </td>
-                             
-                                <!-- <td class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">to do </td> -->
-                               
                                 <td class="px-4 py-4 text-sm whitespace-nowrap">
                                     <div class="flex items-center gap-x-6">
-
+                                        <!-- Delete button -->
+                                        <a class="text-black hover:text-canary hover:underline hover:cursor-pointer" (click)="getUserDetails(order)">View Customer Details</a>
+                                        <button (click)="toggleRejectModal(order)"  class="transition-colors duration-200 focus:outline-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                            </svg>
+                                        </button>
+                                         <!--Update button -->   
+                                        <button class="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none">
+                                            <mat-icon fontIcon="check" class="h-5 w-5"></mat-icon>
+                                        </button>
                                     </div>
                                 </td>
+                             
+
                             </tr>
 
                          
@@ -104,53 +104,85 @@
     </div>
 </div>
 
+<!-- User Modals -->
+<div *ngIf="userModal" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
-    <div *ngIf="promptOpen" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <!--
-        Background backdrop, show/hide based on modal state.
-    
-        Entering: "ease-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-        Leaving: "ease-in duration-200"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity"  (click)="closeModal()"></div>
     
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <!--
-            Modal panel, show/hide based on modal state.
-    
-            Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-            Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
             <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
-                <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-                    </svg>
-                </div>
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">You need to sign in</h3>
+                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">User details</h3>
                     <div class="mt-2">
-                    <p class="text-sm text-gray-500">You need to sign in to add products to your wish list</p>
+                        <p class="text-sm">Full Name: <b>{{userObj.name + " "+ userObj.surname}}</b></p>
+                        <p class="text-sm">Email: <b>{{userObj.email}}</b></p>
+                        <p class="text-sm">Phone Number: <b>{{userObj.phoneNumber}}</b></p>
+                        <p class="text-sm">Address: <b>{{userObj.address}}</b></p>
                     </div>
                 </div>
                 </div>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button type="button" class="inline-flex w-full justify-center rounded-md bg-darkgrey px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto" routerLink="/login">Sign In</button>
-                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" >Cancel</button>
+            <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button (click)="closeModal()" type="button" class="inline-flex w-full justify-center rounded-md bg-darkgrey px-3 py-2 text-sm font-semibold text-white shadow-sm  sm:ml-3 sm:w-auto" >Close</button>
             </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<!-- Reject modal -->
+<div *ngIf="rejectModal" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" (click)="closeModal()"></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto" >
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <form (submit)="rejectOrder()" [formGroup]="customOrderForm" class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                <svg class="h-6 w-6 text-txtRed" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                <h3 class="text-base font-semibold leading-6 text-txtRed" id="modal-title">Reject Order</h3>
+                <div class="mt-2">
+                <p class="text-sm">Are you sure you want to reject this order?</p>
+                </div>
+                <div class="relative w-full h-36  mt-5 border-1 border-black">
+                    <input formControlName="message" class="w-full h-full text-grey px-2" placeholder="please enter a message for the customer">
+
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button type="submit" class="inline-flex w-full justify-center rounded-md bg-txtRed px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto">Confirm</button>
+            <button type="button" (click)="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" >Cancel</button>
+        </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+<!-- image modal -->
+<div *ngIf="fullscreenImageModal" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true" (click)="closeModal()">
+    <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" ></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full mx-auto justify-center p-4 text-center sm:items-center sm:p-0">
+        <div class="relative object-contain transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 ">
+        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div class="">
+                <div class="mt-2 mx-auto">
+                    <img src="{{customOrderObj.image}}" alt="{{customOrderObj.name}}" class="text-black aspect-ratio: auto; object-cover">
+                </div>
             </div>
         </div>
         </div>
     </div>
+    </div>
+</div>
