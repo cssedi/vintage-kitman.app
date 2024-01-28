@@ -11,6 +11,7 @@ namespace vintage_kitman_API.Model
         public string Image { get; set; }
         public string Name { get; set; }
         public string Message { get; set; }
+        public bool IsReviewed { get; set; }
         public int Quantity { get; set; }
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }

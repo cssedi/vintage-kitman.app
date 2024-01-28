@@ -9,6 +9,7 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string Message { get; set; }
+        public bool IsReviewed { get; set; }
         public string Image { get; set; }
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }
