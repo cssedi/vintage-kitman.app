@@ -166,6 +166,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 Email = registerVM.email,
                 Name = registerVM.name,
                 surname = registerVM.surname,
+                PhoneNumber = registerVM.phoneNumber,
             };
 
             var existingUsername = await _appDbContext.Users.AnyAsync(u => u.UserName == customer.UserName);
