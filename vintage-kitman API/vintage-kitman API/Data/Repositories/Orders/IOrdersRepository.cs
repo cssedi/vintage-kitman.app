@@ -13,6 +13,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         public Task<List<KitVM>> GetWishList(string userId);
         public CartTotalVM GetCartTotal(List<CartVM> model);
         public List<CustomOrderVM> GetAllCustomOrders();
-
+        public CustomOrder AcceptCustomOrder(CustomOrderVM model);
+        public CustomOrder RejectCustomOrder(CustomOrderVM model);
     }
 }

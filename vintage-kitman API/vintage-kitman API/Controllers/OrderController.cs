@@ -93,5 +93,20 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(orders);
         }
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPut("RejectOrder")]
+        public async Task<IActionResult> RejectOrder(CustomOrderVM model)
+        {
+            var order = _ordersRepository.RejectCustomOrder(model);
+
+            if(order == null)
+            {
+
+            }
+
+            return Ok(order);
+            
+        }
+
     }
 }

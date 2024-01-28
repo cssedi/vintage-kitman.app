@@ -114,10 +114,10 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         {
             var customOrders= _appDbContext.customOrders.Include(u=> u.User)
                 .Select(cu=> new CustomOrderVM 
-                {Id =cu.Id, Image=cu.Image, Quantity=cu.Quantity, CustomName =cu.CustomName,
+                {CustomOrderId = cu.CustomOrderId ,Id =cu.Id, Image=cu.Image, Quantity=cu.Quantity, CustomName =cu.CustomName,
                  CustomNumber= cu.CustomNumber, IsSourcable=false, User = cu.User,
-                Size= cu.Size, Name = cu.Name}).
-                Where(cu=> cu.IsSourcable == false).
+                Size= cu.Size, Name = cu.Name, IsReviewed = cu.IsReviewed}).
+                Where(cu=> cu.IsReviewed == false).
                 ToList();
 
             var userIds = customOrders.Select(cu => cu.Id).ToList();
@@ -140,6 +140,34 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                 return null;
             }
             return customOrders;
+        }
+
+        public CustomOrder AcceptCustomOrder(CustomOrderVM model)
+        {
+            var customOrder = _appDbContext.customOrders.Where(co=> co.CustomOrderId == model.CustomOrderId).FirstOrDefault();
+
+            customOrder.IsSourcable = true;
+            customOrder.Message = model.Message;
+            customOrder.IsReviewed = true;
+            customOrder.CustomOrderStatusId = 2;
+
+            _appDbContext.SaveChanges();
+
+            return customOrder;
+        }
+
+        public CustomOrder RejectCustomOrder(CustomOrderVM model)
+        {
+            var customOrder = _appDbContext.customOrders.Where(co=> co.CustomOrderId == model.CustomOrderId).FirstOrDefault();
+
+            customOrder.IsSourcable = false;
+            customOrder.Message = model.Message;
+            customOrder.IsReviewed = true;
+            customOrder.CustomOrderStatusId=3;
+
+            _appDbContext.SaveChanges();
+
+            return customOrder;
         }
     }
 }
