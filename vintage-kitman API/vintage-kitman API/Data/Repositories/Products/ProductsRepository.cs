@@ -32,9 +32,9 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
         public Task<KitVM> getKitByName(string name)
         {
-            var kit = _appDbContext.kits.Include(t => t.Team)
+            var kit = _appDbContext.kits.Include(t => t.Team).Include(pt=>pt.ProductType)
                 .Where(k => k.Name == name)
-                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price, productType = k.ProductType })
                 .FirstOrDefaultAsync();
 
             return kit;

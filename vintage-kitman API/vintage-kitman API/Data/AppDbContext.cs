@@ -121,9 +121,9 @@ namespace vintage_kitman_API.NewFolder
 
             modelBuilder.Entity<ProductType>()
                 .HasData(
-                new ProductType { ProductTypeId = 1, Name = "Adults New Kit" },
+                new ProductType { ProductTypeId = 1, Name = "Adults New Kit", SizeChart= "https://i.ibb.co/DCHbHXR/Player-Version-chart.png" },
                 new ProductType { ProductTypeId = 2, Name = "Childrens Kit", SizeChart= "https://i.ibb.co/pvCSb7M/Kids-size-Chart.png" },
-                new ProductType { ProductTypeId = 3, Name = "Adults Retro Kit" }
+                new ProductType { ProductTypeId = 3, Name = "Adults Retro Kit", SizeChart = "https://i.ibb.co/bg0G6g0/Classic-Shirts-Size-Chart.png" }
                 );
 
 
