@@ -1,53 +1,75 @@
 <!-- component -->
 <div class="bg-grey-lighter my-12 flex flex-col">
     <div class="container  mx-auto flex-1 flex flex-col items-center justify-center">
-        <div class="px-6 rounded shadow-md text-black md:w-5/12 xs:w-3/4">
+        <div class="px-6 rounded shadow-md text-black md:w-5/12 xs:w-3/4 m">
             <div class="left-0 right-0 mx-auto items-center">
                 <img src="/assets/images/vintagekitman-bg-clear.png" class="h-20 mx-auto" alt="">
             </div>
-            <h1 class="text-3xl text-white text-center mx-auto">
+            <h1 class="text-3xl text-white text-center mx-auto mb-4">
                 Create an Account
             </h1>
-            <form (submit)="onSignUp()" [formGroup]="registerForm" >
-                <div class="flex flex-row space-x-6">
+            <form (submit)="onSignUp()" [formGroup]="registerForm" class="" >
+                <div class="flex flex-row space-x-4 w-full">
+                    <div class="flex flex-col w-1/2">
+                        <label for="password"
+                        class="block mb-2 text-sm font-medium text-white">Name</label>
+                        <input 
+                        type="text"
+                        class="block border border-grey-light p-3 rounded mb-2"
+                        formControlName = "name"
+                        placeholder="Name"
+                         />
+                    </div>
+                    <div class="flex flex-col w-1/2">
+                        <label for="password"
+                        class="block mb-2 text-sm font-medium text-white">Surname</label>
+                       <input 
+                       type="text"
+                       class="relative block border p-3 rounded mb-2"
+                       formControlName = "surname"
+                       placeholder="Surname" />
+                    </div>
+
+                </div>
+                <div class="flex flex-row space-x-4 w-full">
+                    <div class="flex flex-col w-1/2">
+                        <label for="password"
+                        class="block mb-2 text-sm font-medium text-white">Email</label>
+                        <input 
+                        type="text"
+                        class="block border border-grey-light p-3 rounded mb-4"
+                        formControlName = "email"
+                        placeholder="Email" />
+                    </div>
+                    <div class="flex flex-col w-1/2">
+                        <label for="password"
+                        class="block mb-2 text-sm font-medium text-white">Phone Number</label>
+                        <input 
+                        type="text"
+                        class="block border border-grey-light p-3 rounded mb-4"
+                        formControlName = "phoneNumber"
+                        placeholder="0123455678" />
+                    </div>
+
+                </div>
+                <div class="flex flex-col w-full">
                     <input 
-                    type="text"
-                    class="block border border-grey-light w-full p-3 rounded mb-4"
-                    formControlName = "name"
-                    placeholder="Name"
-                     />
+                    type="password"
+                    class="block border  p-3 rounded mb-4"
+                    formControlName = "password"
+                    placeholder="Password" />
                     <input 
-                    type="text"
-                    class="block border border-grey-light w-full p-3 rounded mb-4"
-                    formControlName = "surname"
-                    placeholder="Surname" />
+                    type="password"
+                    class="block border p-3 rounded mb-4"
+                    placeholder="Confirm Password"
+                    formControlName="confirmPassword" />
+                    <div *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
+                        {{errorMessage}}
+                    </div>
+
                 </div>
 
-                <input 
-                type="text"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                formControlName = "email"
-                placeholder="Email" />
-
-            <input 
-                type="password"
-                class="block border border-grey-light w-full p-3 rounded mb-4"
-                formControlName = "password"
-                placeholder="Password" />
-
-                <div class="flex flex-col">
-                    <input 
-                        type="password"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        placeholder="Confirm Password"
-                        formControlName="confirmPassword" />
-                        <div *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
-                            {{errorMessage}}
-                        </div>
-                </div>
-
-
-                <div class="button-container">
+                <div class="button-container ">
                     <button type="submit"
                         class="w-full text-white bg-grey hover:bg-canary hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         <p *ngIf="ifIsLoading==false" 

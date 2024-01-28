@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit{
     surname: '',
     email: '',
     password: '',
+    phoneNumber: ''
   }
   errorMessage: string='Password and Confirm Password must be same'
   
@@ -31,8 +32,10 @@ export class RegisterComponent implements OnInit{
         name: ['',Validators.required],
         surname: ['',Validators.required],
         email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,}$')]],
         confirmPassword: ['', Validators.required]
+
       })
   }
 
@@ -43,6 +46,7 @@ export class RegisterComponent implements OnInit{
     this.registerModel.surname= this.registerForm.value.surname
     this.registerModel.email = this.registerForm.value.email
     this.registerModel.password = this.registerForm.value.password
+    this.registerModel.phoneNumber = this.registerForm.value.phoneNumber
 
     debugger
     if(this.registerForm.value.password == this.registerForm.value.confirmPassword)
