@@ -18,7 +18,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductComponent implements OnInit {
 
-   kit:kitVM= {name: '',frontImage: '',price: 0}
+   kit:kitVM= {name: '', frontImage: '', price: 0,productType: null}
    cartItem:CartItem={KitName: '', Quantity: 0, isCustomed: false, SizeId: '', CustomName: '', CustomNumber: 0, KitPrice: 0,KitImage: ''}
    sizeArray: Size[] = []
    customizedToggle:boolean = false;
@@ -26,6 +26,7 @@ export class ProductComponent implements OnInit {
    quantity:number = 1;
    cartForm!:FormGroup
    displaySuccess:boolean = false;
+   fullscreenImageModal:boolean=false;
 
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService, private fb:FormBuilder,
@@ -67,7 +68,7 @@ export class ProductComponent implements OnInit {
       customName: [''],
       customNumber: [0]
     });
-
+    
     if (this.customizedToggle) 
     {
       this.cartForm.get('customName')!.setValidators([Validators.required]);
@@ -77,6 +78,7 @@ export class ProductComponent implements OnInit {
     this.cartForm.get('customName')!.updateValueAndValidity();
     this.cartForm.get('customNumber')!.updateValueAndValidity();
     
+    this.updateFormValidators();
   }
 
   increaseQuantity()
@@ -92,11 +94,23 @@ export class ProductComponent implements OnInit {
   }
   toggleCustom(){
     this.customizedToggle = !this.customizedToggle
-    console.log(this.customizedToggle)
+    this.updateFormValidators() 
+ }
+
+  updateFormValidators(): void {
+    if (this.customizedToggle) {
+      this.cartForm.get('customName')!.setValidators([Validators.required]);
+      this.cartForm.get('customNumber')!.setValidators([Validators.required, Validators.min(1), Validators.max(99)]);
+    } else {
+      this.cartForm.get('customName')!.clearValidators();
+      this.cartForm.get('customNumber')!.clearValidators();
+    }
+  
+    this.cartForm.get('customName')!.updateValueAndValidity();
+    this.cartForm.get('customNumber')!.updateValueAndValidity();
   }
 
   addToCart(){
-
     this.cartItem.KitName = this.kit.name
     this.cartItem.KitImage = this.kit.frontImage
     this.cartItem.KitPrice = this.kit.price
@@ -109,7 +123,7 @@ export class ProductComponent implements OnInit {
     this.cartItem.SizeId = this.cartForm.value.size
     this.cartItem.CustomName = this.cartForm.value.customName
     this.cartItem.CustomNumber = this.cartForm.value.customNumber
-
+    debugger
     if (this.cartForm.valid) {
       var cart = JSON.parse(localStorage.getItem('cart')!) || [];
     
