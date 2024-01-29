@@ -6,6 +6,7 @@ namespace vintage_kitman_API.ViewModels.AuthModels
     {
         public string name { get; set; }
         public string surname { get; set; }
+        public string phoneNumber { get; set; }
         [EmailAddress]
         public string email { get; set; }
         public string password { get; set; }
