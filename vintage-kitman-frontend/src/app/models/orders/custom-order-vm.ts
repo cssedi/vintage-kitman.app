@@ -1,4 +1,5 @@
 import { ApplicationUser } from "../authentication/appuser";
+import { customOrderStatus } from "./custom-order-status";
 
 export interface CustomOrderVM {
     customOrderId: number;
@@ -11,5 +12,9 @@ export interface CustomOrderVM {
     customNumber: number | null;
     message: string | null;
     user: ApplicationUser|null;
+    isViewed: boolean | null;
+    customOrderStatus: customOrderStatus | null;
+
+
   }
   
