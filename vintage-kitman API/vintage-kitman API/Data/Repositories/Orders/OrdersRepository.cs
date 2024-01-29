@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using vintage_kitman_API.Model;
@@ -12,9 +13,11 @@ namespace vintage_kitman_API.Data.Repositories.Orders
     public class OrdersRepository : IOrdersRepository
     {
         private readonly AppDbContext _appDbContext;
-        public OrdersRepository(AppDbContext appDbContext)
+        private readonly UserManager<User> _userManager;
+        public OrdersRepository(AppDbContext appDbContext, UserManager<User> userManager)
         {
             _appDbContext = appDbContext;
+            _userManager = userManager;
         }
 
         [Authorize(Roles = "Customer", AuthenticationSchemes ="Bearer")]
@@ -168,6 +171,29 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             _appDbContext.SaveChanges();
 
             return customOrder;
+        }
+
+        public List<CustomOrderVM> GetUserCustomOrders(string userId)
+        {
+            var customOrders = _appDbContext.customOrders.Include(u => u.User)
+                .Select(cu => new CustomOrderVM
+                {
+                    CustomOrderId = cu.CustomOrderId,
+                    Id = cu.Id,
+                    Image = cu.Image,
+                    Quantity = cu.Quantity,
+                    CustomName = cu.CustomName,
+                    CustomNumber = cu.CustomNumber,
+                    IsSourcable = cu.IsSourcable,
+                    User = cu.User,
+                    Size = cu.Size,
+                    Name = cu.Name,
+                    IsReviewed = cu.IsReviewed,
+                    CustomOrderStatus = cu.CustomOrderStatus
+                }).
+                Where(cu => cu.Id == userId).
+                ToList();
+            return customOrders;
         }
     }
 }

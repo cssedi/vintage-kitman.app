@@ -105,8 +105,27 @@ namespace vintage_kitman_API.Controllers
             }
 
             return Ok(order);
-            
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
+        [HttpGet("GetUserCustomOrders")]
+        public async Task<IActionResult> GetUserCustomOrders()
+        {
+            //get user details
+            var httpUser = HttpContext.User;
+            var userId = httpUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
+            var orders = _ordersRepository.GetUserCustomOrders(userId);
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found for this user" });
+            }
+            return Ok(orders);
+
+        }
+
+
+
 
     }
 }

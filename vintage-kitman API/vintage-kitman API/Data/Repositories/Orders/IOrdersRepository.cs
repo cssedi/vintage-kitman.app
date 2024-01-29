@@ -15,5 +15,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         public List<CustomOrderVM> GetAllCustomOrders();
         public CustomOrder AcceptCustomOrder(CustomOrderVM model);
         public CustomOrder RejectCustomOrder(CustomOrderVM model);
+
+        public List<CustomOrderVM> GetUserCustomOrders(string userId);
     }
 }
