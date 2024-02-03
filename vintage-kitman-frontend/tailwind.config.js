@@ -9,11 +9,12 @@ module.exports = {
       canary: "#FFE520",
       grey:"#515052",
       darkgrey: "#333138",
-      txtRed:"#E26D5A"
+      txtRed:"#E26D5A",
+      green: "#AAD922"
 
     },
     screens: {
-      xs:'400px',
+      xs:'350px',
       sm: "500px",
       md: "620px",
       lg: "860px",
