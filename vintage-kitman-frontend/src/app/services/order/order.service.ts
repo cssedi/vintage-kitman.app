@@ -38,9 +38,18 @@ export class OrderService {
 
   getCartTotal(array: CartItem[]):Observable<CartTotalVM>{
     return this.http.post<CartTotalVM>(this.baseAPIURL+"GetCartTotalPrice", array)
-
   }
   getAllCustomOrders():Observable<CustomOrderVM[]>{ 
     return this.http.get<CustomOrderVM[]>(this.baseAPIURL+"GetAllCustomOrders", this.httpOptions)
+  }
+
+  rejectOrder(order:CustomOrderVM):Observable<CustomOrderVM>{
+    return this.http.put<CustomOrderVM>(this.baseAPIURL+"RejectOrder",order,this.httpOptions)
+  }
+  getUserCustomOrders():Observable<CustomOrderVM[]>{
+    return this.http.get<CustomOrderVM[]>(this.baseAPIURL+"GetUserCustomOrders", this.httpOptions)
+  }
+  confirmCustomOrder(order:CustomOrderVM):Observable<CustomOrderVM>{
+    return this.http.put<CustomOrderVM>(this.baseAPIURL+"AcceptOrder",order,this.httpOptions)
   }
 }

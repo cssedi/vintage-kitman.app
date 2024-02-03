@@ -15,7 +15,7 @@ export class ViewCustomOrdersComponent implements OnInit {
   customOrders: CustomOrderVM[] = []
   promptOpen: boolean = false;
   userObj: ApplicationUser= {id: '', userName: '', email: '', phoneNumber: '', name: '', surname: '', address: '', addresses: [], customOrders: [], wishlist:null};
-  customOrderObj: CustomOrderVM={customOrderId: 0,size: '',name: '',quantity: 0,image: '',isSourcable: null,customName: null,customNumber: null,message: null,user: null}
+  customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   //modals
   userModal:boolean = false;
   confirmModal:boolean = false;
@@ -43,32 +43,31 @@ export class ViewCustomOrdersComponent implements OnInit {
       })
   }
 
-    confirmOrder(order:CustomOrderVM){
-      this.promptOpen = true
-      // this.ordersService.confirmCustomOrder(order).subscribe(
-      //   {
-      //     next: (res:any)=>{
-      //       console.log(res)
-      //     },
-      //     error: (err:any)=>{
-      //       console.log(err)
-      //     }
-      //   }
-      // )
+    confirmOrder(){
+      this.customOrderObj.message = this.customOrderForm.value.message
+      console.log(this.customOrderObj)
+      this.ordersService.confirmCustomOrder(this.customOrderObj).subscribe(
+        {
+          next:(response)=>{
+          },
+          complete:()=>{
+            this.customOrderForm.reset()
+            this.confirmModal = false
+            this.ngOnInit()
+          },
+          error:(err)=>{}
+        })
     }
     rejectOrder(){
-      debugger
       this.customOrderObj.message = this.customOrderForm.value.message
       this.ordersService.rejectOrder(this.customOrderObj)
       .subscribe({
         next:(response)=>{
-
         },
         complete:()=>{
           this.customOrderForm.reset()
           this.rejectModal = false
           this.ngOnInit()
-          this.ordersService.getAllCustomOrders();
         },
         error:(err)=>{}
       })
@@ -102,6 +101,10 @@ export class ViewCustomOrdersComponent implements OnInit {
 
     toggleRejectModal(order:CustomOrderVM){
       this.rejectModal =! this.rejectModal
+      this.customOrderObj = order
+    }
+    openConfirmModal(order:CustomOrderVM){
+      this.confirmModal = true
       this.customOrderObj = order
     }
 
