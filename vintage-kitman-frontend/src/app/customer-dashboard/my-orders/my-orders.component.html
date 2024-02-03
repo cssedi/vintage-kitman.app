@@ -1,13 +1,73 @@
 <div class="flex flex-col my-8 left-0 right-0 items-center justify center mx-auto">
-  <mat-tab-group dynamicHeight class="w-2/3 " color="$custom-primary">
+  <mat-tab-group dynamicHeight class="w-2/3 xs:flex-col sm:flex-row" color="$custom-primary">
     <mat-tab > 
      <ng-template mat-tab-label>
-                  <span [class]="{'text-white': isError?'red':'black'}">Security</span>
+                  <span [class]="{'text-white': isError?'red':'black'}">Orders</span>
      </ng-template>
       Content 1 
      </mat-tab>
-    <mat-tab label="Second" > Content 2 </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
+    <mat-tab label="Second" >     
+        <ng-template mat-tab-label>
+          <span [class]="{'text-white': isError?'red':'black'}">Custom Orders</span>
+        </ng-template> 
+        <div class="flex flex-col max-w-screen-lg w-screen items-left mt-4">
+          <div *ngFor="let customOrder of customerOrders">
+            <div class="border-y-[1px]">
+              <div class="flex xl:flex-row xs:flex-col justify-between">
+                <div class="flex xl:flex-row xs:flex-col">
+                  <div class="flex flex-col">
+                    <h1 class="text-xl font-bold text-white mt-2 xs:items-center max-w-[200px]">
+                      {{customOrder.name}}
+                    </h1>
+                    <img src="{{customOrder.image}}" class="max-w-[200px] m-3" alt="">
+                  </div>
+                  <div class="md:mt-10">
+                    <h3 class="text-white text-lg font-semibold"> Size: {{customOrder.size}}</h3>
+                    <div *ngIf="customOrder.customName != '' || customOrder.customNumber != 0">
+                      <h3 class="text-white text-sm font-semibold"> Custom name: {{customOrder.customName}}</h3>
+                      <h3 class="text-white text-sm font-semibold"> Custom Number: {{customOrder.customNumber}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 flex-col xl:mr-20">
+                  <h1 class="text-lg font-bold"
+                  [ngClass]="{'text-txtRed': customOrder.customOrderStatus?.name == 'Not Found',
+                              'text-canary': customOrder.customOrderStatus?.name == 'Placed', }">
+                    Status: {{customOrder.customOrderStatus?.name}}
+                  </h1>
+                  <p *ngIf="customOrder.message !=null" (click)="viewMessage(customOrder)" class="text-white xl:text-center xs:text-left hover:underline hover:cursor-pointer mb-3">
+                    view message
+                  </p>
+                  <p *ngIf="customOrder.message ==null" class="text-white xl:text-center xs:text-left text-center mb-3">
+                    awaiting review
+                  </p>
+                </div>
+
+                
+
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-tab>
   </mat-tab-group>
-      
+</div>
+
+
+<div *ngIf="messageModal" class="relative z-50" aria-labelledby="modal-title" role="dialog" aria-modal="true" (click)="closeModal()">
+  <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" ></div>
+
+  <div class="fixed inset-0 z-10 w-screen max-h-96 overflow-y-auto">
+  <div class="flex min-h-full max-w-md mx-auto justify-center p-4 text-center sm:items-center sm:p-0">
+      <div class="relative object-contain transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 ">
+      <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div class="">
+              <div class="mt-2 mx-auto">
+                <h1 class="text-black"> {{customOrderObj.message}}  </h1>           
+              </div>
+          </div>
+      </div>
+      </div>
+  </div>
+  </div>
 </div>
