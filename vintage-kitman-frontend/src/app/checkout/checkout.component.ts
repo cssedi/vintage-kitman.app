@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { CartService } from '../services/cart/cart.service';
+import { OrderService } from '../services/order/order.service';
+import { CartItem } from '../models/orders/CartItem-vm';
+import { PaystackOptions } from 'angular4-paystack';
 
 @Component({
   selector: 'app-checkout',
@@ -6,5 +10,77 @@ import { Component } from '@angular/core';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
+  cartArray: CartItem[] = [];
+  totalCost: number = 0;
+  ifIsLoading:boolean = false
+  title = 'angular-paystack';
+  options: any={}
+
+  constructor(private cartService:CartService, private orderService:OrderService) {}
+  ngOnInit(): void 
+  {
+    const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.cartArray = cart;
+    this.ifIsLoading = true
+    this.setRandomPaymentRef();
+    //get cart total
+    debugger
+    this.orderService.getCartTotal(this.cartArray)
+    .subscribe
+    ({
+      next:(response)=>
+      { 
+        this.totalCost = response.total
+        this.totalCost =this.totalCost+ 130
+        
+        var cost = this.totalCost *100
+        const options: PaystackOptions =
+        {
+          amount: cost,
+          currency: "ZAR",
+          email: user.email,
+          ref: `${Math.ceil(Math.random() * 10e10)}`
+        };  
+        this.options = options;
+        console.log(this.options)
+      },
+      complete: ()=>{this.ifIsLoading=false},
+      error:(err)=>{this.ifIsLoading = false}
+    })
+
+  
+  }
+
+  public showEmbed = false;
+
+  public results = {
+    name: ''
+  };
+  tRef = '';
+  result = '';
+
+  toggleEmbed() {
+    this.showEmbed = !this.showEmbed;
+  }
+
+  paymentInit() {
+    console.log('Payment initialized');
+  }
+
+  paymentDone(ref: any) {
+    this.title = 'Payment successful';
+    console.log(this.title, ref);
+  }
+
+  paymentCancel() {
+    this.title = 'Payment failed';
+    console.log(this.title);
+  }
+
+  setRandomPaymentRef() {
+    this.tRef = `${Math.random() * 10000000000000}`;
+  }
+
 
 }

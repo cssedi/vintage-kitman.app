@@ -1,1 +1,46 @@
-<p>checkout works!</p>
+<div class="max-w-screen-md min-w-fit justify-between mx-auto items-center h-screen">
+
+    <div class="flex flex-col bg-white h-fit mt-6 rounded-md border-canary">
+        <h1 class="text-black text-center text-3xl font-bold mt-3 border-b pb-2 px-3">
+            Checkout
+        </h1>
+        <div class="relative flex flex-col">
+            <div *ngFor="let item of cartArray" class="relative my-2 mx-3 ">
+                <div class="border-b border-grey justify-between">
+                    <div class="flex flex-row">
+                        <img src="{{item.KitImage}}" class="w-28 hover:cursor-pointer max-h-28" [routerLink]="['/product', item.KitName]">
+                        <div class="flex flex-col">
+                            <h1 class="text-xl ml-3 font-semibold">
+                                {{item.KitName}}
+                            </h1>
+                            <div>
+                                <h1 class="ml-3 text-xl font-semibold">
+                                    R{{item.KitPrice}}.00
+                                </h1>
+                            </div>
+                            <div class="flex flex-col h-12 ml-3" *ngIf="item.CustomName != '' && item.CustomNumber != 0">
+                                <h6 class="text-grey">Custom Name: {{item.CustomName}}</h6>
+                                <h6 class="text-grey">Custom Number: {{item.CustomNumber}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <button
+    class="text-black bg-canary w-full h-12 mt-4 rounded-md"
+    angular4-paystack
+    [paystackOptions]="options"
+    (onClose)="paymentCancel()"
+    (paymentInit)="paymentInit()"      
+    (callback)="paymentDone($event)"
+    [class]="'btn btn-primary btn-lg'"
+  >
+    Pay Now
+  </button>
+</div>
+
+
