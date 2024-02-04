@@ -14,7 +14,7 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
-
+        public CustomOrderStatus? CustomOrderStatus { get; set; }
         public string Id { get; set; }
         //navigation
         public User User { get; set; }
