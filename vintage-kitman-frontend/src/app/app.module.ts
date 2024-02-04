@@ -37,6 +37,8 @@ import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-league
 import { ViewSportsComponent } from './admin-dashboard/view-sports/view-sports.component';
 import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
 import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
     ViewSportsComponent,
     ViewKitsComponent,
     BlogsComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,9 @@ import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
     MatBadgeModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    MatSnackBarModule   
+    MatSnackBarModule,
+    Angular4PaystackModule.forRoot('pk_test_331d735ba272b0632b8b8cc6e23edb65d55c3689')
+
   ],
   bootstrap: [AppComponent]
 })

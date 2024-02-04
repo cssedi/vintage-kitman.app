@@ -22,6 +22,7 @@ import { ViewLeaguesComponent } from './admin-dashboard/view-leagues/view-league
 import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.component';
 import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
 import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = 
 [
@@ -46,12 +47,8 @@ const routes: Routes =
   {path:'view-leagues/:name', component:ViewLeaguesComponent},
   {path:'view-teams/:name', component:ViewTeamsComponent},
   {path:'view-kits/:name', component:ViewKitsComponent},
-  {path:'blogs', component:BlogsComponent}
-
-
-
-
-
+  {path:'blogs', component:BlogsComponent},
+  {path: 'checkout', component: CheckoutComponent}
 ];
 
 @NgModule({
