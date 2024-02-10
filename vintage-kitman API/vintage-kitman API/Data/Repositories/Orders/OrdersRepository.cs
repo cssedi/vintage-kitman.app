@@ -192,7 +192,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                                         <td style='word-break: break-word; border-collapse: collapse !important; vertical-align: top;'>
 
                                             <!-- Email content starts here -->
-                                            <h1 style='margin: 20px 10px; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 26px; font-weight: 400;'>Account Registered!</h1>
+                                            <h1 style='margin: 20px 10px; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 26px; font-weight: 400;'>Custom Order Sourced!</h1>
 
                                             <table style='width:100%; border-collapse: collapse; margin: 20px 10px;' cellpadding='0' cellspacing='0'>
                                                 <tbody>
@@ -203,7 +203,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                                                         <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Your Custom Order for {customOrder.Name} has been sourced.</td>
                                                     </tr>
                                                     <tr>
-                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'> Please log into your account to find more information below</td>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'> Please log into your account to find more information and to pay for your kit</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
