@@ -4,10 +4,10 @@
     <div class="flex flex-col">
         <div>
             <h2 class="text-2xl text-white mb-4"> Your Items</h2>
-            <hr class="bg-grey w-[63%] float-left">
+            <hr class="bg-grey w-full float-left">
         </div>
         <div class=" flex flex-row">
-            <div class="w-2/3"
+            <div class="w-2/3 max-w-screen-xl"
             [ngClass]="{'w-screen': cartArray.length ==0}">
         
                 <div class="flex lg:flex-row mt-5 justify-between sm:flex-col"
@@ -27,7 +27,7 @@
                             <div class="flex flex-col">
                                 <label for="quantity" class="block mb-2 text-sm font-medium text-white"> Quantity:</label>
                                 <div class="relative flex items-center max-w-[8rem]">
-                                    <button type="button" (click)="decreaseQuantity(cartItem)" class="border border-gray-300 rounded-s-lg p-3 h-8">
+                                    <button type="button" (click)="decreaseQuantity(cartItem)" class="border rounded-s-lg p-3 h-8">
                                         <svg class="w-3 h-3 pb-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                                         </svg>
