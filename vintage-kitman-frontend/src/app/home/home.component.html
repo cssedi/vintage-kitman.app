@@ -132,31 +132,91 @@
   </button>
 </div>
 
-<div class="flex flex-row mt-12">
-    <div class="w-1/2 float-left">
+<div class="xl2:flex xl2:flex-row mt-12 xs:flex-col xs:hidden">
+    <div class=" md:w-1/2 float-left">
         <img src="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d5546c2ea916524/6489df77e165894462d71b2f/EPL_Cover.jpg?auto=webp&format=pjpg&width=3840&quality=60" 
         alt="" 
-        class="bg-cover h-fit mx-auto">
+        class="bg-cover h-full mx-auto ">
     </div>
-    <div></div>
+    <div class="md:pl-10 mx-auto">
+        <h1 class="text-3xl font-bold text-white ml-3">
+          Get the best of the Premier league
+        </h1>
+        <div class="flex flex-row mt-4 flex-wrap ">
+          <div class="group w-1/3 flex-col text-center mb-6 pt-5 pb-3 shadow cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:bg-canary" 
+          *ngFor="let team of premTeams" [routerLink]="['/products', team.TeamId]">
+              <img src="{{team.Logo}}" alt="{{team.Name}}" class="h-20 mx-auto mb-2">
+              <h1 class="text-xl text-white group-hover:underline font-semibold group-hover:text-black"> {{team.Name}}</h1>
+          </div>        
+      </div>
+    </div>
+</div>
+<!--  responsive -->
+<div class="relative flex-row mt-12 xs:flex-col xl2:hidden">
+
+  <div class="mx-auto">
+      <h1 class="text-xl font-bold text-white pl-3">
+        Get the best of the Premier league
+      </h1>
+      
+
+      <div class="flex flex-row mt-4 flex-wrap ">
+        <div class="group md:w-1/3 xs:w-1/2 flex-col text-center mb-6 pt-5 pb-3 shadow cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105 hover:bg-canary" 
+        *ngFor="let team of premTeams" [routerLink]="['/products', team.TeamId]">
+            <img src="{{team.Logo}}" alt="{{team.Name}}" class="h-14 mx-auto mb-2">
+            <h1 class="text-lg text-white group-hover:underline font-semibold group-hover:text-black"> {{team.Name}}</h1>
+        </div>  
+        <div class=" w-full float-left mx-5">
+          <img src="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d5546c2ea916524/6489df77e165894462d71b2f/EPL_Cover.jpg?auto=webp&format=pjpg&width=3840&quality=60" 
+          alt="" 
+          class="bg-cover h-full mx-auto ">
+        </div>      
+    </div>
+  </div>
 </div>
 
-<div class="flex flex-row mt-12">
+<div class="relative flex flex-col mt-12">
 
-    <div class="w-1/2">
-        <h1 class="text-3xl font-bold text-white">
+    <div class="w-full  ml-4 mb-5">
+        <h1 class="xl2:text-3xl font-bold text-white xs:text-xl">
             Get International Kits
         </h1>
     </div>
-    <div class="w-1/2 float-left">
-        <img src="https://cdn.midjourney.com/9a002b94-3ac0-4b24-a040-e4083d6cac84/0_3.webp" 
-        alt="" 
-        class="bg-cover h-[600px] mx-auto">
-    </div>
+    <section class="justify-normal max-w-screen-2xl mx-auto">
+      <div class="container overflow-x-hidden">
+          <div class="flex flex-row flex-wrap w-full mx-auto"> 
+              <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/5 lg:w-1/3 xs:w-1/2 hover:cursor-pointer" *ngFor="let kit of nationalKits">
+              <div class="group mb-5 bg-black md:w-[270px] px-2 xs:w-44 md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 md:h-[390px] xs:h-72" >  
+                      <mat-icon fontIcon="favorite_border" 
+                          matTooltipPosition="above"
+                          matTooltip="Add to wishlist"
+                          (click)="addToWishlist(kit)"
+                          class="float-right hidden top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                      </mat-icon>
+                      <img [routerLink]="['/product', kit.name]"
+                      class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
+  
+                      <h3 [routerLink]="['/product', kit.name]"
+                      matTooltipPosition="above"
+                      matTooltip="{{kit.name}}"
+                      class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
+                          {{kit.name}}
+                      </h3>
+                      <div class="pb-3 mx-auto text-center font-semibold ">
+                          <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+                      </div>
+                  </div>
+              </div>
+  
+          </div>
+      </div>
+  </section>
+    
+
 </div>
 <div class="flex flex-row">
     <div class="w-2/5 float-left flex-col">
-      <h1 class="text-4xl font-bold text-white ml-9">
+      <h1 class="text-3xl font-bold text-white ml-9">
         Get Stock On Hand
       </h1>
       <p class="text-white ml-9 font-semibold text-xl float-left">

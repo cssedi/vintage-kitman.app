@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { wishlistVM } from '../models/orders/wishlist-vm';
+import { kitVM } from '../models/categories/kit-vm';
+import { OrderService } from '../services/order/order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const numberOfSlides = 3;
 @Component({
@@ -14,8 +18,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   countdown: { days: number, hours: number, minutes: number, seconds: number } = { days: 0, hours: 0, minutes: 0, seconds: 0 };
   private unsubscribe$ = new Subject<void>();
 
+  constructor(private orderService:OrderService, private snackBar:MatSnackBar) {  }
+
   activeSlide = 0;
   autoSlideEnabled = true;
+  displaySignInError:boolean=false
 
   carouselslides = [ // Add your slides here
   {
@@ -49,6 +56,82 @@ export class HomeComponent implements OnInit, OnDestroy {
     
   },
   // Add more slides as needed
+];
+
+ premTeams = [
+  { 
+    TeamId: 1, 
+    Name: "Arsenal", 
+    Logo: "https://1000logos.net/wp-content/uploads/2016/10/Arsenal-Logo-768x480.png" 
+  },
+  { 
+    TeamId: 2, 
+    Name: "Manchester City", 
+    Logo: "https://1000logos.net/wp-content/uploads/2017/05/Manchester-City-Logo-768x480.png" 
+  },
+  { 
+    TeamId: 3, 
+    Name: "Liverpool", 
+    Logo: "https://1000logos.net/wp-content/uploads/2017/04/Logo-Liverpool-768x480.png" 
+  },
+  { 
+    TeamId: 4, 
+    Name: "Tottenham Hotspur", 
+    Logo: "https://1000logos.net/wp-content/uploads/2018/06/Tottenham_Hotspur_Logo.png" 
+  },
+  { 
+    TeamId: 5, 
+    Name: "Manchester United", 
+    Logo: "https://1000logos.net/wp-content/uploads/2017/03/Manchester-United-Logo-493x500.png" 
+  },
+  { 
+    TeamId: 6, 
+    Name: "Newcastle", 
+    Logo: "https://1000logos.net/wp-content/uploads/2021/05/Newcastle-United-logo-768x489.png" 
+  }
+];
+
+ nationalKits = [
+  { 
+    KitId: 44, 
+    ProductTypeId: 3, 
+    TeamId: 17, 
+    name: "Germany Home Jersey 1994",
+    frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1024.jpg",
+    price: 900
+  },
+  { 
+    KitId: 41, 
+    ProductTypeId: 3, 
+    TeamId: 16, 
+    name: "France Home Jersey 1998",
+    frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1059.jpg",
+    price: 900
+  },
+  { 
+    KitId: 38, 
+    ProductTypeId: 3, 
+    TeamId: 15, 
+    name: "England Home Jersey 1990",
+    frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1039.jpg",
+    price: 900
+  },
+  { 
+    KitId: 40, 
+    ProductTypeId: 1, 
+    TeamId: 16, 
+    name: "South Africa 1996 Home kit",
+    frontImage: "https://classicfootballshirts.co.uk/pub/media/catalog/product/j/j/jjw316-1_68tc5338kh6azg47.jpg",
+    price: 900
+  },
+  { 
+    KitId: 40, 
+    ProductTypeId: 1, 
+    TeamId: 16, 
+    name: "Japanese goalkeeper jersey from the 1998 World Cup",
+    frontImage: "https://i.ebayimg.com/images/g/NmcAAOSw1dJjpMTt/s-l400.jpg",
+    price: 900
+  }
 ];
 
   ngOnInit() {
@@ -109,5 +192,34 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   enableAutoSlide() {
     this.autoSlideEnabled = true;
+  }
+
+  addToWishlist(kit:any)
+  {
+    const wishlistModel:wishlistVM={KitName: '',id: null}
+    wishlistModel.KitName=kit.name
+    //
+    this.orderService.addToWishlist(wishlistModel).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete:()=>{
+        this.snackBar.open("Added to wishlist", "Close", {duration:3000})
+        this.activateRoute(kit)
+      },
+      error:(err)=>{
+        console.log(err)
+        this.displaySignInError=true
+      }
+    })
+  }
+
+  activateRoute(kit:kitVM){
+    if(this.displaySignInError == true){
+      return "/products"
+    }
+    else{
+      return ['/product', kit.name];
+    }
   }
 }
