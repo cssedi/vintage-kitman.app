@@ -19,6 +19,8 @@
                         formControlName = "name"
                         placeholder="Name"
                          />
+                         <p *ngIf="registerForm.controls['name'].invalid && (formSubmitted || registerForm.controls['name'].touched)"
+                         class="bottom-0 text-sm text-txtRed">This field is required!</p>
                     </div>
                     <div class="flex flex-col w-1/2">
                         <label for="password"
@@ -28,6 +30,8 @@
                        class="relative block border p-3 rounded mb-2"
                        formControlName = "surname"
                        placeholder="Surname" />
+                       <p *ngIf="registerForm.controls['surname'].invalid && (formSubmitted || registerForm.controls['surname'].touched)"
+                       class="bottom-0 text-sm text-txtRed">This field is required!</p>
                     </div>
 
                 </div>
@@ -40,6 +44,8 @@
                         class="block border border-grey-light p-3 rounded mb-4"
                         formControlName = "email"
                         placeholder="Email" />
+                        <p *ngIf="registerForm.controls['email'].invalid && (formSubmitted || registerForm.controls['email'].touched)"
+                        class="bottom-0 text-sm text-txtRed">This field is required!</p>
                     </div>
                     <div class="flex flex-col w-1/2">
                         <label for="password"
@@ -49,6 +55,8 @@
                         class="block border border-grey-light p-3 rounded mb-4"
                         formControlName = "phoneNumber"
                         placeholder="0123455678" />
+                        <p *ngIf="registerForm.controls['phoneNumber'].invalid && (formSubmitted || registerForm.controls['phoneNumber'].touched)"
+                        class="pb-2 text-sm text-txtRed">This field is required!</p>
                     </div>
 
                 </div>
@@ -58,12 +66,14 @@
                     class="block border  p-3 rounded mb-4"
                     formControlName = "password"
                     placeholder="Password" />
+                    <p *ngIf="registerForm.controls['password'].invalid && (formSubmitted || registerForm.controls['password'].touched)"
+                    class="bottom-0 text-sm text-txtRed">This field is required!</p>
                     <input 
                     type="password"
-                    class="block border p-3 rounded mb-4"
+                    class="block border p-3 rounded mb-2"
                     placeholder="Confirm Password"
                     formControlName="confirmPassword" />
-                    <div *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
+                    <div class="text-txtRed mb-4" *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
                         {{errorMessage}}
                     </div>
 
@@ -71,7 +81,7 @@
 
                 <div class="button-container ">
                     <button type="submit"
-                        class="w-full text-white bg-grey hover:bg-canary hover:text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        class="w-full text-white mt-3 bg-grey hover:bg-canary hover:text-black font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         <p *ngIf="ifIsLoading==false" 
                         class="text-sm text-white">Sign in</p>
                         <div *ngIf="ifIsLoading==true" class="loader mx-auto border-canary"></div>

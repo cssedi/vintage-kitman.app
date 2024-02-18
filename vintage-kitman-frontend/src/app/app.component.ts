@@ -49,7 +49,7 @@ export class AppComponent implements  OnInit, AfterViewInit {
         });
       }
     })
-
+    //create cart
     if (!localStorage.getItem('cart')) 
     {
       localStorage.setItem('cart', JSON.stringify([]));
@@ -83,23 +83,26 @@ export class AppComponent implements  OnInit, AfterViewInit {
       // Update your component property based on the admin status
       this.isAdmin = isAdmin;
       if(localStorage.getItem("isAdmin") == "true")
+      {
         this.isAdmin = true
+        //sidebar value
+        this.ordersService.getAllCustomOrders().subscribe(
+          {  
+            next: (res:any)=>{
+              this.customOrders = res as CustomOrderVM[]
+              console.log(res)
+            },
+            error: (err:any)=>{
+              console.log(err)
+            }
+          }
+          )
+      }        
       else
         this.isAdmin = false
     });
 
-    //sidebar value
-    this.ordersService.getAllCustomOrders().subscribe(
-      {  
-        next: (res:any)=>{
-          this.customOrders = res as CustomOrderVM[]
-          console.log(res)
-        },
-        error: (err:any)=>{
-          console.log(err)
-        }
-      }
-      )
+
     
   }
 

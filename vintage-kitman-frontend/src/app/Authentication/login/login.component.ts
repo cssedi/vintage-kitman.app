@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   ifIsLoading: boolean = false;
   model:LoginVM= { email: '',password: '' }
   userDetails = {name:'', surname:'', email:'', role:''}
+  formSubmitted:boolean = false
   // isAdmin:boolean = false
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   SignIn(){
+    this.formSubmitted = true
     this.ifIsLoading = true
     this.model.email = this.LoginForm.value.email;
     this.model.password = this.LoginForm.value.password;
@@ -83,6 +85,9 @@ export class LoginComponent implements OnInit {
           this.ifIsLoading = false
         }
       })
+    }
+    else{
+      this.ifIsLoading = false
     }
 
   }

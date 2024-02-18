@@ -5,7 +5,7 @@
         <img src="/assets/images/goatcollage.png" class="">
 
     </div>
-    <div class="md:w-1/2 xs:w-4/5 items-center justify-center w-full">
+    <div class="md:w-1/2 xs:w-full items-center justify-center px-5">
     
             <div class="flex flex-col">
                 <h1 class="text-4xl font-bold text-white mt-12 underline">
@@ -27,11 +27,15 @@
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </span>
-        
+                                
                                 <input type="email" formControlName="email"
-                                    class="block w-full py-3 text-gray-700 bg-white borde border-gray-400 rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    [ngClass]="{'border-txtRed': (LoginForm.get('email')?.touched || formSubmitted) && LoginForm.get('email')?.invalid, 'border-gray-400': !LoginForm.get('email')?.invalid || !formSubmitted }"
+                                    class="block w-full py-3 bg-white rounded-lg px-11 focus:outline-none focus:ring focus:ring-opacity-40"
                                     placeholder="Enter your email">
+
                             </div>
+                            <p *ngIf="LoginForm.controls['email'].invalid && (formSubmitted || LoginForm.controls['email'].touched)"
+                            class="bottom-0 text-txtRed">This field is required!</p>
                             <!-- Error Message-->
 
         
@@ -52,9 +56,12 @@
         
                                 <input type="password" formControlName="password"
                                     onpaste="return false;" ondrop="return false;" autocomplete="off" 
-                                    class="block w-full py-3 text-gray-700 bg-white borde border-gray-400 rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    [ngClass]="{'border-txtRed bg-txtRed': (LoginForm.get('password')?.touched || formSubmitted) && LoginForm.get('password')?.invalid, 'border-gray-400': !LoginForm.get('password')?.invalid || !formSubmitted }"
+                                    class="block w-full py-3 text-gray-700 bg-white borde border-gray-400 rounded-lg px-11 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     placeholder="*************">
                             </div>
+                            <p *ngIf="LoginForm.controls['password'].invalid && (formSubmitted || LoginForm.controls['password'].touched)"
+                            class="bottom-0 text-txtRed">This field is required!</p>
 
         
         

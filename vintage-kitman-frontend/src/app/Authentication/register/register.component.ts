@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit{
 
   displayError:boolean = false
   ifIsLoading:boolean = false
+  formSubmitted:boolean = false
   registerForm!:FormGroup
   registerModel:RegisterVM =
   {
@@ -41,6 +42,7 @@ export class RegisterComponent implements OnInit{
 
   onSignUp()
   {
+    this.formSubmitted = true
     this.ifIsLoading = true
     this.registerModel.name = this.registerForm.value.name
     this.registerModel.surname= this.registerForm.value.surname
