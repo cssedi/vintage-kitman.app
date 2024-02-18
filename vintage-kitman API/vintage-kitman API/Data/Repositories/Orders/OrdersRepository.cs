@@ -314,6 +314,21 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             return customOrders;
         }
 
+        public OnStockKits AddNewOnStockKit(OnStockKitVM model)
+        {
+            var newKit = new OnStockKits()
+            {
+                Name = model.Name,
+                FrontImage = model.FrontImage,
+                Quantity = model.Quantity,
+                Size = model.Size,
+                Price = model.Price,
+                ProductTypeId = model.ProductTypeId,
+            };
 
+            _appDbContext.OnStockKits.Add(newKit);
+            _appDbContext.SaveChanges();
+            return newKit;
+        }
     }
 }

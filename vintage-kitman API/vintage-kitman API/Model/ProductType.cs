@@ -5,8 +5,8 @@
         public int ProductTypeId { get; set; }
         public string Name { get; set; }
         public string? SizeChart { get; set; }
-
         //navigtaion
         public ICollection<Kit> Kits { get; set; }
+        public ICollection<OnStockKits> onStockKits { get; set; }
     }
 }

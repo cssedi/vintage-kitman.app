@@ -156,6 +156,21 @@ namespace vintage_kitman_API.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpGet("AddNewOnStockOrder")]
+        public async Task<IActionResult> AddNewOnStockOrder(OnStockKitVM model)
+        {
+ 
+            var orders = _ordersRepository.AddNewOnStockKit(model);
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found for this user" });
+            }
+            return Ok(orders);
+
+        }
+
 
 
 
