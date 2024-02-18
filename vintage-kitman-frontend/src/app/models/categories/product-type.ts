@@ -1,5 +1,5 @@
 export interface ProductType {
-    ProductTypeId: number;
-    Name: string;
-    SizeChart?: string | null;
+    productTypeId: number;
+    name: string;
+    sizeChart?: string | null;
   }
