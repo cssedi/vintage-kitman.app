@@ -2,7 +2,7 @@
 >
     <!-- top of page -->
     <div id="topOfPage" class="flex flex-wrap h-24 w-full ml-4 max-w-screen-xl">
-        <h1 class="text-2xl text-white underline">
+        <h1 class="text-3xl text-white underline mt-2">
             Your Wishlist
         </h1>
 
@@ -15,7 +15,12 @@
                     <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray"
                     [ngClass]="{'mr-16': kitArray.length ==2}">
                         <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px]">  
-
+                            <mat-icon fontIcon="favorite" 
+                            matTooltipPosition="above"
+                            matTooltip="Remove from wishlist"
+                           
+                            class="float-right top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                        </mat-icon>
                             <img [routerLink]="['/product', kit.name]"
                             class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
         
@@ -28,6 +33,12 @@
                             <div class="pb-3 mx-auto text-center font-semibold ">
                                 <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
                             </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-white text-2xl mt-5 h-44" *ngIf="kitArray.length ==0">
+                        Your Wishlist is Empty!
+                        <div>
+                            <a routerLink="/sport-teams/Football" class="text-base underline hover:text-canary">Continue shopping</a>
                         </div>
                     </div>
         
