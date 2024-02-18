@@ -73,6 +73,25 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
             return model;
         }
+        public async Task<WishlistVM> RemoveFromWishlist(WishlistVM model)
+        {
+            var kitId = await _appDbContext.kits.Where(k => k.Name == model.KitName)
+                        .Select(k => k.KitId).FirstOrDefaultAsync();
+
+            var userId = await _appDbContext.Users.Where(u => u.Id == model.Id)
+                        .Select(u => u.Id).FirstOrDefaultAsync();
+
+            UserWishlist userWishlist = new UserWishlist()
+            {
+                KitId = kitId,
+                Id = userId
+            };
+
+            _appDbContext.UserWishlists.Remove(userWishlist);
+            await _appDbContext.SaveChangesAsync();
+
+            return model;
+        }
 
         public Task<List<KitVM>> GetWishList(string userId)
         {

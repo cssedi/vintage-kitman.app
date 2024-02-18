@@ -162,7 +162,7 @@ namespace vintage_kitman_API.Controllers
             // Create a claims 
             var claims = new[]
             {
-                    new Claim(ClaimTypes.Role, "Challenger"),
+                    new Claim(ClaimTypes.Role, "CUSTOMER"),
                     new Claim(ClaimTypes.Email, customer.Email),
                     new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
                     new Claim(ClaimTypes.Name, customer.Name),

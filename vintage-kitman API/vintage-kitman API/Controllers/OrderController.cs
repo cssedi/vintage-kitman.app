@@ -55,6 +55,24 @@ namespace vintage_kitman_API.Controllers
             return Ok(wishlist);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
+        [HttpDelete("RemoveFromWishlist")]
+        public async Task<IActionResult> RemoveFromWishlist(WishlistVM model)
+        {
+            //get user details
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
+            model.Id = userId;
+            var wishlist = await _ordersRepository.RemoveFromWishlist(model);
+
+            if (wishlist == null)
+            {
+                return NotFound(new { message = "Wishlist not created" });
+            }
+
+            return Ok(wishlist);
+        }
+
         [Authorize(AuthenticationSchemes ="Bearer", Roles = "CUSTOMER")]
         [HttpGet("GetWishList")]
         public async Task<IActionResult> GetWishList()
