@@ -52,4 +52,8 @@ export class OrderService {
   confirmCustomOrder(order:CustomOrderVM):Observable<CustomOrderVM>{
     return this.http.put<CustomOrderVM>(this.baseAPIURL+"AcceptOrder",order,this.httpOptions)
   }
+
+  getOnStockKits():Observable<kitVM[]>{ 
+    return this.http.get<kitVM[]>(this.baseAPIURL+"GetAllOnStockKits", this.httpOptions)
+  }
 }
