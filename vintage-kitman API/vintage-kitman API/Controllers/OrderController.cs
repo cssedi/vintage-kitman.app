@@ -171,6 +171,23 @@ namespace vintage_kitman_API.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpGet("GetAllOnStockKits")]
+        public async Task<IActionResult> GetAllOnStockKits()
+        {
+
+            var kits = _ordersRepository.GetOnStockKits();
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No On stock kits found" });
+            }
+            return Ok(kits);
+
+        }
+
+
+
 
 
 
