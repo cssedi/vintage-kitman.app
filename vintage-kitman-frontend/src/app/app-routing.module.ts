@@ -23,6 +23,7 @@ import { ViewTeamsComponent } from './admin-dashboard/view-teams/view-teams.comp
 import { ViewKitsComponent } from './admin-dashboard/view-kits/view-kits.component';
 import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-kits.component';
 
 const routes: Routes = 
 [
@@ -48,7 +49,8 @@ const routes: Routes =
   {path:'view-teams/:name', component:ViewTeamsComponent},
   {path:'view-kits/:name', component:ViewKitsComponent},
   {path:'blogs', component:BlogsComponent},
-  {path: 'checkout', component: CheckoutComponent}
+  {path: 'checkout', component: CheckoutComponent},
+  {path: 'view-on-stock-kits', component: OnStockKitsComponent},
 ];
 
 @NgModule({
