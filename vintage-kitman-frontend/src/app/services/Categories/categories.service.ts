@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeaguesVM } from 'src/app/models/categories/leagues-vm';
+import { ProductType } from 'src/app/models/categories/product-type';
 import { Size } from 'src/app/models/categories/size';
 import { SportsVM } from 'src/app/models/categories/sports-vm';
 import { TeamsVM } from 'src/app/models/categories/teams-vm';
@@ -71,5 +72,9 @@ export class CategoriesService {
   }
   deleteSport(name:string){
     return this.http.delete(this.baseAPIURL2+"DeleteSport/"+name, this.httpOptions)
+  }
+
+  getAllProductTypes():Observable<ProductType[]>{
+    return this.http.get<ProductType[]>(this.baseAPIURL2+"GetAllProductTypes", this.httpOptions)
   }
 }

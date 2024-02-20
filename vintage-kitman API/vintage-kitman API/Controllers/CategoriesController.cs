@@ -167,5 +167,18 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(sport);
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpGet("GetAllProductTypes")]
+        public async Task<IActionResult> GetAllProductTypes()
+        {
+            var productTypes = await _categoriesRepository.GetProductTypes();
+
+            if (productTypes.Count == 0)
+            {
+                return NotFound(new { Message = "No product Types found" });
+            }
+            return Ok(productTypes);
+        }
     }
 }

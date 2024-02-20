@@ -24,6 +24,7 @@ namespace vintage_kitman_API.Data.Repositories.Categories
         public Task<Team> DeleteTeam(string name);
         public Task<League> DeleteLeague(string name);
         public Task<Sport> DeleteSport(string name);
+        public Task<List<ProductType>> GetProductTypes();
 
 
     }

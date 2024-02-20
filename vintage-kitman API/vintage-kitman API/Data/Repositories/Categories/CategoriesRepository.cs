@@ -216,5 +216,16 @@ namespace vintage_kitman_API.Data.Repositories.Categories
 
             return Task.FromResult(sport);
         }
+
+        public async Task<List<ProductType>> GetProductTypes()
+        {
+            var productTypes = await _appDbContext.productTypes.ToListAsync();
+
+            if (!productTypes.Any())
+            {
+                throw new NotFoundException("No product Types found");
+            }
+            return productTypes;
+        }
     }
 }

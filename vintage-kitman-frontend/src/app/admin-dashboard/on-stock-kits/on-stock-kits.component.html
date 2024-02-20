@@ -1,38 +1,174 @@
-<div class="flex flex-row">
-    <section class="justify-normal">
-        <div class="container overflow-x-hidden justify-start">
-            <div class="flex flex-wrap w-full space-x-0">   
-    
-                <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray"
-                [ngClass]="{'mr-16': kitArray.length ==2}">
-                    <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px]">  
-                        <mat-icon fontIcon="favorite" 
-                        matTooltipPosition="above"
-                        matTooltip="Remove from wishlist"
-                        class="float-right top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
-                    </mat-icon>
-                        <img [routerLink]="['/product', kit.name]"
-                        class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
-    
-                        <h3 [routerLink]="['/product', kit.name]"
-                        matTooltipPosition="above"
-                        matTooltip="{{kit.name}}"
-                        class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
-                            {{kit.name}}
-                        </h3>
-                        <div class="pb-3 mx-auto text-center font-semibold ">
-                            <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+<div class=" h-screen overflow-x-hidden mt-8 ml-3"
+[ngClass]="{ 'bg-black opacity-60': showCreateModal ||deleteModal||updateModal}">
+    <p class="text-white font-semibold text-3xl ">On Stock Kits</p>
+    <div class="flex flex-col">
+        <button class=" mt-6 hover:bg-canary w-fit px-4 bg-grey font-semibold rounded-sm">
+            View purchased kits
+        </button>
+        <button (click)="toggleCreateModal()" class=" mt-6 hover:bg-canary w-fit px-4 bg-grey font-semibold rounded-sm">
+            Add kit
+        </button>
+    </div>
+
+
+    <div class="flex flex-row">
+        <section class="justify-normal">
+            <div class="container overflow-x-hidden justify-start">
+                <div class="flex flex-wrap w-full space-x-0">   
+        
+                    <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray"
+                    [ngClass]="{'mr-16': kitArray.length ==2}">
+                        <div class="group mb-5 max-w-sm bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 h-[390px]">  
+                            <mat-icon fontIcon="favorite" 
+                            matTooltipPosition="above"
+                            matTooltip="Remove from wishlist"
+                            class="float-right top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                        </mat-icon>
+                            <img [routerLink]="['/product', kit.name]"
+                            class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
+        
+                            <h3 [routerLink]="['/product', kit.name]"
+                            matTooltipPosition="above"
+                            matTooltip="{{kit.name}}"
+                            class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
+                                {{kit.name}}
+                            </h3>
+                            <div class="pb-3 mx-auto text-center font-semibold ">
+                                <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
+                            </div>
                         </div>
-                    </div>
+                    </div>  
                 </div>
-                <div class="text-center text-white text-2xl mt-5 h-44" *ngIf="kitArray.length ==0">
-                    Your Wishlist is Empty!
-                    <div>
-                        <a routerLink="/sport-teams/Football" class="text-base underline hover:text-canary">Continue shopping</a>
-                    </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- create team modal -->
+<div class="fixed top-0 left-0 right-0 z-50  inset-0 flex items-center justify-center mb-auto" *ngIf="showCreateModal">
+    <div class="fixed inset-0 opacity-75 transition-opacity"
+        [ngClass]="{ 'opacity-100': showCreateModal, 'opacity-0': !showCreateModal }"></div>
+    <div class="bg-white rounded-lg animate-jump-in"
+        [ngClass]="{ 'scale-100': showCreateModal, 'scale-95': !showCreateModal }">
+
+        <div class="relative w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-5 border-b rounded-t">
+                    <h3 class="text-xl ">
+                       Add Kit
+                    </h3>
+                    <button (click)="toggleCreateModal()" type="button" class="bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:text-white" data-modal-hide="small-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
-    
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <form  [formGroup]="createForm" (submit)="createKit()" >
+                        <div class="mb-3 w-full">
+                            <label for="name" class="block mb-2 text-sm font-medium text-black">Name</label>
+                            <input  
+                            formControlName="name"
+                            [ngClass]="{'border-txtRed': (createForm.get('name')?.touched || formSubmitted) && createForm.get('name')?.invalid, 'border-gray-400': !createForm.get('name')?.invalid || !formSubmitted }"
+                            type="text" 
+                     placeholder="Enter kit name " 
+                     class="w-full py-3 text-gray-700 bg-white border rounded-lg placeholder-gray-400/70 rtl:pr-11 rtl:pl-5">
+                     <p *ngIf="createForm.controls['name'].invalid && (formSubmitted || createForm.controls['name'].touched)"
+                     class="bottom-0 text-xs text-txtRed">This field is required!</p>
+                        </div>
+                        <div class="mb-3 flex flex-row">
+                            <div class="w-1/2 mr-2">
+                                <label for="price" class="block mb-2 text-sm font-medium text-black">Price</label>
+                                <input  
+                                formControlName="price"
+                                [ngClass]="{'border-txtRed': (createForm.get('price')?.touched || formSubmitted) && createForm.get('price')?.invalid, 'border-gray-400': !createForm.get('price')?.invalid || !formSubmitted }"
+                                type="number" 
+                                placeholder="Enter kit price"
+                                class="w-full py-3 text-gray-700 bg-white border rounded-lg placeholder-gray-400/70 rtl:pr-11 rtl:pl-5">
+                                <p *ngIf="createForm.controls['price'].invalid && (formSubmitted || createForm.controls['price'].touched)"
+                                class="bottom-0 text-xs text-txtRed">This field is required!</p>
+                            </div>
+                            <div class="w-1/2 mr-2">
+                            <label for="name" class="block mb-2 text-sm font-medium text-black">Quantity</label>
+                            <input  
+                            formControlName="quantity"
+                            [ngClass]="{'border-txtRed': (createForm.get('quantity')?.touched || formSubmitted) && createForm.get('quantity')?.invalid, 'border-gray-400': !createForm.get('quantity')?.invalid || !formSubmitted }"
+                            type="number" 
+                            placeholder="Enter kit name" 
+                            class="w-full py-3 bg-white border rounded-lg rtl:pr-11 rtl:pl-5">
+                            <p *ngIf="createForm.controls['quantity'].invalid && (formSubmitted || createForm.controls['quantity'].touched)"
+                            class="bottom-0 text-xs text-txtRed">This field is required!</p>
+                            </div>
+                        </div>
+                        <div class="mb-3 ">
+                            <label for="name" class="block mb-2 text-sm font-medium text-black">Size</label>
+                            <input  
+                            formControlName="size"
+                            [ngClass]="{'border-txtRed': (createForm.get('size')?.touched || formSubmitted) && createForm.get('size')?.invalid, 'border-gray-400': !createForm.get('size')?.invalid || !formSubmitted }"
+                            type="text" 
+                            placeholder="Enter a size" 
+                     class="w-full py-3 bg-white border rounded-lg placeholder-gray-400/70 rtl:pr-11 rtl:pl-5">
+                     <p *ngIf="createForm.controls['size'].invalid && (formSubmitted || createForm.controls['size'].touched)"
+                     class="bottom-0 text-xs text-txtRed">This field is required!</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ProductType</label>
+                        <select id="category" formControlName="productTypeId"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 "
+                            [ngClass]="{'border-txtRed': createForm.get('productTypeId')?.invalid && formSubmitted, 'border-gray-400': !createForm.get('productTypeId')?.invalid || !formSubmitted }"
+                            class="block w-full py-3 text-gray-700 bg-white borde border-gray-400 rounded-lg px-11"
+                            id="brand"
+                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                            <option *ngFor="let productType of productTypes" value="{{productType.productTypeId}}">
+                                {{productType.name}}</option>
+                        </select>
+                        </div>
+                        <div class="flex items-center justify-center w-full  " >
+                            <div class="c w-full" *ngIf="base64Image">
+                                <div for="dropzone-file"
+                                    class=" relative flex flex-col items-center justify-center w-full h-64 border-2 rounded-lg cursor-pointer">
+                                    <span class="sr-only">Notifications</span>
+                                    <span (click)="clearImageUpload()" class="absolute inline-flex items-center bg-white justify-center w-6 h-6 text-xs font-bold border-2 rounded-full -top-2 -right-2 ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                        <path fill-rule="evenodd" d="M5.293 4.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 01-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                      </svg>
+                                    </span>
+                                    <img style="height: 100px;" [src]="base64Image" *ngIf="base64Image" alt="Uploaded Image">
+                                </div>                   
+                            </div>
+            
+                            <!-- Upload image section -->
+                            <label for="dropzone-file" *ngIf="!base64Image" (drop)="onImageDrop($event)"  (dragover)="onDragOver($event)"
+                                class="flex flex-col items-center justify-center w-full h-36 border-2 border-dashed rounded-lg cursor-pointer">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg aria-hidden="true" class="w-10 h-10 mb-3" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                        </path>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                                            upload</span> or <span class="text-gray-300">drag and drop in progress</span></p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" class="hidden" (change)="handleFileInput($event)" />
+                            </label>
+                        </div> 
+                        <!-- Modal footer -->
+                        <div class="flex items-center mt-4 space-x-2 ">
+                            <button type="submit" class="bg-grey text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary border-black border-1">Create</button>
+                            <button (click)="toggleCreateModal()" class=" bg-grey text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-black text-sm font-medium px-5 py-2.5 focus:z-10">Cancel</button>
+                        </div>
+            
+                    </form>
+                </div>
+
             </div>
         </div>
-    </section>
+</div>
 </div>
