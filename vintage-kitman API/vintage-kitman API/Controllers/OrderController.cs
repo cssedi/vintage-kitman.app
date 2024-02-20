@@ -175,7 +175,6 @@ namespace vintage_kitman_API.Controllers
         [HttpGet("GetAllOnStockKits")]
         public async Task<IActionResult> GetAllOnStockKits()
         {
-
             var kits = _ordersRepository.GetOnStockKits();
 
             if (kits == null)
@@ -183,8 +182,22 @@ namespace vintage_kitman_API.Controllers
                 return NotFound(new { message = "No On stock kits found" });
             }
             return Ok(kits);
-
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPost("AddOnStockOrder")]
+        public async Task<IActionResult> AddOnStockOrder(OnStockKitVM model)
+        {
+            var kits = _ordersRepository.AddNewOnStockKit(model) ;
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No On stock kits found" });
+            }
+            return Ok(kits);
+        }
+
+
 
 
 

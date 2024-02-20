@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductType } from 'src/app/models/categories/product-type';
 import { OnStockKitVM } from 'src/app/models/orders/OnStockKit-vm';
 import { CategoriesService } from 'src/app/services/Categories/categories.service';
@@ -11,9 +12,11 @@ import { OrderService } from 'src/app/services/order/order.service';
   styleUrls: ['./on-stock-kits.component.scss']
 })
 export class OnStockKitsComponent implements OnInit {
-
+  //arrays
   kitArray:OnStockKitVM[] = [];
   productTypes:ProductType[]=[]
+  //objects
+  onstockKitDetails:OnStockKitVM={name: '',frontImage: '',price: 0,size: '',quantity: 0,status: '',productTypeId: 0}
   //forms
   createForm!: FormGroup;
   formSubmitted: boolean = false;
@@ -25,7 +28,7 @@ export class OnStockKitsComponent implements OnInit {
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
 
-  constructor(private orderService: OrderService, private fb:FormBuilder, private categoriesService: CategoriesService) {}
+  constructor(private orderService: OrderService, private fb:FormBuilder, private categoriesService: CategoriesService, private snackBar:MatSnackBar) {}
   ngOnInit(): void {
     this.orderService.getOnStockKits().subscribe({
       next: (response) => {
@@ -63,8 +66,24 @@ export class OnStockKitsComponent implements OnInit {
 
   createKit(){
     this.formSubmitted = true;
-    this.showCreateModal = false;
-    this.formSubmitted = false;
+    this.onstockKitDetails = this.createForm.value
+    this.onstockKitDetails.frontImage = this.base64Image!
+    console.log(this.onstockKitDetails)
+
+    this.orderService.addOnstockKit(this.onstockKitDetails)
+    .subscribe({
+      next:(response)=>{
+
+      },
+      complete:()=>{
+        this.snackBar.open("Kit created successfully", "Close", {duration:3000})
+      },
+      error:(error)=>{
+        window.alert("Error has occured, please contact support")
+      }
+    })
+
+    
   }
   toggleCreateModal(){
     this.showCreateModal=!this.showCreateModal
