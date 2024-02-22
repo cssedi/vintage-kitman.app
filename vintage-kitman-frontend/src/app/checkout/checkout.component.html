@@ -1,7 +1,7 @@
-<div class="max-w-screen-md min-w-fit justify-between mx-auto items-center h-screen">
+<div class="max-w-screen-md min-w-fit justify-between mx-auto items-center h-screen px-12">
 
-    <div class="flex flex-col bg-white h-fit mt-6 rounded-md border-canary">
-        <h1 class="text-black text-center text-3xl font-bold mt-3 border-b pb-2 px-3">
+    <div class="flex flex-col h-fit mt-6 rounded-md border-canary text-white">
+        <h1 class=" text-center text-3xl font-bold mt-3 border-b pb-2 px-3">
             Checkout
         </h1>
         <div class="relative flex flex-col">
@@ -15,7 +15,7 @@
                             </h1>
                             <div>
                                 <h1 class="ml-3 text-xl font-semibold">
-                                    R{{item.KitPrice}}.00
+                                    R{{item.KitPrice * item.Quantity}}.00
                                 </h1>
                             </div>
                             <div class="flex flex-col h-12 ml-3" *ngIf="item.CustomName != '' && item.CustomNumber != 0">
@@ -28,6 +28,42 @@
 
             </div>
         </div>
+        <!-- delivery address -->
+        <div class="flex flex-col border-b border-grey pb-4">
+            <h1 class="text-xl font-semibold mt-3 px-3">
+                Delivery Address
+            </h1>
+            <div class="flex flex-col px-3">
+                <h1 class="text-xl font-semibold">
+                    <!-- {{deliveryAddress}} -->
+                </h1>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex flex-row justify-between px-3">
+                <h1 class="text-xl font-semibold">
+                    Subtotal
+                </h1>
+                <h1 class="text-xl font-semibold">
+                    R{{subTotal}}.00
+                </h1>
+            </div>
+            <div class="flex flex-row justify-between px-3">
+                <h1 class="text-xl font-semibold">
+                    Local Shipping
+                </h1>
+                <h1 class="text-xl font-semibold">
+                    R{{shipping}}.00
+                </h1>
+            </div>
+            <div class="flex flex-row justify-between px-3">
+                <h1 class="text-xl font-semibold">
+                    Total
+                </h1>
+                <h1 class="text-xl font-semibold">
+                    R{{totalCost}}.00
+                </h1>
+            </div>
     </div>
 
     <button

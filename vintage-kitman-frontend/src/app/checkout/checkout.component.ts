@@ -15,6 +15,8 @@ export class CheckoutComponent {
   ifIsLoading:boolean = false
   title = 'angular-paystack';
   options: any={}
+  shipping = 130
+  subTotal = 0
 
   constructor(private cartService:CartService, private orderService:OrderService) {}
   ngOnInit(): void 
@@ -25,14 +27,13 @@ export class CheckoutComponent {
     this.ifIsLoading = true
     this.setRandomPaymentRef();
     //get cart total
-    debugger
     this.orderService.getCartTotal(this.cartArray)
     .subscribe
     ({
       next:(response)=>
       { 
-        this.totalCost = response.total
-        this.totalCost =this.totalCost+ 130
+        this.subTotal = response.total
+        this.totalCost =this.subTotal+ this.shipping
         
         var cost = this.totalCost *100
         const options: PaystackOptions =
