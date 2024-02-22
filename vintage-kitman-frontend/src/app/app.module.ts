@@ -40,6 +40,7 @@ import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-kits.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-k
     BlogsComponent,
     CheckoutComponent,
     OnStockKitsComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

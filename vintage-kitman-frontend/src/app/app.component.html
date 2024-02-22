@@ -46,7 +46,7 @@
                 <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="z-10 absolute left-24 bg-darkgrey divide-y divide-gray-100 rounded-lg shadow w-44 ">
                   <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
                     <li *ngFor="let league of sport.leagues">
-                      <a [routerLink]="['/teams', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{league.name}}</a>
+                      <a [routerLink]="['/teams', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 dark:hover:text-white">{{league.name}}</a>
                     </li>
                   </ul>
                 </div>
@@ -61,7 +61,7 @@
 
         </li>
         <li>
-          <a routerLink="About-Us" class="block py-2 mt-2 text-white px-3 rounded hover:underline md:border-0 md:hover:text-blue-700 md:p-0">About Us</a>
+          <a routerLink="/about-us" class="block py-2 mt-2 text-white px-3 rounded hover:underline md:border-0 md:hover:text-blue-700 md:p-0">About Us</a>
         </li>
         <li>
           <a routerLink="cart" class="block py-2 px-3 mt-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
@@ -260,11 +260,11 @@
              <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
           </a>
        </li>
-       <li routerLink="/blogs" >
-        <a  class="flex items-center p-2 rounded-lg group">
+       <li routerLink="/view-on-stock-kits" >
+        <button  class="flex items-center p-2 rounded-lg group">
             <mat-icon fontIcon="local_offer" class="w-5 h-5"></mat-icon>
            <span class="flex-1 ms-3 whitespace-nowrap">On Stock Kits</span>
-        </a>
+        </button>
      </li>
         <li routerLink="/blogs" >
           <a  class="flex items-center p-2 rounded-lg group">
