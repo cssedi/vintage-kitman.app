@@ -28,6 +28,7 @@ namespace vintage_kitman_API.NewFolder
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<UserWishlist> UserWishlists { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<OnStockKits> OnStockKits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

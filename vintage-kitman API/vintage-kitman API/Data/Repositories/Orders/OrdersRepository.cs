@@ -354,5 +354,26 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             return onStockKits;
 
         }
+
+        public List<OnStockKitVM> CustomerViewOnStockKits()
+        {
+            var kits = _appDbContext.OnStockKits.Where(k=> k.Status == "Available" && k.Quantity != 0)
+                        .Select(k=> new OnStockKitVM
+                        {
+                            FrontImage = k.FrontImage,
+                            Price = k.Price,
+                            Size = k.Size,
+                            Quantity = k.Quantity,
+                            ProductTypeId = k.ProductTypeId,
+                            Status = k.Status,
+                            Name = k.Name,
+                        }).ToList();
+
+            if(kits.Count == 0)
+            {
+                return null;
+            }
+            return kits;
+        }
     }
 }

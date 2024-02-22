@@ -197,6 +197,19 @@ namespace vintage_kitman_API.Controllers
             return Ok(kits);
         }
 
+        [HttpGet("GetHomePageOnStockKits")]
+        public async Task<IActionResult> GetHomePageOnStockKits()
+        {
+            var kits = _ordersRepository.CustomerViewOnStockKits();
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No On stock kits found" });
+            }
+            return Ok(kits);
+        }
+
+
 
 
 

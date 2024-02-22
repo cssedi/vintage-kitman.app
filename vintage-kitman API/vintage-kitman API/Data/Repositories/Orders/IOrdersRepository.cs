@@ -21,6 +21,8 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         public OnStockKits AddNewOnStockKit(OnStockKitVM model);
         public List<OnStockKitVM> GetOnStockKits();
 
+        public List<OnStockKitVM> CustomerViewOnStockKits();
+
 
     }
 }
