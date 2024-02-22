@@ -46,8 +46,9 @@ export class ProductComponent implements OnInit {
           this.kit.frontImage = response.frontImage
           this.kit.name = response.name
           this.kit.price = response.price
-
+          this.kit.productType = response.productType
           console.log(this.kit)
+
 
         },
         complete:()=>{
@@ -162,4 +163,15 @@ export class ProductComponent implements OnInit {
     
 
 
-}}
+}
+
+viewSizeChart(){
+  this.fullscreenImageModal = true
+}
+
+closeSizeChart(){
+  this.fullscreenImageModal = false
+
+}
+
+}

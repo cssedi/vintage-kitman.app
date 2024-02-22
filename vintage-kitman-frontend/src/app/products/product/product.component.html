@@ -1,32 +1,11 @@
-<div *ngIf="displaySuccess"
-  class="bg-green-50 border-b text-sm p-4 flex justify-between"
->
-  <div>
-    <div class="flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20"fill="currentColor">
-        <path fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-          clip-rule="evenodd"/>
-      </svg>
-      <p>
-        <span class="font-bold">Info:</span>
-        This is an Success alert
-      </p>
-    </div>
-  </div>
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg"class="h-6 w-6"fill="none"viewBox="0 0 24 24"stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round"stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-    </svg>
-  </div>
-</div>
+
 <div class="flex lg:flex-row my-8 mx-28 h-[620px] space-x-5 xs:flex-col">
     <div class="w-2/5 flex-col">
         <img src="{{kit.frontImage}}" class="w-[400px] h-full max-h-[500px]">
     </div>
     <div class="w-3/5 -mt-6">
-        <div class="flex flex-col left-5   ">
-            <h1 class="text-2xl font-bold   text-white mb-1">
+        <div class="flex flex-col left-5">
+            <h1 class="text-2xl font-bold text-white mt-5">
                 {{kit.name}}
             </h1>
         </div>
@@ -34,7 +13,6 @@
             <div class="mt-9">
                 <div class="flex flex-row justify-between xl:w-[50%] -mt-5">
                     <h3 class="text-xl text-white mb-4 "> Select size</h3>
-                    <h6 class="text-sm text-grey pt-2 hover:cursor-pointer hover:text-canary hover:underline"> Size guide</h6>
                 </div>
                 <div>
                   <mat-button-toggle-group 
@@ -47,6 +25,7 @@
                       <mat-button-toggle class="w-16" value="XXL">XXL</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
+                <h6 (click)="viewSizeChart()" class="text-sm text-grey pt-2 hover:cursor-pointer hover:text-canary hover:underline"> Size guide</h6>
                 <div class="mt-5 flex flex-row space-x-5">
                     <span class="text-sm font-medium text-white">Customize Kit?</span>
                     <label class="relative inline-flex items-center mb-5 cursor-pointer">
@@ -117,43 +96,41 @@
     </div>
 </div>
 
-<div
-  class="fixed bg-green-50 border-b text-sm p-4 flex justify-between"
->
-  <div>
-    <div class="flex items-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4 mr-2"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-          clip-rule="evenodd"
-        />
-      </svg>
-      <p>
-        <span class="font-bold">Info:</span>
-        This is an Success alert
-      </p>
-    </div>
-  </div>
-  <div>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
-  </div>
+<!-- image modal -->
+<div class="absolute z-50 inset-0 flex items-center justify-center mb-auto px-12 md:mt-24" *ngIf="fullscreenImageModal">
+  <div (click)="closeSizeChart()" class="fixed inset-0 bg-black opacity-75 transition-opacity"></div>
+  <div class="bg-white rounded-lg animate-jump-in">
+
+      <div class="relative w-full max-w-screen-md">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow">
+              <!-- Modal header -->
+              <div class="flex items-center justify-between p-5 border-b rounded-t">
+                  <button (click)="closeSizeChart()" class="bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="small-modal">
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+              </div>
+              <!-- Modal body -->
+              <div>
+              <div class="inset-0 z-10 overflow-y-auto">
+                <div class="justify-center text-center items-center sm:p-0">
+                    <div class="relative w-full transform overflow-hidden rounded-lg bg-white text-left shadow-xl">
+                    <div class="bg-white">
+                            <div class="">
+                              <img src="{{kit.productType?.sizeChart}}" alt="{{kit.productType?.name}} size chart" class="text-black object-cover">
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+
+          </div>
+      </div>
 </div>
+</div>
+
+
