@@ -60,6 +60,8 @@ export class OrderService {
 
   addOnstockKit(model: OnStockKitVM):Observable<OnStockKitVM>{
     return this.http.post<OnStockKitVM>(this.baseAPIURL+"AddOnStockOrder",model, this.httpOptions)
-
+  }
+  homePageOnStockKits():Observable<OnStockKitVM[]>{
+    return this.http.get<OnStockKitVM[]>(this.baseAPIURL+"GetHomePageOnStockKits", this.httpOptions)
   }
 }

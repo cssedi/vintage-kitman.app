@@ -5,6 +5,7 @@ import { wishlistVM } from '../models/orders/wishlist-vm';
 import { kitVM } from '../models/categories/kit-vm';
 import { OrderService } from '../services/order/order.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { OnStockKitVM } from '../models/orders/OnStockKit-vm';
 
 const numberOfSlides = 3;
 @Component({
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   activeSlide = 0;
   autoSlideEnabled = true;
   displaySignInError:boolean=false
+  onStockKits:OnStockKitVM[]=[]
 
   carouselslides = [ // Add your slides here
   {
@@ -166,6 +168,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (this.autoSlideEnabled) {
           this.nextSlide();
         }
+      })
+      //get on stock kits
+      this.orderService.homePageOnStockKits()
+      .subscribe({
+        next:(value)=> {
+          this.onStockKits = value as OnStockKitVM[]
+        },
+        complete:()=>{},
+        error:(err)=>{}
       })
   }
 
