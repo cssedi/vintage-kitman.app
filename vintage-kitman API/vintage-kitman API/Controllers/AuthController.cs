@@ -155,6 +155,22 @@ namespace vintage_kitman_API.Controllers
             return Ok(user);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
+        [HttpGet("AddNewAddress")]
+        public async Task<IActionResult> AddNewAddress(AddressVM model)
+        {
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
+
+            var address = await _authRepository.AddAddress(userId, model);
+
+            if (address == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(address);
+        }
 
 
         private string GenerateToken(User customer)

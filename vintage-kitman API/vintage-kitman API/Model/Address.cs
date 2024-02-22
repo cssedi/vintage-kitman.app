@@ -8,6 +8,7 @@ namespace vintage_kitman_API.Model
         public int AddressId { get; set; }
         public string Name { get; set; }
         public string postalAddress { get; set; }
+        public bool isMain { get; set; }
         public string Id { get; set; }
         //navigation
         public User User { get; set; }

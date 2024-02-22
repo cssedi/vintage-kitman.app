@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using MimeKit.Text;
 using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.Utilities.Net;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -68,6 +69,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim(ClaimTypes.Surname, user.surname),
+                    new Claim(ClaimTypes.StreetAddress, user.Address.ToString()),
                     };
 
                     //Create the the singin in key 
@@ -498,6 +500,45 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             var user = await _appDbContext.Users.Include(u=> u.Addresses).Where(u=> u.Id == id).FirstAsync();
 
             return user;
+        }
+
+        public Task<AddressVM> AddAddress(string userId, AddressVM vm)
+        {
+
+            var user = _appDbContext.Users.Where(u=>u.Id == userId).FirstOrDefault();
+
+            if (user.Addresses.Count() ==0)
+            {
+
+                var address = new AddressVM
+                {
+                    Name = vm.Name,
+                    PostalAddress = vm.PostalAddress,
+                    IsMain =true,
+                    Id = userId
+                };
+
+                _appDbContext.Add(address);
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                var address = new AddressVM
+                {
+                    Name = vm.Name,
+                    PostalAddress = vm.PostalAddress,
+                    IsMain = false,
+                    Id = userId
+                };
+
+            _appDbContext.Add(address);
+            _appDbContext.SaveChanges();
+            }
+
+            return null;
+
+
+           
         }
     }
 }
