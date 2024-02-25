@@ -25,6 +25,7 @@ import { BlogsComponent } from './admin-dashboard/blogs/blogs.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-kits.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { PoliciesComponent } from './policies/policies.component';
 
 const routes: Routes = 
 [
@@ -52,7 +53,8 @@ const routes: Routes =
   {path:'blogs', component:BlogsComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'view-on-stock-kits', component: OnStockKitsComponent},
-  {path: 'about-us', component: AboutUsComponent}
+  {path: 'about-us', component: AboutUsComponent},
+  {path:'policies', component:PoliciesComponent}
 ];
 
 @NgModule({

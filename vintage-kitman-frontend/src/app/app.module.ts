@@ -41,7 +41,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-kits.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-
+import { PoliciesComponent } from './policies/policies.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     CheckoutComponent,
     OnStockKitsComponent,
     AboutUsComponent,
+    PoliciesComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +90,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     MatFormFieldModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatIconModule,
+    MatExpansionModule,
     Angular4PaystackModule.forRoot('pk_test_331d735ba272b0632b8b8cc6e23edb65d55c3689')
 
   ],
