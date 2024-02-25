@@ -5,6 +5,7 @@ export interface TokenData {
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name': string;
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname': string;
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/dateofbirth': string;
+    'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/streetaddress': string;
     exp: number;
     iss: string;
     aud: string;
