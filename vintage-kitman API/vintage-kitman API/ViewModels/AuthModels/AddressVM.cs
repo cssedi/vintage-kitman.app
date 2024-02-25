@@ -4,11 +4,14 @@ namespace vintage_kitman_API.ViewModels.AuthModels
 {
     public class AddressVM
     {
-        public string Name { get; set; }
-        public string PostalAddress { get; set; }
+        public string AddressName1 { get; set; }
+        public string AddressName2 { get; set; }
+        public string Province { get; set; }
+        public string ZipCode { get; set; }
+        public string BuildingName { get; set; }
+        public string UnitNumber { get; set; }
         public bool IsMain { get; set; }
         public string Id { get; set; }
-        //navigation
         public User User { get; set; }
     }
 }

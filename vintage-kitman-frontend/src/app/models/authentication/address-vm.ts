@@ -1,9 +1,12 @@
 import { ApplicationUser } from "./appuser";
 
-export interface Address  {
-  name: string;
-  postalAddress: string;
+export interface Address {
+  addressName1: string;
+  addressName2: string;
+  province: string;
+  zipCode: number;
+  buildingName: string;
+  unitNumber: string;
   isMain: boolean;
-  id: string;
-  user: ApplicationUser; 
+  user: ApplicationUser;
 }
