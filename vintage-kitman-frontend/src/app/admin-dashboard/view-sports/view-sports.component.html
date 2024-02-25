@@ -160,7 +160,7 @@
                         name="name"
                         type="text" 
                  placeholder="Love Emoji" 
-                 [ngClass]="{'border-red-500': (updateForm.get('name')?.touched || formSubmitted) && updateForm.get('name')?.invalid, 'border-gray-400': !updateForm.get('name')?.invalid || !formSubmitted }"
+                 [ngClass]="{'border-txtRed': (updateForm.get('name')?.touched || formSubmitted) && updateForm.get('name')?.invalid, 'border-gray-400': !updateForm.get('name')?.invalid || !formSubmitted }"
                  class="w-full py-1.5 px-2 bg-white border rounded-lg md:w-80  rtl:pr-11 rtl:pl-5 focus:outline-none">
                  <p *ngIf="updateForm.controls['name'].invalid && (formSubmitted || updateForm.controls['name'].touched)"
                  class="bottom-0 text-xs text-red-600 dark:text-red-400">This field is required!</p>

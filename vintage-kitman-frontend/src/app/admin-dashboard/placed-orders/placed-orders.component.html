@@ -4,9 +4,9 @@
     <div class="sm:flex sm:items-center sm:justify-between ml-3">
         <div>
             <div class="flex items-center gap-x-3">
-                <h2 class="text-lg font-medium mt-3 dark:text-white">Number Of Orders: </h2>
+                <h2 class="text-lg font-medium mt-3 text-white">Number Of Orders: </h2>
 
-                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">Audit</span>
+                <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">Audit</span>
             </div>
 
             <p class="mt-2 text-sm text-white">These are all orders placed for the month of {{month|date:'MMMM'}}</p>
@@ -26,38 +26,28 @@
                             <tr>
                                 <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <div class="flex items-center gap-x-3">
-                                        <span class="font-medium ">User</span>
-
+                                        <span class="font-medium text-white">User</span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
+                                    <div class="flex items-center gap-x-3">
+                                        <span class="font-medium text-white">Image</span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
+                                    <div class="flex items-center gap-x-3">
+                                        <span class="font-medium text-white">Name(Size)</span>
                                     </div>
                                 </th>
                                 <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <div class="flex items-center gap-x-3">
+                                        <span class="font-medium text-white">Quantity</span>
+                                    </div>
+                                </th>
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right">
                                     <div class="flex items-center gap-x-3">
                                         <span class="font-medium text-white">Action</span>
-
                                     </div>
-                                </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <div class="flex items-center gap-x-3">
-                                        <span class="font-medium text-white">Date</span>
-
-                                    </div>
-                                </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <div class="flex items-center gap-x-3">
-                                        <span class="font-medium ">Amount (Hubcoin)</span>
-
-                                    </div>
-                                </th>
-                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <div class="flex items-center gap-x-3">
-                                        <span class="font-medium ">Quantity</span>
-
-                                    </div>
-                                </th>
-
-
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    
                                 </th>
                             </tr>
                         </thead>

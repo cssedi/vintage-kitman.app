@@ -313,7 +313,7 @@
 </div>
 
 
-<footer class="bg-white bg-gray-900" (click)="collapseAll()">
+<footer class="bg-white" (click)="collapseAll()">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
       <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
@@ -324,9 +324,9 @@
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 right-0">
             <div>
                 <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase">Follow us</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                <ul >
                     <li class="mb-4">
-                        <a href="https://github.com/themesberg/flowbite" class="hover:underline ">Instagram</a>
+                        <a href="https://github.com/themesberg/flowbite" class="hover:underline">Instagram</a>
                     </li>
                     <li>
                         <a href="https://discord.gg/4eeurUVvTy" class="hover:underline">Facebook</a>
@@ -334,30 +334,30 @@
                 </ul>
             </div>
             <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Legal</h2>
-                <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                <h2 class="mb-6 text-sm font-semibold uppercase ">Legal</h2>
+                <ul class="font-medium">
                     <li class="mb-4">
                         <a href="#" class="hover:underline">Returns Policy</a>
                     </li>
                     <li>
-                        <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                        <a routerLink="/policies" class="hover:underline">Terms &amp; Conditions</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+    <hr class="my-6 sm:mx-auto lg:my-8"/>
     <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Vintage Kitman</a>. All Rights Reserved.
+        <span class="text-sm sm:text-center">© 2023 <a class="hover:underline">Vintage Kitman</a>. All Rights Reserved.
         </span>
         <div class="flex mt-4 sm:justify-center sm:mt-0">
-            <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+            <a class="hover:text-white">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
                       <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
                   </svg>
                 <span class="sr-only">Facebook page</span>
             </a>
-            <a href="https://www.instagram.com/vintage__kitman/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+            <a href="https://www.instagram.com/vintage__kitman/" class="hover:text-white ms-5">
                 <img src="https://i.ibb.co/LtMbHTg/image-2.png" class="w-4 h-4">
                 <span class="sr-only">Instagram page</span>
             </a>
