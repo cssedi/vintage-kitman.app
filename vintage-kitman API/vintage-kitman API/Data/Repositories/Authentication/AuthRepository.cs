@@ -69,7 +69,6 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim(ClaimTypes.Surname, user.surname),
-                    new Claim(ClaimTypes.StreetAddress, user.Address.ToString()),
                     };
 
                     //Create the the singin in key 
@@ -502,43 +501,96 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return user;
         }
 
-        public Task<AddressVM> AddAddress(string userId, AddressVM vm)
+        public async Task<AddressVM> AddAddress(string userId, AddressVM vm)
         {
+            var user = _appDbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
+            var userAddresses = _appDbContext.Addresses.Where(a => a.UserId == userId).ToList();
 
-            var user = _appDbContext.Users.Where(u=>u.Id == userId).FirstOrDefault();
 
-            if (user.Addresses.Count() ==0)
+            AddressVM responseModel;
+
+            if (!userAddresses.Any())
             {
-
-                var address = new AddressVM
+                var address = new Address
                 {
-                    Name = vm.Name,
-                    PostalAddress = vm.PostalAddress,
-                    IsMain =true,
-                    Id = userId
+                    AddressName1 = vm.AddressName1,
+                    AddressName2 = vm.AddressName2,
+                    Province = vm.Province,
+                    BuildingName = vm.BuildingName,
+                    UnitNumber = vm.UnitNumber,
+                    ZipCode = vm.ZipCode,
+                    IsMain = true,
+                    UserId = userId
                 };
 
-                _appDbContext.Add(address);
-                _appDbContext.SaveChanges();
+                _appDbContext.Addresses.Add(address);
+                await _appDbContext.SaveChangesAsync();
+
+                responseModel = new AddressVM
+                {
+                    AddressName1 = address.AddressName1,
+                    AddressName2 = address.AddressName2,
+                    Province = address.Province,
+                    BuildingName = address.BuildingName,
+                    UnitNumber = address.UnitNumber,
+                    ZipCode = address.ZipCode,
+                    IsMain = address.IsMain,
+                    Id = address.UserId,
+                    User = user
+                };
             }
             else
             {
-                var address = new AddressVM
+                var model = new Address
                 {
-                    Name = vm.Name,
-                    PostalAddress = vm.PostalAddress,
+                    AddressName1 = vm.AddressName1,
+                    AddressName2 = vm.AddressName2,
+                    Province = vm.Province,
+                    BuildingName = vm.BuildingName,
+                    UnitNumber = vm.UnitNumber,
+                    ZipCode = vm.ZipCode,
                     IsMain = false,
-                    Id = userId
+                    UserId = userId
                 };
 
-            _appDbContext.Add(address);
-            _appDbContext.SaveChanges();
+                _appDbContext.Addresses.Add(model);
+                await _appDbContext.SaveChangesAsync();
+
+                responseModel = new AddressVM
+                {
+                    AddressName1 = model.AddressName1,
+                    AddressName2 = model.AddressName2,
+                    Province = model.Province,
+                    BuildingName = model.BuildingName,
+                    UnitNumber = model.UnitNumber,
+                    ZipCode = model.ZipCode,
+                    IsMain = model.IsMain,
+                    Id = model.UserId,
+                    User = user
+                };
             }
 
-            return null;
+            return responseModel;
+        }
 
+        public Task<List<AddressVM>> GetAddressesAsync(string userId)
+        {
+            var addresses = _appDbContext.Addresses.Where(a=> a.UserId == userId).
+                            Select
+                            (vm => new AddressVM
+                            {
+                                AddressName1 = vm.AddressName1,
+                                AddressName2 = vm.AddressName2,
+                                Province = vm.Province,
+                                BuildingName = vm.BuildingName,
+                                UnitNumber = vm.UnitNumber,
+                                ZipCode = vm.ZipCode,
+                                IsMain = vm.IsMain,
+                                Id = userId
+                            } 
+                            ).ToListAsync();
 
-           
+            return addresses;
         }
     }
 }

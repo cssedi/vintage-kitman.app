@@ -14,5 +14,6 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<User> AdminGetUserDetails(string id);
 
         public Task<AddressVM> AddAddress(string userId, AddressVM address);
+        public Task<List<AddressVM>> GetAddressesAsync(string userId);
     }
 }

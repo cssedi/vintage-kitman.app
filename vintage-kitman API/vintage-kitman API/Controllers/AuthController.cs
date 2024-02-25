@@ -156,7 +156,7 @@ namespace vintage_kitman_API.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
-        [HttpGet("AddNewAddress")]
+        [HttpPost("AddNewAddress")]
         public async Task<IActionResult> AddNewAddress(AddressVM model)
         {
             var httppUser = HttpContext.User;
