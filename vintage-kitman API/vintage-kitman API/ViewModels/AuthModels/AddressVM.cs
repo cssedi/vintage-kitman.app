@@ -4,6 +4,8 @@ namespace vintage_kitman_API.ViewModels.AuthModels
 {
     public class AddressVM
     {
+        public int AddressId { get; set; }
+        public string Name { get; set; }
         public string AddressName1 { get; set; }
         public string AddressName2 { get; set; }
         public string Province { get; set; }

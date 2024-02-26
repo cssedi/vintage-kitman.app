@@ -10,9 +10,10 @@ namespace vintage_kitman_API.Model
         public string AddressName2 { get; set; }
         public string Province { get; set; }
         public string ZipCode { get; set; }
-        public string BuildingName { get; set; }
-        public string UnitNumber { get; set; }
-        public bool IsMain { get; set; }
+        public string Name { get; set; }
+        public string? BuildingName { get; set; }
+        public string? UnitNumber { get; set; }
+        public bool IsMain { get; set; } 
         //map this as a foreign key to the user table
         public string UserId { get; set; }
         //navigation
