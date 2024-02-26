@@ -1,11 +1,15 @@
-﻿namespace vintage_kitman_API.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace vintage_kitman_API.Model
 {
     public class Orders
     {
+        [Key]
         public int OrderId { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
         public int OrderStatusId { get; set; }
+        public DateTime OrderDate { get; set; }
         public string Id { get; set; }
         //navigation
         public User User { get; set; }

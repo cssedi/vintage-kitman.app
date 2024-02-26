@@ -8,7 +8,8 @@ namespace vintage_kitman_API.Model
         public int OrderId { get; set; }
         public string Size { get; set; }
         public int Quantity { get; set; }
-        public bool IsLongSleeve { get; set; }
+        public string? CustomName { get; set; }
+        public int? CustomNumber { get; set; }
 
         public DateTime OrderDate { get; set; }
         //navigation
