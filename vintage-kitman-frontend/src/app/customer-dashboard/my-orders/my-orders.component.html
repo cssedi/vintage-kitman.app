@@ -1,16 +1,23 @@
 <div class="flex flex-col my-8 left-0 right-0 items-center justify center mx-auto">
-  <mat-tab-group dynamicHeight class="w-2/3 xs:flex-col sm:flex-row" color="$custom-primary">
+  <mat-tab-group dynamicHeight class="xs:flex-col sm:flex-row" color="$custom-primary">
     <mat-tab > 
      <ng-template mat-tab-label>
                   <span [class]="{'text-white': isError?'red':'black'}">Orders</span>
      </ng-template>
-      Content 1 
+     <div *ngIf="customerOrders.length==0"
+     class="flex flex-col max-w-screen-lg w-screen h-72 items-center justify-center mt-4 mx-auto">
+     <h1 class="text-2xl font-bold text-white">
+       No orders placed
+     </h1>
+     <button class="underline text-white" routerLink="/sport-teams/Football"> View Products</button>
+   </div>
      </mat-tab>
     <mat-tab label="Second" >     
         <ng-template mat-tab-label>
           <span [class]="{'text-white': isError?'red':'black'}">Custom Orders</span>
         </ng-template> 
-        <div class="flex flex-col max-w-screen-lg w-screen items-left mt-4">
+        <div *ngIf="customerOrders.length>0"
+        class="flex flex-col max-w-screen-lg w-screen items-left mt-4">
           <div *ngFor="let customOrder of customerOrders">
             <div class="border-y-[1px]">
               <div class="flex xl:flex-row xs:flex-col justify-between">
@@ -45,6 +52,13 @@
               </div>
             </div>
           </div>
+        </div>
+        <div *ngIf="customerOrders.length==0"
+          class="flex flex-col max-w-screen-lg w-screen h-72 items-center justify-center mt-4 mx-auto">
+          <h1 class="text-2xl font-bold text-white">
+            No custom orders placed
+          </h1>
+          <a class="underline text-white" routerLink="/custom-order">Place here</a>
         </div>
     </mat-tab>
   </mat-tab-group>

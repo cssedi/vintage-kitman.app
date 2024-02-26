@@ -1,7 +1,7 @@
-<div class="flex flex-col left-0 right-0 mx-12 max-w-screen-xl"
+<div class="flex flex-col left-0 right-0 max-w-screen-xl overflow-x-hidden"
 >
     <!-- top of page -->
-    <div id="topOfPage" class="flex flex-wrap h-24 w-full ml-4 max-w-screen-xl">
+    <div id="topOfPage" class="flex flex-wrap h-24 ml-4 w-full max-w-screen-xl">
         <h1 class="text-3xl text-white underline mt-2">
             Your Wishlist
         </h1>
@@ -10,7 +10,7 @@
     <div class="flex flex-row">
         <section class="justify-normal">
             <div class="container overflow-x-hidden justify-start">
-                <div class="flex flex-wrap w-full space-x-0">   
+                <div class="flex flex-wrap w-screen space-x-0">   
         
                     <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2" *ngFor="let kit of kitArray"
                     [ngClass]="{'mr-16': kitArray.length ==2}">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center text-white text-2xl mt-5 h-44" *ngIf="kitArray.length ==0">
+                    <div class="text-center justify-center items-center w-screen mx-auto text-white text-2xl mt-5 xs:h-screen max-w-screen-md" *ngIf="kitArray.length ==0">
                         Your Wishlist is Empty!
                         <div>
                             <a routerLink="/sport-teams/Football" class="text-base underline hover:text-canary">Continue shopping</a>

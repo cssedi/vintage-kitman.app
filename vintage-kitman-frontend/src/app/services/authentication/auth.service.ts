@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Address } from 'src/app/models/authentication/address-vm';
 import { ApplicationUser } from 'src/app/models/authentication/appuser';
 import { ForgotPasswordVM } from 'src/app/models/authentication/forgotpassword-vm';
 import { LoginVM } from 'src/app/models/authentication/login-vm';
@@ -56,10 +57,14 @@ export class AuthService {
   AdminGetUserDetails(id: string):Observable<ApplicationUser>{
     return this.http.get<ApplicationUser>(this.baseAPIUrl+"AdminGetCustomerDetails/"+ id, this.httpOptions)
   }
+  addAddress(address:Address):Observable<Address>{
+    return this.http.post<Address>(this.baseAPIUrl+"AddNewAddress", address, this.httpOptions)
+  }
+  getAddresses():Observable<Address[]>{
+    return this.http.get<Address[]>(this.baseAPIUrl+"GetUserAddresses", this.httpOptions)
+  }
 
   setAuthenticationStatus(isAuthenticated: boolean, isAdmin: boolean) {
-
-
     // Store authentication status in localStorage
     localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
     localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
