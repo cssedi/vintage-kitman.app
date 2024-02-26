@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { kitVM } from 'src/app/models/categories/kit-vm';
 import { CartItem } from 'src/app/models/orders/CartItem-vm';
 import { CartTotalVM } from 'src/app/models/orders/CartTotal-vm';
+import { KitOrderVM } from 'src/app/models/orders/KitOrderVM';
 import { OnStockKitVM } from 'src/app/models/orders/OnStockKit-vm';
 import { CustomOrderVM } from 'src/app/models/orders/custom-order-vm';
 import { wishlistVM } from 'src/app/models/orders/wishlist-vm';
@@ -63,5 +64,8 @@ export class OrderService {
   }
   homePageOnStockKits():Observable<OnStockKitVM[]>{
     return this.http.get<OnStockKitVM[]>(this.baseAPIURL+"GetHomePageOnStockKits", this.httpOptions)
+  }
+  createOrder(model: KitOrderVM[]):Observable<KitOrderVM>{
+    return this.http.post<KitOrderVM>(this.baseAPIURL+"CreateOrder", model, this.httpOptions)
   }
 }

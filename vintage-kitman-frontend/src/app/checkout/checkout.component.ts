@@ -5,6 +5,7 @@ import { CartItem } from '../models/orders/CartItem-vm';
 import { PaystackOptions } from 'angular4-paystack';
 import { AuthService } from '../services/authentication/auth.service';
 import { Address } from '../models/authentication/address-vm';
+import { KitOrderVM } from '../models/orders/KitOrderVM';
 
 @Component({
   selector: 'app-checkout',
@@ -21,13 +22,12 @@ export class CheckoutComponent {
   subTotal = 0
   deliveryAddress = ''
   address: Address = {name: '', addressName1: '', addressName2: '', province: '', zipCode: 0, buildingName: '', unitNumber: '', isMain: false, user: null,addressId: 0}
-
+  kitOrderArray: KitOrderVM[] = []
   constructor(private cartService:CartService, private orderService:OrderService, private authService: AuthService) {}
   ngOnInit(): void 
   {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.deliveryAddress= user.deliveryAddress!
     this.cartArray = cart;
     this.ifIsLoading = true
     this.setRandomPaymentRef();
@@ -58,6 +58,34 @@ export class CheckoutComponent {
     this.getMainAddress()
 
   
+  }
+
+  placeOrder(){
+    debugger
+    this.cartArray.forEach(element => {
+      let kitOrder: KitOrderVM = {kitId:0, quantity: element.Quantity,
+                                  orderId: 0,uniqueOrdenum: '',orderStatusId: 0,id: '',
+                                  name: element.KitName,
+                                  frontImage: element.KitImage,
+                                  price: element.KitPrice,
+                                  size: element.SizeId
+                                  ,user: null,orderStatus: null
+      }
+      this.kitOrderArray.push(kitOrder)
+    });
+
+    this.orderService.createOrder(this.kitOrderArray)
+    .subscribe({
+      next: (response:any) => {
+        console.log(response)
+      },
+      complete: () => {
+
+      },
+      error: (err:any) => {
+
+      }
+    })
   }
 
   getMainAddress(){

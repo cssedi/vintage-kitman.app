@@ -37,7 +37,7 @@
                 <h1 *ngIf="deliveryAddress != ''" class="text-xl font-semibold">
                     <!-- {{deliveryAddress}} -->
                 </h1>
-                <h1 *ngIf="address" class="text-xl font-semibold">
+                <h1 *ngIf="address" class="text-lg font-semibold">
                     <mat-expansion-panel class="bg-black">
                         <mat-expansion-panel-header class="justify-between">
                           <mat-panel-title>
@@ -64,6 +64,9 @@
                         </div>
                       </mat-expansion-panel>
                 </h1>
+                <h1 *ngIf="!address" class="text-xl font-semibold">
+                </h1>
+
             </div>
         </div>
         <div class="flex flex-col">
@@ -93,7 +96,7 @@
             </div>
     </div>
 
-    <button
+    <!-- <button
     class="text-black bg-canary w-full h-12 mt-4 rounded-md"
     angular4-paystack
     [paystackOptions]="options"
@@ -103,7 +106,14 @@
     [class]="'btn btn-primary btn-lg'"
   >
     Pay Now
-  </button>
+  </button> -->
+
+  <button
+  class="text-black bg-canary w-full h-12 mt-4 rounded-md"
+  (click)="placeOrder()"
+>
+  Pay Now
+</button>
 </div>
 
 
