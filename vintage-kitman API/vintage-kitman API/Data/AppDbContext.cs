@@ -446,6 +446,13 @@ namespace vintage_kitman_API.NewFolder
                 new CustomOrderStatus { CustomOrderStatusId = 3, Name = "Not Found" }
                  );
 
+            modelBuilder.Entity<OrderStatus>()
+                .HasData(
+                    new OrderStatus { OrderStatusId = 1, Name = "Placed" },
+                    new OrderStatus { OrderStatusId = 2, Name = "On delivery" },
+                    new OrderStatus { OrderStatusId = 3, Name = "Delivered" }
+                        );
+
 
         }
 
