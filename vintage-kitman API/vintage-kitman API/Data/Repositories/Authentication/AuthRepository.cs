@@ -516,11 +516,13 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     AddressName1 = vm.AddressName1,
                     AddressName2 = vm.AddressName2,
                     Province = vm.Province,
+                    Name = vm.Name,
                     BuildingName = vm.BuildingName,
                     UnitNumber = vm.UnitNumber,
                     ZipCode = vm.ZipCode,
                     IsMain = true,
-                    UserId = userId
+                    UserId = userId,
+                    User = user
                 };
 
                 _appDbContext.Addresses.Add(address);
@@ -531,6 +533,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     AddressName1 = address.AddressName1,
                     AddressName2 = address.AddressName2,
                     Province = address.Province,
+                    Name = address.Name,
                     BuildingName = address.BuildingName,
                     UnitNumber = address.UnitNumber,
                     ZipCode = address.ZipCode,
@@ -546,10 +549,12 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     AddressName1 = vm.AddressName1,
                     AddressName2 = vm.AddressName2,
                     Province = vm.Province,
+                    Name = vm.Name,
                     BuildingName = vm.BuildingName,
                     UnitNumber = vm.UnitNumber,
                     ZipCode = vm.ZipCode,
                     IsMain = false,
+                    User = user,
                     UserId = userId
                 };
 
@@ -557,7 +562,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 await _appDbContext.SaveChangesAsync();
 
                 responseModel = new AddressVM
-                {
+                {   Name = model.Name,
                     AddressName1 = model.AddressName1,
                     AddressName2 = model.AddressName2,
                     Province = model.Province,
@@ -579,6 +584,8 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                             Select
                             (vm => new AddressVM
                             {
+                                AddressId = vm.AddressId,
+                                Name= vm.Name,
                                 AddressName1 = vm.AddressName1,
                                 AddressName2 = vm.AddressName2,
                                 Province = vm.Province,
@@ -591,6 +598,65 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                             ).ToListAsync();
 
             return addresses;
+        }
+
+        public Task<AddressVM> SetMainAddress(Address model, string userId)
+        {
+            //changing existing main address to false
+            var existingMainAddress = _appDbContext.Addresses.Where(a => a.UserId == userId && a.IsMain == true).FirstOrDefault();
+            existingMainAddress.IsMain = false;
+
+            var address = _appDbContext.Addresses.Where(a => a.AddressId == model.AddressId).FirstOrDefault();
+            
+
+            address.IsMain = true;
+            _appDbContext.SaveChanges();
+
+            var responseModel = new AddressVM
+            {
+                Name = address.Name,
+                AddressName1 = address.AddressName1,
+                AddressName2 = address.AddressName2,
+                Province = address.Province,
+                BuildingName = address.BuildingName,
+                UnitNumber = address.UnitNumber,
+                ZipCode = address.ZipCode,
+                IsMain = address.IsMain,
+                Id = address.UserId,
+                User = address.User
+            };
+            return Task.FromResult(responseModel);
+        }
+
+        public Task<AddressVM> DeleteAddress(Address model, string userId)
+        {
+            var address = _appDbContext.Addresses.Where(a => a.AddressId == model.AddressId).FirstOrDefault();
+            _appDbContext.Addresses.Remove(address);
+            _appDbContext.SaveChanges();
+
+            var responseModel = new AddressVM
+            {
+                Name = address.Name,
+                AddressName1 = address.AddressName1,
+                AddressName2 = address.AddressName2,
+                Province = address.Province,
+                BuildingName = address.BuildingName,
+                UnitNumber = address.UnitNumber,
+                ZipCode = address.ZipCode,
+                IsMain = address.IsMain,
+                Id = address.UserId,
+                User = address.User
+            };
+            return Task.FromResult(responseModel);
+        }
+
+        public Task<Address> GetMainAddress(string userId)
+        {
+            
+            var address = _appDbContext.Addresses.Where(a => a.UserId == userId && a.IsMain == true).FirstOrDefault();
+
+            return Task.FromResult(address);
+
         }
     }
 }

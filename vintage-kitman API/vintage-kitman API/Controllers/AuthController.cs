@@ -172,6 +172,73 @@ namespace vintage_kitman_API.Controllers
             return Ok(address);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
+        [HttpGet("GetUserAddresses")]
+        public async Task<IActionResult> GetUserAddresses()
+        {
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var addresses = await _authRepository.GetAddressesAsync(userId);
+
+            if (addresses == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(addresses);
+        }
+
+        [Authorize(AuthenticationSchemes="Bearer", Roles="CUSTOMER")]
+        [HttpPut("SetMainAddress")]
+        public async Task<IActionResult> SetMainAddress(Address model)
+        {
+            var http = HttpContext.User;
+            var userId = http.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var address = await _authRepository.SetMainAddress(model, userId);
+
+            if (address == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(address);
+        }
+
+        [Authorize(AuthenticationSchemes="Bearer", Roles="CUSTOMER")]
+        [HttpDelete("DeleteAddress")]
+        public async Task<IActionResult> DeleteAddress(Address model)
+        {
+            var http = HttpContext.User;
+            var userId = http.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var address = await _authRepository.DeleteAddress(model, userId);
+
+            if (address == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(address);
+        }
+
+        [Authorize(AuthenticationSchemes="Bearer", Roles="CUSTOMER")]
+        [HttpGet("GetMainAddress")]
+        public async Task<IActionResult> GetMainAddress()
+        {
+            var http = HttpContext.User;
+            var userId = http.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var address = await _authRepository.GetMainAddress(userId);
+
+            if (address == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(address);
+        }
+
+
+
 
         private string GenerateToken(User customer)
         {
