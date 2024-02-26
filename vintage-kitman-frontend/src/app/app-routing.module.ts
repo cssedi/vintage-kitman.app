@@ -53,7 +53,7 @@ const routes: Routes =
   {path:'blogs', component:BlogsComponent},
   {path: 'checkout', component: CheckoutComponent},
   {path: 'view-on-stock-kits', component: OnStockKitsComponent},
-  {path: 'about-us', component: AboutUsComponent},
+  {path: 'About-Us', component: AboutUsComponent},
   {path:'policies', component:PoliciesComponent}
 ];
 
