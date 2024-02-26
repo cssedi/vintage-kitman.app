@@ -22,6 +22,10 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         public List<OnStockKitVM> GetOnStockKits();
 
         public List<OnStockKitVM> CustomerViewOnStockKits();
+        public Task<string> createOrder(List<KitOrderVM> model, string userId);  
+        //public Task<KitOrders> newKitOrder(KitOrderVM model);
+
+
 
 
     }

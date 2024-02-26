@@ -375,5 +375,140 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             }
             return kits;
         }
+
+        public async Task<string> createOrder(List<KitOrderVM> modelList, string userId)
+        {
+            //create unique order id containing "VK" and a random number
+            var uniqueOrderNum = "VK" + new Random().Next(100000, 999999).ToString();
+
+            foreach (var model in modelList)
+            {
+
+                //create a new order
+                var newOrder = _appDbContext.orders.Add(new Model.Orders
+                {
+                    OrderDate = DateTime.Now,
+                    OrderStatusId = 1,
+                    CustomName = model.CustomName,
+                    CustomNumber = model.CustomNumber,
+                    Id = userId
+                });
+
+                _appDbContext.SaveChanges();
+
+                //get the order id
+                var orderId = _appDbContext.orders.Where(o => o.OrderId == newOrder.Entity.OrderId)
+                            .Select(o => o.OrderId).FirstOrDefault();
+
+                var kitId = _appDbContext.kits.Where(k => k.Name == model.Name)
+                            .Select(k => k.KitId).FirstOrDefault();
+
+                KitOrders kitOrder = new KitOrders()
+                {
+                    KitId = kitId,
+                    OrderId = orderId,
+                    Size = model.Size,
+                    Quantity = model.Quantity,
+                    OrderDate = DateTime.Now,
+                    CustomName = model.CustomName,
+                    CustomNumber = model.CustomNumber,
+                };
+
+                _appDbContext.kitOrders.Add(kitOrder);
+                _appDbContext.SaveChanges();
+            }
+
+            //send email confirmation
+            var user = _appDbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
+            if (user != null)
+            {
+
+                var link = "http://localhost:4200/my-orders";
+                //send email confirmation
+                var message = new MimeMessage();
+                message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
+                message.To.Add(MailboxAddress.Parse(user.Email));
+                message.Subject = "Order " + uniqueOrderNum + " placed successfully";
+
+                var body = @$"<!DOCTYPE html>
+                        <html lang='en'>
+                        <head>
+                            <meta charset='UTF-8'>
+                            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                            <title>Account Registration Confirmation</title>
+                        </head>
+                        <body style='margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #f7f7f7; color: #000000; font-family: Arial, Helvetica, sans-serif;'>
+
+                            <table style='border-collapse: collapse; table-layout: fixed; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: top; min-width: 320px; margin: 0 auto; background-color: #f7f7f7; width:100%;' cellpadding='0' cellspacing='0'>
+                                <tbody style=""text-align: center;"">
+                                    <tr>
+                                        <img src ='https://i.ibb.co/n3SX2cC/image-3.png' 
+                                        style='background-color: #000000; height: 85px; margin: 0 auto; display: block; width: max-content; object-fit: contain;'/>
+                                    </tr>
+                                    <tr style='vertical-align: top;'>
+                                        <td style='word-break: break-word; border-collapse: collapse !important; vertical-align: top;'>
+
+                                            <!-- Email content starts here -->
+                                            <h1 style='margin: 20px 10px; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 26px; font-weight: 400;'>Order Placed!</h1>
+
+                                            <table style='width:100%; border-collapse: collapse; margin: 20px 10px;' cellpadding='0' cellspacing='0'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align:
+                                                        left; font-size: 14px; line-height: 140%;'>Hi {user.Name}!,</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Your order has been placed successfully.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'> Please log into your account to find more information and to pay for your kit</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                            <table style='width:100%; border-collapse: collapse; margin: 10px;' cellpadding='0' cellspacing='0'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: center;'>
+                                                            <a href='{link}' target='_blank' style='text-decoration: none; color: #ffffff; background-color: #000000; padding: 12px 40px; border-radius: 4px; display: inline-block; font-size: 14px; line-height: 120%;'>
+                                                             View Orders
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <table style='width:100%; border-collapse: collapse; margin: 10px;' cellpadding='0' cellspacing='0'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>If you didn't create an account with us, please ignore this email.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Email content ends here -->
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </body>
+                        </html>
+                        ";
+
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.TextBody = body;
+                message.Body = new TextPart(TextFormat.Html) { Text = body };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(_configuration["EmailConfig:Username"], _configuration["EmailConfig:Password"]);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+
+            return uniqueOrderNum;
+        }
     }
 }

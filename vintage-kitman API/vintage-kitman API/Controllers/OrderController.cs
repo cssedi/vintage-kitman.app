@@ -209,6 +209,21 @@ namespace vintage_kitman_API.Controllers
             return Ok(kits);
         }
 
+        [Authorize(AuthenticationSchemes="Bearer", Roles="CUSTOMER")]
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder(List<KitOrderVM> model)
+        {
+            var httppUser = HttpContext.User;
+            var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id
+            var order = await _ordersRepository.createOrder(model, userId);
+
+            if (order == null)
+            {
+                return NotFound(new { message = "Order not created" });
+            }
+
+            return Ok(order);
+        }
 
 
 
