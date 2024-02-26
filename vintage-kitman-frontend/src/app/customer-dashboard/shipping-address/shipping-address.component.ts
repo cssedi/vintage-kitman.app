@@ -15,7 +15,7 @@ export class ShippingAddressComponent implements OnInit{
   addressForm!: FormGroup;
   ifIsLoading: boolean = false;
   formSubmitted: boolean = false;
-  addressDetails: Address={name: '', addressName1: '',addressName2: '',province: '',zipCode: 0,buildingName: '',unitNumber: '',isMain: false,user: null}
+  addressDetails: Address={name: '', addressName1: '', addressName2: '', province: '', zipCode: 0, buildingName: '', unitNumber: '', isMain: false, user: null,addressId: 0}
   provinces = [
     { name: 'Eastern Cape' },
     { name: 'Free State' },
@@ -93,6 +93,26 @@ export class ShippingAddressComponent implements OnInit{
       },
       error:(err:any)=>{}
     })
+  }
+
+  setMainAddress(newMain: Address){
+    this.ifIsLoading = true
+    this.authService.setMainAddress(newMain).subscribe({
+      next:(res:any)=>{
+        console.log(res)
+      },
+      complete:()=>{
+        this.ifIsLoading = false
+        this.snackar.open('Main address updated', 'Close', {
+          duration: 3000
+        });
+        this.getAddresses()
+      },
+      error:(err:any)=>{
+        this.ifIsLoading = false
+      }
+    })
+
   }
 
 }

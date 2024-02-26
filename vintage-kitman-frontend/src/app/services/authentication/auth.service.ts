@@ -64,6 +64,14 @@ export class AuthService {
     return this.http.get<Address[]>(this.baseAPIUrl+"GetUserAddresses", this.httpOptions)
   }
 
+  setMainAddress(model:Address):Observable<Address>{
+    return this.http.put<Address>(this.baseAPIUrl+"SetMainAddress", model, this.httpOptions)
+  }
+
+  getMainAddress():Observable<Address>{
+    return this.http.get<Address>(this.baseAPIUrl+"GetMainAddress", this.httpOptions)
+  }
+
   setAuthenticationStatus(isAuthenticated: boolean, isAdmin: boolean) {
     // Store authentication status in localStorage
     localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));

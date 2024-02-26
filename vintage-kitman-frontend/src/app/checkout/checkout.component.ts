@@ -3,6 +3,8 @@ import { CartService } from '../services/cart/cart.service';
 import { OrderService } from '../services/order/order.service';
 import { CartItem } from '../models/orders/CartItem-vm';
 import { PaystackOptions } from 'angular4-paystack';
+import { AuthService } from '../services/authentication/auth.service';
+import { Address } from '../models/authentication/address-vm';
 
 @Component({
   selector: 'app-checkout',
@@ -17,12 +19,15 @@ export class CheckoutComponent {
   options: any={}
   shipping = 130
   subTotal = 0
+  deliveryAddress = ''
+  address: Address = {name: '', addressName1: '', addressName2: '', province: '', zipCode: 0, buildingName: '', unitNumber: '', isMain: false, user: null,addressId: 0}
 
-  constructor(private cartService:CartService, private orderService:OrderService) {}
+  constructor(private cartService:CartService, private orderService:OrderService, private authService: AuthService) {}
   ngOnInit(): void 
   {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.deliveryAddress= user.deliveryAddress!
     this.cartArray = cart;
     this.ifIsLoading = true
     this.setRandomPaymentRef();
@@ -50,7 +55,25 @@ export class CheckoutComponent {
       error:(err)=>{this.ifIsLoading = false}
     })
 
+    this.getMainAddress()
+
   
+  }
+
+  getMainAddress(){
+    this.authService.getMainAddress().subscribe({
+      next: (response) => {
+        this.address = response
+        console.log(this.address)
+      },
+      complete: () => {
+
+      },
+      error: (err) => {
+
+      }
+    })
+
   }
 
   public showEmbed = false;

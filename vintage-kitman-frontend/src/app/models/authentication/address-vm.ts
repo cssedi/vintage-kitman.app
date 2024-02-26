@@ -1,6 +1,8 @@
 import { ApplicationUser } from "./appuser";
 
 export interface Address {
+  addressId:number|null;
+  name: string;
   addressName1: string;
   addressName2: string;
   province: string;
@@ -8,5 +10,5 @@ export interface Address {
   buildingName: string;
   unitNumber: string;
   isMain: boolean;
-  user: ApplicationUser;
+  user: ApplicationUser | null;
 }

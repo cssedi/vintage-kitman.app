@@ -34,8 +34,35 @@
                 Delivery Address
             </h1>
             <div class="flex flex-col px-3">
-                <h1 class="text-xl font-semibold">
+                <h1 *ngIf="deliveryAddress != ''" class="text-xl font-semibold">
                     <!-- {{deliveryAddress}} -->
+                </h1>
+                <h1 *ngIf="address" class="text-xl font-semibold">
+                    <mat-expansion-panel class="bg-black">
+                        <mat-expansion-panel-header class="justify-between">
+                          <mat-panel-title>
+                            {{address.name}} 
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="flex flex-row justify-between">
+                          <div class="flex flex-col">
+                          <h1 class="text-black text-sm font-semibold">Address Line 1: {{address.addressName1}}</h1>
+                          <h1 class="text-black text-sm font-semibold">Town/City: {{address.addressName2}}</h1>
+                          <h1 class="text-black text-sm font-semibold">Province: {{address.province}}</h1>
+                          <h1 class="text-black text-sm font-semibold">Zip Code: {{address.zipCode}}</h1>
+                          <h1 *ngIf="address.buildingName !=''"class="text-black text-sm font-semibold">Building Name: {{address.buildingName}}</h1>
+                          <h1 *ngIf="address.unitNumber !=''"class="text-black text-sm font-semibold">Unit Number: {{address.unitNumber}}</h1>
+                          </div>
+                          <div class="top-0 right-0 flex flex-col space-y-3">
+                            <button routerLink="/shipping-address" class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                                <mat-icon fontIcon="remove_red_eye" 
+                                matTooltipPosition="above"
+                                matTooltip="view all addresses"></mat-icon>
+                            </button>
+                          </div>
+              
+                        </div>
+                      </mat-expansion-panel>
                 </h1>
             </div>
         </div>
