@@ -8,6 +8,7 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
         public int OrderStatusId { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public string Id { get; set; }
         //navigation

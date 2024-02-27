@@ -8,6 +8,7 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public int OrderId { get; set; }
         public string uniqueOrdenum { get; set; }
         public int OrderStatusId { get; set; }
+        public DateTime OrderDate { get; set; } 
 
         public string Id { get; set; }
         //kit props
@@ -19,6 +20,8 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
         public User User { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public OrderStatusVM OrderStatus { get; set; }
+        public Kit Kit { get; set; }
+        public Orders Order { get; set; }
     }
 }

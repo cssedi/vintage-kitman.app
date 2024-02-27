@@ -8,6 +8,7 @@ namespace vintage_kitman_API.Model
         public int OrderId { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
+        public string orderNumber { get; set; }
         public int OrderStatusId { get; set; }
         public DateTime OrderDate { get; set; }
         public string Id { get; set; }
