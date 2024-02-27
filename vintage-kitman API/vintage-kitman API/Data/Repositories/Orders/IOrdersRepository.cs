@@ -18,6 +18,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         public CustomOrder RejectCustomOrder(CustomOrderVM model);
 
         public List<CustomOrderVM> GetUserCustomOrders(string userId);
+        public List<KitOrderVM> GetUserOrders(string userId);
         public OnStockKits AddNewOnStockKit(OnStockKitVM model);
         public List<OnStockKitVM> GetOnStockKits();
 

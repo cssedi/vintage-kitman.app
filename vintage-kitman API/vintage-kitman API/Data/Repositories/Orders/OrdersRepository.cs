@@ -391,6 +391,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                     OrderStatusId = 1,
                     CustomName = model.CustomName,
                     CustomNumber = model.CustomNumber,
+                    orderNumber = uniqueOrderNum,
                     Id = userId
                 });
 
@@ -477,16 +478,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                                                     </tr>
                                                 </tbody>
                                             </table>
-
-                                            <table style='width:100%; border-collapse: collapse; margin: 10px;' cellpadding='0' cellspacing='0'>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>If you didn't create an account with us, please ignore this email.</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
                                             <!-- Email content ends here -->
-
                                         </td>
                                     </tr>
                                 </tbody>
@@ -509,6 +501,38 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             }
 
             return uniqueOrderNum;
+        }
+
+        public List<KitOrderVM> GetUserOrders(string userId)
+        {
+
+
+            var orders = _appDbContext.kitOrders.Include(o=> o.Order).Include(o=> o.Kit)
+                           .Where(o=> o.Order.Id == userId)
+                            .Select (o=> new KitOrderVM
+                            {
+                                KitId = o.KitId,
+                                OrderId = o.OrderId,
+                                Size = o.Size,
+                                Quantity = o.Quantity,
+                                CustomName = o.CustomName,
+                                FrontImage = o.Kit.FrontImage,
+                                Name = o.Kit.Name,
+                                CustomNumber = o.CustomNumber,
+                                OrderDate = o.Order.OrderDate,
+                                uniqueOrdenum = o.Order.orderNumber,
+                                Kit = o.Kit,
+                                Order = o.Order
+                            }).ToList();
+
+            foreach(var order in orders)
+            {
+                OrderStatusVM orderStatus = _appDbContext.orderStatuses.Where(o => o.OrderStatusId == order.Order.OrderStatusId).
+                Select(o => new OrderStatusVM { OrderStatusId = o.OrderStatusId, Name = o.Name }).FirstOrDefault();
+                order.OrderStatus = orderStatus;
+            }
+
+            return orders;   
         }
     }
 }

@@ -156,6 +156,23 @@ namespace vintage_kitman_API.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
+        [HttpGet("GetUserOrders")]
+        public async Task<IActionResult> GetUserOrders()
+        {
+            //get user details
+            var httpUser = HttpContext.User;
+            var userId = httpUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
+            var orders = _ordersRepository.GetUserOrders(userId);
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found for this user" });
+            }
+            return Ok(orders);
+
+        }
+
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
         [HttpGet("AddNewOnStockOrder")]
         public async Task<IActionResult> AddNewOnStockOrder(OnStockKitVM model)
