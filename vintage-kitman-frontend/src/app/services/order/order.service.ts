@@ -7,6 +7,7 @@ import { CartTotalVM } from 'src/app/models/orders/CartTotal-vm';
 import { KitOrderVM } from 'src/app/models/orders/KitOrderVM';
 import { OnStockKitVM } from 'src/app/models/orders/OnStockKit-vm';
 import { CustomOrderVM } from 'src/app/models/orders/custom-order-vm';
+import { OrderVM } from 'src/app/models/orders/order-vm';
 import { wishlistVM } from 'src/app/models/orders/wishlist-vm';
 import { environment } from 'src/environments/environment.development';
 
@@ -67,5 +68,8 @@ export class OrderService {
   }
   createOrder(model: KitOrderVM[]):Observable<KitOrderVM>{
     return this.http.post<KitOrderVM>(this.baseAPIURL+"CreateOrder", model, this.httpOptions)
+  }
+  getUserOrders(): Observable<KitOrderVM[]>{
+    return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetUserOrders", this.httpOptions)
   }
 }

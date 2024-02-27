@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { KitOrderVM } from 'src/app/models/orders/KitOrderVM';
 import { CustomOrderVM } from 'src/app/models/orders/custom-order-vm';
+import { OrderVM } from 'src/app/models/orders/order-vm';
 import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
@@ -10,6 +12,7 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class MyOrdersComponent implements OnInit{
   customerOrders: CustomOrderVM[] = [];
+  userOrders:KitOrderVM[] = []
   messageModal:boolean = false;
   customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   isError:boolean = false
@@ -27,6 +30,21 @@ export class MyOrdersComponent implements OnInit{
         }
       }
       )
+
+      //get user orders
+      this.orderService.getUserOrders().subscribe(
+        {  
+          next: (res:any)=>{
+            this.userOrders = res as KitOrderVM[]
+            console.log(res)
+          },
+          error: (err:any)=>{
+            console.log(err)
+          }
+        }
+        )
+
+
   }
 
   viewMessage(order:CustomOrderVM){

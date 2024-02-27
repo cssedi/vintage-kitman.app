@@ -4,13 +4,48 @@
      <ng-template mat-tab-label>
                   <span [class]="{'text-white': isError?'red':'black'}">Orders</span>
      </ng-template>
-     <div *ngIf="customerOrders.length==0"
+     <div *ngIf="userOrders.length==0"
      class="flex flex-col max-w-screen-lg w-screen h-72 items-center justify-center mt-4 mx-auto">
      <h1 class="text-2xl font-bold text-white">
        No orders placed
      </h1>
      <button class="underline text-white" routerLink="/sport-teams/Football"> View Products</button>
    </div>
+   <div *ngIf="userOrders.length>0"
+    class="flex flex-col max-w-screen-lg w-screen items-left mt-4 mx-auto">
+      <div *ngFor="let order of userOrders">
+        <div class="border-y-[1px]">
+          <div class="flex xl:flex-row xs:flex-col justify-between">
+            <div class="flex xl:flex-row xs:flex-col">
+              <div class="flex flex-col">
+                <!-- order number -->
+                <h1 class="text-xl font-bold text-white mt-2 xs:items-center underline">
+                  Order number: {{order.uniqueOrdenum}}
+                </h1>
+                <h1 class="text-lg font-semibold text-white mt-2 xs:items-center max-w-[230px] ">
+                  {{order.name}} ({{order.size}})
+                </h1>
+                <img src="{{order.frontImage}}" class="max-w-[200px]" alt="">
+              </div>
+              <div class="md:mt-20">
+                <div *ngIf="!(order.customName == '' || order.customNumber == 0 || order.customName == null || order.customNumber == null)">
+                  <h3 class="text-white text-sm font-semibold"> Custom name: {{order.customName}}</h3>
+                  <h3 class="text-white text-sm font-semibold"> Custom Number: {{order.customNumber}}</h3>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5 flex-col xl:mr-20">
+              <h1 class="text-lg font-bold"
+              [ngClass]="{'text-txtRed': order.orderStatus?.name == 'On delivery',
+                          'text-white': order.orderStatus?.name == 'Placed', 
+                          'text-green': order.orderStatus?.name == 'Delivered'}">
+                Status: {{order.orderStatus?.name}}
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
      </mat-tab>
     <mat-tab label="Second" >     
         <ng-template mat-tab-label>
