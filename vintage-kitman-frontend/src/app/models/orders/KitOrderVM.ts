@@ -1,4 +1,5 @@
 import { ApplicationUser } from "../authentication/appuser";
+import { kitVM } from "../categories/kit-vm";
 import { OrderStatus } from "./orderStatus";
 
 export interface KitOrderVM {
@@ -9,6 +10,7 @@ export interface KitOrderVM {
     id: string;
     name: string;
     frontImage: string;
+    uniqueOrderNum: string;
     price: number;
     size: string;
     quantity: number;
@@ -16,4 +18,5 @@ export interface KitOrderVM {
     customNumber?: number;
     user: ApplicationUser | null;
     orderStatus: OrderStatus | null;
+    kit: kitVM | null;
   }
