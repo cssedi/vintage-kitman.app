@@ -43,6 +43,8 @@ import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-k
 import { AboutUsComponent } from './about-us/about-us.component';
 import { PoliciesComponent } from './policies/policies.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ApprovedPaymentComponent } from './transactions/approved-payment/approved-payment.component';
+import { PaymentFailedComponent } from './transactions/payment-failed/payment-failed.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +74,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     OnStockKitsComponent,
     AboutUsComponent,
     PoliciesComponent,
+    ApprovedPaymentComponent,
+    PaymentFailedComponent,
   ],
   imports: [
     BrowserModule,

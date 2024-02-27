@@ -26,6 +26,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OnStockKitsComponent } from './admin-dashboard/on-stock-kits/on-stock-kits.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { PoliciesComponent } from './policies/policies.component';
+import { ApprovedPaymentComponent } from './transactions/approved-payment/approved-payment.component';
+import { PaymentFailedComponent } from './transactions/payment-failed/payment-failed.component';
 
 const routes: Routes = 
 [
@@ -54,7 +56,9 @@ const routes: Routes =
   {path: 'checkout', component: CheckoutComponent},
   {path: 'view-on-stock-kits', component: OnStockKitsComponent},
   {path: 'About-Us', component: AboutUsComponent},
-  {path:'policies', component:PoliciesComponent}
+  {path:'policies', component:PoliciesComponent},
+  {path:'payment-approved', component:ApprovedPaymentComponent},
+  {path: 'payment-failed', component: PaymentFailedComponent}
 ];
 
 @NgModule({
