@@ -11,7 +11,7 @@ namespace vintage_kitman_API.Model
         public string orderNumber { get; set; }
         public int OrderStatusId { get; set; }
         public DateTime OrderDate { get; set; }
-        public string Id { get; set; }
+        public string UserId { get; set; }
         //navigation
         public User User { get; set; }
         public OrderStatus OrderStatus { get; set; }

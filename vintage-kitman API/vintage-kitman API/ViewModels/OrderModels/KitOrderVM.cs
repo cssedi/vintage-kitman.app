@@ -19,6 +19,7 @@ namespace vintage_kitman_API.ViewModels.OrderModels
         public int Quantity { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
+        public  string Address { get; set; }
         public User User { get; set; }
         public OrderStatusVM OrderStatus { get; set; }
         public Kit Kit { get; set; }

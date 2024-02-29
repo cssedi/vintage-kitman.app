@@ -10,10 +10,12 @@ namespace vintage_kitman_API.Model
         public int Quantity { get; set; }
         public string? CustomName { get; set; }
         public int? CustomNumber { get; set; }
+        public string Address { get; set; }
 
         public DateTime OrderDate { get; set; }
         //navigation
         public Kit Kit { get; set; }
+
         public Orders Order { get; set; }
     }
 }
