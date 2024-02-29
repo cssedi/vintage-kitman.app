@@ -64,8 +64,8 @@
                                 </td>
                                 <td class=" flex flex-col px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <img class="w-24 hover:cursor-pointer" src="{{order.image}}" (click)="viewImageFullScreen(order)">
-                                    <p *ngIf="order.customName != ''" class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.customName}}</p>
-                                    <p *ngIf="order.customNumber != 0" class="text-sm font-normal text-gray-600 dark:text-gray-400">{{order.customNumber}}</p>
+                                    <p *ngIf="order.customName != ''" class="text-sm font-normal ">{{order.customName}}</p>
+                                    <p *ngIf="order.customNumber != 0" class="text-sm font-normal">{{order.customNumber}}</p>
                                 </td>
                                 <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                     <p class="text-sm font-normal">

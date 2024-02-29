@@ -94,7 +94,6 @@ export class ViewCustomOrdersComponent implements OnInit {
     }
     viewImageFullScreen(order:CustomOrderVM){
       this.fullscreenImageModal =! this.fullscreenImageModal
-      console.log(this.fullscreenImageModal)
       this.customOrderObj = order
 
     }

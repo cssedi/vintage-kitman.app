@@ -561,5 +561,16 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
             return orders;
         }
+
+        public OnStockKits DeleteOnStockKit(OnStockKitVM model)
+        {
+            var kit = _appDbContext.OnStockKits.Where(k => k.Name == model.Name).FirstOrDefault();
+            if(kit != null)
+            {
+                _appDbContext.OnStockKits.Remove(kit);
+                _appDbContext.SaveChanges();
+            }
+            return kit;
+        }
     }
 }
