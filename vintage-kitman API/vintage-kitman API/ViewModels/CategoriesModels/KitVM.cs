@@ -7,6 +7,8 @@ namespace vintage_kitman_API.ViewModels.CategoriesModels
         public string Name { get; set; }
         public string FrontImage { get; set; }
         public int Price { get; set; }
+        public int TeamId { get; set; }
+        public int ProductTypeId { get; set; }
         public ProductType productType { get; set; }
     }
 }
