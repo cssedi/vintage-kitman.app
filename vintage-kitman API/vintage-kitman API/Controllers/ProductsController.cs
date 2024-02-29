@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vintage_kitman_API.Data.Repositories.Categories;
@@ -116,5 +117,35 @@ namespace vintage_kitman_API.Controllers
 
             return Ok(kits);
         }
+
+        //add new kit
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpPost("AddNewKit/{Teamname}")]
+        public async Task<IActionResult> AddNewKit(string Teamname, KitVM model)
+        {
+            var kit = await _productsRepository.addNewKit(Teamname, model);
+
+            if (kit == null)
+            {
+                return NotFound(new { message = "Kit not added" });
+            }
+
+            return Ok(kit);
+        }
+
+        //get kits by name
+        [HttpGet("GetKitsByName/{name}")]
+        public async Task<IActionResult> GetKitsByName(string name)
+        {
+            var kits = await _productsRepository.getKitsByNameAsync(name);
+
+            if (kits == null)
+            {
+                return NotFound(new { message = "No Kits Found" });
+            }
+
+            return Ok(kits);
+        }
+
     }
 }

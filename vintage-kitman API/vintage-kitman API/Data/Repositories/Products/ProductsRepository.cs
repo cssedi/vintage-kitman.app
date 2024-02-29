@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using vintage_kitman_API.Model;
 using vintage_kitman_API.NewFolder;
 using vintage_kitman_API.ViewModels.CategoriesModels;
 
@@ -12,6 +13,24 @@ namespace vintage_kitman_API.Data.Repositories.Products
             _appDbContext = appDbContext;
         }
 
+        public Task<KitVM> addNewKit(string teamname, KitVM model)
+        {
+            var team = _appDbContext.teams.Where(t => t.Name == teamname).FirstOrDefault();
+            var kit = new Kit
+            {
+                Name = model.Name,
+                FrontImage = model.FrontImage,
+                Price = model.Price,
+                TeamId = team.TeamId,
+                ProductTypeId = model.ProductTypeId
+            };
+
+            _appDbContext.kits.Add(kit);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(model);
+        }
+
         public Task<KitVM> getKitById(Guid id)
         {
             throw new NotImplementedException();
@@ -21,7 +40,7 @@ namespace vintage_kitman_API.Data.Repositories.Products
         {
             var kit = await _appDbContext.kits.Include(t => t.Team)
                 .Where(k => k.KitId == id)
-                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price })
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price, ProductTypeId = k.ProductTypeId, TeamId=k.TeamId  })
                 .FirstOrDefaultAsync();
 
             if (kit == null)
@@ -58,6 +77,16 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
             if (kits == null)
                 throw new NotFoundException("No kits found for the specified team");
+
+            return kits;
+        }
+
+        public Task<List<KitVM>> getKitsByTeamNameAsync(string name)
+        {
+            var kits = _appDbContext.kits.Include(t => t.Team)
+                .Where(k => k.Team.Name == name)
+                .Select(k => new KitVM { Name = k.Name, FrontImage = k.FrontImage, Price = k.Price, ProductTypeId = k.ProductTypeId })
+                .ToListAsync();
 
             return kits;
         }
