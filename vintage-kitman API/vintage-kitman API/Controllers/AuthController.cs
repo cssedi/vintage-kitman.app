@@ -155,6 +155,22 @@ namespace vintage_kitman_API.Controllers
             return Ok(user);
         }
 
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "ADMIN")]
+        [HttpGet("GetOrderCustomerDetails/{customerId}")]
+        public async Task<IActionResult> GetOrderCustomerDetails(string customerId)
+        {
+            var user = await _authRepository.GetUserOrderDetails(customerId);
+
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found" });
+            }
+
+            return Ok(user);
+        }
+
+
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
         [HttpPost("AddNewAddress")]
         public async Task<IActionResult> AddNewAddress(AddressVM model)

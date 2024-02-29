@@ -376,7 +376,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             return kits;
         }
 
-        public async Task<string> createOrder(List<KitOrderVM> modelList, string userId)
+        public async Task<KitOrderVM> createOrder(List<KitOrderVM> modelList, string userId)
         {
             //create unique order id containing "VK" and a random number
             var uniqueOrderNum = "VK" + new Random().Next(100000, 999999).ToString();
@@ -392,9 +392,9 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                     CustomName = model.CustomName,
                     CustomNumber = model.CustomNumber,
                     orderNumber = uniqueOrderNum,
-                    Id = userId
+                    UserId = userId
                 });
-
+                _appDbContext.orders.Add(newOrder.Entity);
                 _appDbContext.SaveChanges();
 
                 //get the order id
@@ -413,6 +413,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                     OrderDate = DateTime.Now,
                     CustomName = model.CustomName,
                     CustomNumber = model.CustomNumber,
+                    Address = model.Address
                 };
 
                 _appDbContext.kitOrders.Add(kitOrder);
@@ -500,7 +501,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                 }
             }
 
-            return uniqueOrderNum;
+            return modelList.FirstOrDefault();
         }
 
         public List<KitOrderVM> GetUserOrders(string userId)
@@ -508,7 +509,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
 
             var orders = _appDbContext.kitOrders.Include(o=> o.Order).Include(o=> o.Kit)
-                           .Where(o=> o.Order.Id == userId)
+                           .Where(o=> o.Order.UserId == userId)
                             .Select (o=> new KitOrderVM
                             {
                                 KitId = o.KitId,
@@ -521,6 +522,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                                 CustomNumber = o.CustomNumber,
                                 OrderDate = o.Order.OrderDate,
                                 uniqueOrdenum = o.Order.orderNumber,
+                                Address = o.Address,
                                 Kit = o.Kit,
                                 Order = o.Order
                             }).ToList();
@@ -533,6 +535,31 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             }
 
             return orders;   
+        }
+
+        public List<KitOrderVM> GetMonthlyOrders()
+        {
+            var orders = _appDbContext.kitOrders.Include(o => o.Order).ThenInclude(u=> u.User).Include(o => o.Kit)
+                           .Where(o => o.Order.OrderDate.Month == DateTime.Now.Month)
+                            .Select(o => new KitOrderVM
+                            {
+                                KitId = o.KitId,
+                                OrderId = o.OrderId,
+                                Size = o.Size,
+                                Quantity = o.Quantity,
+                                CustomName = o.CustomName,
+                                FrontImage = o.Kit.FrontImage,
+                                Name = o.Kit.Name,
+                                CustomNumber = o.CustomNumber,
+                                OrderDate = o.Order.OrderDate,
+                                uniqueOrdenum = o.Order.orderNumber,
+                                Address = o.Address,
+                                User = o.Order.User,
+                                Kit = o.Kit,
+                                Order = o.Order
+                            }).OrderBy(o=> o.OrderDate).ToList();    
+
+            return orders;
         }
     }
 }

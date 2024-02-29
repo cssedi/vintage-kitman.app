@@ -501,6 +501,13 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return user;
         }
 
+        public async Task<User> GetUserOrderDetails(string id)
+        {
+            var user = await _appDbContext.Users.Where(u => u.Id == id).FirstAsync();
+
+            return user;
+        }
+
         public async Task<AddressVM> AddAddress(string userId, AddressVM vm)
         {
             var user = _appDbContext.Users.Where(u => u.Id == userId).FirstOrDefault();

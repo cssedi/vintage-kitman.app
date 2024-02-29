@@ -242,6 +242,19 @@ namespace vintage_kitman_API.Controllers
             return Ok(order);
         }
 
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpGet("GetMonthlyOrders")]
+        public async Task<IActionResult> GetMonthlyOrders()
+        {
+            var orders = _ordersRepository.GetMonthlyOrders();
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found" });
+            }
+            return Ok(orders);
+        }
+
 
 
 
