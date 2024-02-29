@@ -25,7 +25,11 @@ export class ProductService {
   }
   searchKits(searchTerm:string):Observable<kitVM[]>{
     return this.http.get<kitVM[]>(this.baseAPIURL+"SearchKits/"+searchTerm)
-
   }
+
+  getKitsByTeamName(name:string):Observable<kitVM[]>{
+    return this.http.get<kitVM[]>(this.baseAPIURL+"GetKitsByName/"+name)
+  }
+
   
 }
