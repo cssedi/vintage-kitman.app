@@ -72,4 +72,7 @@ export class OrderService {
   getUserOrders(): Observable<KitOrderVM[]>{
     return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetUserOrders", this.httpOptions)
   }
+  getMonthlyOrders():Observable<KitOrderVM[]>{
+    return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetMonthlyOrders", this.httpOptions)
+  }
 }
