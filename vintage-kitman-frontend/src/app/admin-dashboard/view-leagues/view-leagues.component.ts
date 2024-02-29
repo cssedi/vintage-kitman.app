@@ -20,6 +20,9 @@ export class ViewLeaguesComponent implements OnInit {
   //forms
   formSubmitted: boolean = false;
   createLeagueForm!: FormGroup;
+  updateForm!: FormGroup;
+  selectedLeague!: string;
+
   //objects
   leagueObject: LeaguesVM = {name: '', teams: [],sport: {name: '', leagues: []}}
 
@@ -49,6 +52,9 @@ export class ViewLeaguesComponent implements OnInit {
     this.createLeagueForm = this.fb.group({
       name: ['', Validators.required],
     })
+    this.updateForm = this.fb.group({
+      name: ['', Validators.required]
+    })
   }
 
   createLeague() {
@@ -69,6 +75,25 @@ export class ViewLeaguesComponent implements OnInit {
       error: (err) => {
         console.log(err)
       }
+    })
+  }
+
+  updateLeague(){
+    this.formSubmitted=true
+    this.leagueObject.name = this.updateForm.value.name
+    this.categoriesService.updateLeague(this.selectedLeague, this.leagueObject)
+    .subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete: ()=>{
+        this.updateModal=false
+        this.ngOnInit()
+        this.formSubmitted=false;
+        this.updateForm.reset()
+        this.snackBar.open("Team updated successfully", "Close", {duration:3000})
+      }
+
     })
   }
   deleteLeague(league:LeaguesVM){
@@ -92,6 +117,15 @@ export class ViewLeaguesComponent implements OnInit {
   toggleCreateModal() { 
     this.showCreateModal = !this.showCreateModal 
     this.createLeagueForm.reset()
+  }
+  toggleUpdateModal() {
+    this.updateModal = !this.updateModal
+  }
+
+  viewEditModal(league:LeaguesVM){
+    this.leagueObject = league
+    this.updateModal=true
+    this.selectedLeague = league.name
   }
 
   viewDeleteModal(leaguObj: LeaguesVM){

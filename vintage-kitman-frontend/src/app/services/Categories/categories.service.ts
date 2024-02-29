@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { kitVM } from 'src/app/models/categories/kit-vm';
 import { LeaguesVM } from 'src/app/models/categories/leagues-vm';
 import { ProductType } from 'src/app/models/categories/product-type';
 import { Size } from 'src/app/models/categories/size';
@@ -61,6 +62,9 @@ export class CategoriesService {
   updateSport(name: string, model:SportsVM):Observable<SportsVM>{
     return this.http.put<SportsVM>(this.baseAPIURL2+"UpdateSport/"+name, model, this.httpOptions)
   }
+  updateLeague(name: string, model:LeaguesVM):Observable<LeaguesVM>{
+    return this.http.put<LeaguesVM>(this.baseAPIURL2+"UpdateLeague/"+name, model, this.httpOptions)
+  }
 
   //delete endpoints
   deleteTeam(name:string){
@@ -77,4 +81,8 @@ export class CategoriesService {
   getAllProductTypes():Observable<ProductType[]>{
     return this.http.get<ProductType[]>(this.baseAPIURL2+"GetAllProductTypes", this.httpOptions)
   }
+  addKit(teamName:string, model:kitVM):Observable<kitVM>{
+    return this.http.post<kitVM>(this.baseAPIURL+"AddNewKit/"+ teamName, model, this.httpOptions)
+  }
+
 }
