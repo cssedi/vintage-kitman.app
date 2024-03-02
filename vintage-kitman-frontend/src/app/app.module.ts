@@ -45,6 +45,7 @@ import { PoliciesComponent } from './policies/policies.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ApprovedPaymentComponent } from './transactions/approved-payment/approved-payment.component';
 import { PaymentFailedComponent } from './transactions/payment-failed/payment-failed.component';
+import { ViewAllOrdersComponent } from './admin-dashboard/view-all-orders/view-all-orders.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { PaymentFailedComponent } from './transactions/payment-failed/payment-fa
     PoliciesComponent,
     ApprovedPaymentComponent,
     PaymentFailedComponent,
+    ViewAllOrdersComponent,
   ],
   imports: [
     BrowserModule,
