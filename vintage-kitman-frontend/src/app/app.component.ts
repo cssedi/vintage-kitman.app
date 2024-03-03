@@ -21,6 +21,9 @@ export class AppComponent implements  OnInit, AfterViewInit {
   isVisible: boolean =false
   isUserVisible: boolean =false
   isDoubleDropDownVisible: boolean =false
+  isVisiblesidebar: boolean =false
+  //side bars
+  issidebarLoggedOut: boolean = false
   //auth
   isAdmin:boolean = false
   isAuthenticated:boolean = false
@@ -148,6 +151,17 @@ export class AppComponent implements  OnInit, AfterViewInit {
     this.isVisible=false
     this.isUserVisible=false
     this.isDoubleDropDownVisible=false
+  }
+
+  //sidebar functions
+  toggleSidebar(){
+    this.issidebarLoggedOut=!this.issidebarLoggedOut
+  }
+  closeSidebar(){
+    this.issidebarLoggedOut=false
+  }
+  toggleSideBarDropdown(){
+      this.isVisiblesidebar=true
   }
 
   //search functions

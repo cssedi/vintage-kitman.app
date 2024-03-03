@@ -6,12 +6,19 @@
       <img src="/assets/images/vintagekitman-bg-clear.png" class="h-14  " alt="Flowbite Logo">
 
     </a>
-    <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-dropdown" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
-    </button>
+    <div class="space-x-5">
+      <a routerLink="cart" class="py-2 mt-2 text-white rounded 0 md:p-0 md:hidden">
+        <mat-icon *ngIf="cartItems>0" routerLink="cart" aria-hidden="false" matBadge="{{cartItems}}" fontIcon="shopping_cart"></mat-icon>
+        <mat-icon *ngIf="cartItems==0" aria-hidden="false" routerLink="cart" fontIcon="shopping_cart"></mat-icon>
+      </a>
+      <button data-collapse-toggle="navbar-dropdown" (click)="toggleSidebar()" type="button" class="inline-flex text-white items-center md:hidden p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg" aria-controls="navbar-dropdown" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+      </button>
+    </div>
+
     <div class="hidden w-full md:block md:w-auto" id="navbar-dropdown">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
         <li>
@@ -102,7 +109,7 @@
     </a>
     <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex text-white items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden" aria-controls="navbar-dropdown" aria-expanded="false">
         <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
@@ -172,7 +179,7 @@
             </svg>
           </a>
           <!-- User drop down -->
-          <div  *ngIf="isUserVisible" class="fixed right-5 z-30 font-normal divide-y rounded-lg shadow w-48 text-white bg-black xl2:mr-72">
+          <div  *ngIf="isUserVisible" class="fixed right-5 z-30 font-normal divide-y rounded-lg shadow w-48 text-white bg-black">
             <ul class="py-2 text-sm space-y-2 ">
               <li routerLink="register">
                 <button  class="flex flex-row px-4 hover:text-canary space-x-1 ">
@@ -305,6 +312,85 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>
+
+        <!-- Side bar logged out -->
+        <section 
+        *ngIf="!isAuthenticated && issidebarLoggedOut"
+        class="float-left">
+        <div class="relative z-10 md:hidden">
+            <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" ></div>
+        
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+              <div class="flex min-h-screen items-end text-center sm:items-center sm:p-0">
+                  <div class="relative h-screen w-1/2 transform overflow-hidden rounded-l-none bg-darkgrey text-left shadow-xl transition-all">
+                  <div class="bg-darkgrey px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                      <div class="sm:flex sm:items-start">
+                      <div class="mx-auto flex flex-shrink-0 items-center justify-center rounded-full">
+                        <h1 class="text-2xl text-white font-semibold">
+                          Menu
+                        </h1>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="px-4 py-3 flex flex-col ">
+                    <button (click)="toggleSideBarDropdown()" class="flex items-center text-white w-full mt-2 px-3 text-gray-900 rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
+                    >Shop 
+                  </button>
+                  <!-- Dropdown menu -->
+                  <div  class="relative bg-darkgrey font-normal divide-y rounded-lg shadow w-full text-white">
+                    <ul class="py-2 text-sm">
+                      <li *ngFor="let sport of sports" class="h-9">
+                        <button (click)="toggleDoubleDropDown(sport)" [routerLink]="['/sport-teams', sport.name]"
+                        class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
+                          <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                          </svg>
+                        </button>
+                        <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="relative bg-darkgrey divide-y divide-gray-100 rounded-lg w-44 ">
+                          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
+                            <li *ngFor="let league of sport.leagues">
+                              <a [routerLink]="['/teams', league.name]" (click)="toggleDropDown()" class="block px-4 py-2 text-white">{{league.name}}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="h-9 py-2 border-t-darkgrey border-2 border-x-0 border-b-0" routerLink="custom-order">
+                        <button routerLink="custom-order" class="flex flex-row px-4 py- hover:opacity-50"> 
+                          Custom Order
+                        </button>
+                      </li>
+                    </ul>
+                    <ul>
+                        <li (click)="toggleUserDropDown()">
+                      <a  class=" flex flex-row space-x-2 py-2 px-3 mt-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
+                        <p class="font-normal">user</p>
+                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="account_circle"></mat-icon>
+                        <svg class="w-2.5 h-2.5 ms-2.5 mt-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                        </svg>
+                      </a>
+                      <!-- User drop down -->
+                      <div  *ngIf="isUserVisible" class=" absolute z-30 font-normal divide-y divide-gray-100 rounded-lg shadow w-24 text-white">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-400">
+                          <li class=" flex flex-row space-x-1" routerLink="login">
+                            <button class="block px-4 hover:text-canary">Sign in</button>
+                          </li>
+                          <li routerLink="register">
+                            <a  class="block px-4 py-2 hover:text-canary">Register</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>  
+                    </ul>
+
+                  </div>
+
+                  </div>
+                  </div>
+              </div>
+            </div>
+        </div>    
+    </section>
 
 
 
