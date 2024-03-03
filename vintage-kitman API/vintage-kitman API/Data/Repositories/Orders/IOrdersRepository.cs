@@ -30,6 +30,9 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         //get monthly orders
         public List<KitOrderVM> GetMonthlyOrders();
 
+        //getall orders
+        public List<KitOrderVM> GetAllOrders();
+
 
 
 

@@ -255,6 +255,19 @@ namespace vintage_kitman_API.Controllers
             return Ok(orders);
         }
 
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpGet("GetAllOrders")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            var orders = _ordersRepository.GetAllOrders();
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found" });
+            }
+            return Ok(orders);
+        }
+
 
 
 

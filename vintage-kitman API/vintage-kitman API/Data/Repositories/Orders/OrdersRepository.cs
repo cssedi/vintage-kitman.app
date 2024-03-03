@@ -572,5 +572,30 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             }
             return kit;
         }
+
+        public List<KitOrderVM> GetAllOrders()
+        {
+            //group orders by month
+            var orders = _appDbContext.kitOrders.Include(o => o.Order).ThenInclude(u => u.User).Include(o => o.Kit)
+                           .Select(o => new KitOrderVM
+                           {
+                               KitId = o.KitId,
+                               OrderId = o.OrderId,
+                               Size = o.Size,
+                               Quantity = o.Quantity,
+                               CustomName = o.CustomName,
+                               FrontImage = o.Kit.FrontImage,
+                               Name = o.Kit.Name,
+                               CustomNumber = o.CustomNumber,
+                               OrderDate = o.Order.OrderDate,
+                               uniqueOrdenum = o.Order.orderNumber,
+                               Address = o.Address,
+                               User = o.Order.User,
+                               Kit = o.Kit,
+                               Order = o.Order
+                           }).OrderBy(o => o.OrderDate).ToList();
+
+            return orders;
+        }
     }
 }
