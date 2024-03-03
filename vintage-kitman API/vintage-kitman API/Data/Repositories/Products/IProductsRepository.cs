@@ -16,6 +16,8 @@ namespace vintage_kitman_API.Data.Repositories.Products
         public Task<List<KitVM>> searchKits(string searchString);
         //add new kit
         public Task<KitVM> addNewKit(string teamname, KitVM model);
+        public Task<KitVM> updateKit(string name, KitVM model);
+        public Task<KitVM> deleteKit(string name);
         
 
 

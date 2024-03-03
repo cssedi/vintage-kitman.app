@@ -147,5 +147,35 @@ namespace vintage_kitman_API.Controllers
             return Ok(kits);
         }
 
+        //update kit
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpPut("UpdateKit/{name}")]
+        public async Task<IActionResult> UpdateKit(string name, KitVM model)
+        {
+            var kit = await _productsRepository.updateKit(name, model);
+
+            if (kit == null)
+            {
+                return NotFound(new { message = "Kit not updated" });
+            }
+
+            return Ok(kit);
+        }
+
+        //delete kit
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpDelete("DeleteKit/{name}")]
+        public async Task<IActionResult> DeleteKit(string name)
+        {
+            var kit = await _productsRepository.deleteKit(name);
+
+            if (kit == null)
+            {
+                return NotFound(new { message = "Kit not deleted" });
+            }
+
+            return Ok(kit);
+        }
+
     }
 }

@@ -118,5 +118,27 @@ namespace vintage_kitman_API.Data.Repositories.Products
 
             return kits;
         }
+
+        public Task<KitVM> updateKit(string name, KitVM model)
+        {
+            var kit = _appDbContext.kits.Where(k => k.Name == name).FirstOrDefault();
+            kit.Name = model.Name;
+            kit.FrontImage = model.FrontImage;
+            kit.Price = model.Price;
+            kit.ProductTypeId = model.ProductTypeId;
+
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(model);
+        }
+
+        public Task<KitVM> deleteKit(string name)
+        {
+            var kit = _appDbContext.kits.Where(k => k.Name == name).FirstOrDefault();
+            _appDbContext.kits.Remove(kit);
+            _appDbContext.SaveChanges();
+
+            return Task.FromResult(new KitVM());
+        }
     }
 }
