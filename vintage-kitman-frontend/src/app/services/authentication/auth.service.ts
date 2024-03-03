@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment.development';
 export class AuthService {
 
     
-    baseAPIUrl= environment.baseAPIUrl+'Auth/'
+    baseAPIUrl= environment.deployedAPIURL+'Auth/'
     //authentication variables
     isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     isAdminSubject = new BehaviorSubject<boolean>(false);
@@ -56,6 +56,9 @@ export class AuthService {
 
   AdminGetUserDetails(id: string):Observable<ApplicationUser>{
     return this.http.get<ApplicationUser>(this.baseAPIUrl+"AdminGetCustomerDetails/"+ id, this.httpOptions)
+  }
+  GetOrderCustomerDetails(id: string):Observable<ApplicationUser>{
+    return this.http.get<ApplicationUser>(this.baseAPIUrl+"GetOrderCustomerDetails/"+ id, this.httpOptions)
   }
   addAddress(address:Address):Observable<Address>{
     return this.http.post<Address>(this.baseAPIUrl+"AddNewAddress", address, this.httpOptions)

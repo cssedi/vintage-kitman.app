@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class OrderService {
 
-  baseAPIURL = environment.baseAPIUrl+ "Order/"
+  baseAPIURL = environment.deployedAPIURL+ "Order/"
   token = localStorage.getItem('token')
   httpOptions = {
     headers: new HttpHeaders({
@@ -74,5 +74,8 @@ export class OrderService {
   }
   getMonthlyOrders():Observable<KitOrderVM[]>{
     return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetMonthlyOrders", this.httpOptions)
+  }
+  getOrders():Observable<KitOrderVM[]>{
+    return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetAllOrders", this.httpOptions)
   }
 }
