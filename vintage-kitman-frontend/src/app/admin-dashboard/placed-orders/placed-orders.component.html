@@ -9,8 +9,12 @@
                 <span class="px-3 py-1 text-xs rounded-full">Audit</span>
             </div>
 
-            <p class="mt-2 text-sm text-white">These are all orders placed for the month of {{month|date:'MMMM'}}</p>
+            <p class="mt-2 text-sm text-white">These are all orders placed for the month of {{month|date:'MMMM'}}</p> 
+           <button routerLink="/view-all-orders" class="bg-grey text-white p-2 hover:bg-canary hover:text-black rounded-sm mt-3">
+                View All Orders
+            </button>
         </div>
+
 
         <div class="flex items-center mt-4 gap-x-3">
       
@@ -20,8 +24,8 @@
     <div class="flex flex-col mt-6 " >
         <div class="-ml-5 overflow-x-auto ">
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div class="overflow-hidden border border-blue-300 dark:border-gray-700 md:rounded-lg">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <div class="overflow-hidden md:rounded-lg">
+                    <table class="min-w-full divide-y">
                         <thead class="bg-darkgrey w-full">
                             <tr>
                                 <th scope="col" class="py-3.5 px-4 w-[150px] text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -117,6 +121,7 @@
                     <p class="text-sm">Email: <b>{{userObj.email}}</b></p>
                     <p class="text-sm">Phone Number: <b>{{userObj.phoneNumber}}</b></p>
                     <p class="text-sm">Address: <b>{{kitOrder.address}}</b></p>
+                    <p class="text-sm">Province: <b>{{kitOrder.orderDate | date}}</b></p>
                 </div>
             </div>
             </div>
