@@ -1,11 +1,11 @@
 
-<div class="flex lg:flex-row my-8 mx-28 h-[620px] space-x-5 xs:flex-col">
-    <div class="w-2/5 flex-col">
-        <img src="{{kit.frontImage}}" class="w-[400px] h-full max-h-[500px]">
+<div class="flex lg:flex-row my-8 mx-12 h-full space-x-5 xs:flex-col ">
+    <div class="md:w-2/5 xs:w-full flex-col mb-5">
+        <img src="{{kit.frontImage}}" class="w-full h-fit ">
     </div>
-    <div class="w-3/5 -mt-6">
-        <div class="flex flex-col left-5">
-            <h1 class="text-2xl font-bold text-white mt-5">
+    <div class="md:w-3/5 xs:w-4/5 md:-mt-6">
+        <div class="  flex flex-col left-5">
+            <h1 class="text-2xl font-bold text-white md:mt-5">
                 {{kit.name}}
             </h1>
         </div>
@@ -18,11 +18,11 @@
                   <mat-button-toggle-group 
                   formControlName="size"
                   class=""name="fontStyle" aria-label="Font Style">
-                      <mat-button-toggle class="w-16" value="S">S</mat-button-toggle>
-                      <mat-button-toggle class="w-16" value="M">M</mat-button-toggle>
-                      <mat-button-toggle class="w-16" value="L">L</mat-button-toggle>
-                      <mat-button-toggle class="w-16" value="XL">XL</mat-button-toggle>
-                      <mat-button-toggle class="w-16" value="XXL">XXL</mat-button-toggle>
+                      <mat-button-toggle class="md:w-16 xs:w-14" value="S">S</mat-button-toggle>
+                      <mat-button-toggle class="md:w-16 xs:w-14" value="M">M</mat-button-toggle>
+                      <mat-button-toggle class="md:w-16 xs:w-14" value="L">L</mat-button-toggle>
+                      <mat-button-toggle class="md:w-16 xs:w-14" value="XL">XL</mat-button-toggle>
+                      <mat-button-toggle class="md:w-16 xs:w-14" value="XXL">XXL</mat-button-toggle>
                   </mat-button-toggle-group>
                 </div>
                 <a (click)="viewSizeChart()" class="text-sm text-white pt-2 hover:cursor-pointer hover:text-canary underline"> Size guide</a>
@@ -34,10 +34,10 @@
                     </label>
                 </div>
                 <div *ngIf="customizedToggle">
-                    <div class="mb-1" >
+                    <div class=" relative mb-1" >
                         <label for="Name" class="block mb- text-sm text-white font-medium">
                             Custom Name</label>
-                        <div class="relative flex items-center w-1/2">
+                        <div class="relative flex items-center md:w-1/2 xs:w-full">
                             <input type="email" formControlName="customName"
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="Cristiano Ronaldo">
@@ -46,7 +46,7 @@
                     <div class="mb-2">
                         <label for="Custom number"
                             class="block text-sm font-medium text-gray-900 dark:text-white">Custom number</label>
-                        <div class="relative flex items-center w-1/4 ">
+                        <div class="relative flex items-center md:w-1/4 xs:w-1/2">
                             <input type="number" formControlName="customNumber" min="1" max="99" value="1"
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="7">
@@ -55,7 +55,7 @@
                 </div>
 
 
-                <div class="flex flex-row w-[60%] mt-1">
+                <div class="relative flex md:flex-row xs:flex-col w-[60%] mt-1">
                     <div class="flex flex-col">
                         <label for="quantity" class="block mb-2 text-sm font-medium text-white">Choose quantity:</label>
                         <div class="relative flex items-center max-w-[8rem]">
@@ -74,7 +74,7 @@
                     </div>
                     <button 
                     type="submit"
-                    class="w-1/2 bg-canary text-black  text-lg font-semibold py-2 mt-7 ml-5 hover:cursor-pointer">
+                    class="md:w-1/2 xs:w-full bg-canary text-black text-lg font-semibold py-2 mt-7 ml-5 hover:cursor-pointer">
                         <div class="flex flex-row text-center justify-center space-x-2">
                             <p class="text-center">Add to cart</p>
                             <mat-icon fontIcon="shopping_cart" class="pt-1"></mat-icon>

@@ -18,7 +18,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductComponent implements OnInit {
 
-   kit:kitVM= {name: '', frontImage: '', price: 0,productType: null}
+   kit:kitVM= {name: '', frontImage: '', price: 0, productType: null,teamId: 0,productTypeId: 0}
    cartItem:CartItem={KitName: '', Quantity: 0, isCustomed: false, SizeId: '', CustomName: '', CustomNumber: 0, KitPrice: 0,KitImage: ''}
    sizeArray: Size[] = []
    customizedToggle:boolean = false;

@@ -11,6 +11,7 @@ export interface KitOrderVM {
     name: string;
     frontImage: string;
     uniqueOrderNum: string;
+    orderDate?: Date;
     address:string;
     price: number;
     size: string;
