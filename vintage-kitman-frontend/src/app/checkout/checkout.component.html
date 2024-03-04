@@ -30,14 +30,21 @@
         </div>
         <!-- delivery address -->
         <div class="flex flex-col border-b border-grey pb-4">
-            <h1 class="text-xl font-semibold mt-3 px-3">
-                Delivery Address
-            </h1>
+            <div class="justify-between px-3">
+                <h1 class="text-xl font-semibold mt-3 ">
+                    Delivery Address
+                </h1>
+                <a routerLink="/shipping-address" class="underline transition-colors duration-200">
+                    View all addresses
+                </a>
+
+            </div>
+
             <div class="flex flex-col px-3">
                 <h1 *ngIf="deliveryAddress != ''" class="text-xl font-semibold">
                     <!-- {{deliveryAddress}} -->
                 </h1>
-                <h1 *ngIf="address" class="text-lg font-semibold">
+                <h1 *ngIf="addressString !=''" class="text-lg font-semibold">
                     <mat-expansion-panel class="bg-black">
                         <mat-expansion-panel-header class="justify-between">
                           <mat-panel-title>
@@ -53,19 +60,14 @@
                           <h1 *ngIf="address.buildingName !=''"class="text-black text-sm font-semibold">Building Name: {{address.buildingName}}</h1>
                           <h1 *ngIf="address.unitNumber !=''"class="text-black text-sm font-semibold">Unit Number: {{address.unitNumber}}</h1>
                           </div>
-                          <div class="top-0 right-0 flex flex-col space-y-3">
-                            <button routerLink="/shipping-address" class="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
-                                <mat-icon fontIcon="remove_red_eye" 
-                                matTooltipPosition="above"
-                                matTooltip="view all addresses"></mat-icon>
-                            </button>
-                          </div>
+
               
                         </div>
                       </mat-expansion-panel>
                 </h1>
-                <h1 *ngIf="!address" class="text-xl font-semibold">
-                </h1>
+                <a *ngIf="addressString ==''" class="text-sm font-semibold underline text-canary hover:cursor-pointer" routerLink="/shipping-address">
+                    view addresses
+                </a>
 
             </div>
         </div>
@@ -96,8 +98,9 @@
             </div>
     </div>
 
-    <!-- <button
+    <button
     class="text-black bg-canary w-full h-12 mt-4 rounded-md"
+    [disabled]="addressString ==''"
     angular4-paystack
     [paystackOptions]="options"
     (onClose)="paymentCancel()"
@@ -105,15 +108,17 @@
     (callback)="paymentDone($event)"
     [class]="'btn btn-primary btn-lg'"
   >
-    Pay Now
-  </button> -->
+    <p *ngIf="addressString==''"> Add address</p>
+    <p *ngIf="addressString!=''"> Place Order</p>
+  </button>
 
-  <button
-  class="text-black bg-canary w-full h-12 mt-4 rounded-md"
-  (click)="placeOrder()"
->
-  Pay Now
-</button>
+    <!-- <button
+    class="text-black bg-canary w-full h-12 mt-4 rounded-md"
+    [disabled]="addressString ==''"
+    (click)="placeOrder()">
+
+    </button> -->
+
 </div>
 
 

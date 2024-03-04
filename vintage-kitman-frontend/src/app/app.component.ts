@@ -153,6 +153,11 @@ export class AppComponent implements  OnInit, AfterViewInit {
     this.isDoubleDropDownVisible=false
   }
 
+  routetopage(page: any[]) { // Change the type to any[] to accept multiple segments
+    this.router.navigate(page); // Navigate using the array of segments
+    this.closeSidebar(); // Close the sidebar
+  }
+  
   //sidebar functions
   toggleSidebar(){
     this.issidebarLoggedOut=!this.issidebarLoggedOut

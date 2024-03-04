@@ -6,6 +6,8 @@ import { PaystackOptions } from 'angular4-paystack';
 import { AuthService } from '../services/authentication/auth.service';
 import { Address } from '../models/authentication/address-vm';
 import { KitOrderVM } from '../models/orders/KitOrderVM';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -22,15 +24,23 @@ export class CheckoutComponent {
   subTotal = 0
   deliveryAddress = ''
   address: Address = {name: '', addressName1: '', addressName2: '', province: '', zipCode: 0, buildingName: '', unitNumber: '', isMain: false, user: null,addressId: 0}
+  addressString = ''
   kitOrderArray: KitOrderVM[] = []
-  constructor(private cartService:CartService, private orderService:OrderService, private authService: AuthService) {}
+  public showEmbed = false;
+
+  public results = {
+    name: ''
+  };
+  tRef = '';
+  result = '';
+  constructor(private cartService:CartService, private orderService:OrderService, private authService: AuthService, 
+              private snackBar: MatSnackBar,private router: Router) {}
   ngOnInit(): void 
   {
     const cart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.cartArray = cart;
     this.ifIsLoading = true
-    this.setRandomPaymentRef();
     //get cart total
     this.orderService.getCartTotal(this.cartArray)
     .subscribe
@@ -60,39 +70,13 @@ export class CheckoutComponent {
   
   }
 
-  placeOrder(){
-    debugger
-    this.cartArray.forEach(element => {
-      let kitOrder: KitOrderVM = {kitId:0, quantity: element.Quantity,
-                                  orderId: 0,uniqueOrdenum: '',orderStatusId: 0,id: '',
-                                  name: element.KitName,
-                                  frontImage: element.KitImage,
-                                  price: element.KitPrice,
-                                  size: element.SizeId
-                                  ,user: null,orderStatus: null
-      }
-      this.kitOrderArray.push(kitOrder)
-    });
-
-    this.orderService.createOrder(this.kitOrderArray)
-    .subscribe({
-      next: (response:any) => {
-        console.log(response)
-      },
-      complete: () => {
-
-      },
-      error: (err:any) => {
-
-      }
-    })
-  }
 
   getMainAddress(){
     this.authService.getMainAddress().subscribe({
       next: (response) => {
         this.address = response
-        console.log(this.address)
+        this.addressString = this.address.addressName1 + ' ' + this.address.addressName2 + ' ' + this.address.buildingName + ' ' + this.address.unitNumber + ' ' + this.address.province + ' ' + this.address.zipCode
+        console.log(this.addressString)
       },
       complete: () => {
 
@@ -104,13 +88,6 @@ export class CheckoutComponent {
 
   }
 
-  public showEmbed = false;
-
-  public results = {
-    name: ''
-  };
-  tRef = '';
-  result = '';
 
   toggleEmbed() {
     this.showEmbed = !this.showEmbed;
@@ -122,16 +99,63 @@ export class CheckoutComponent {
 
   paymentDone(ref: any) {
     this.title = 'Payment successful';
+    this.placeOrder()
     console.log(this.title, ref);
   }
 
   paymentCancel() {
     this.title = 'Payment failed';
+    this.router.navigate(['/payment-failed'])
+
+
     console.log(this.title);
   }
 
-  setRandomPaymentRef() {
-    this.tRef = `${Math.random() * 10000000000000}`;
+  
+  placeOrder(){
+    if(this.address){
+      this.cartArray.forEach(element => {
+        let kitOrder: KitOrderVM = {
+          kitId: 0, quantity: element.Quantity,
+          orderId: 0, uniqueOrdenum: '', orderStatusId: 0, id: '',
+          name: element.KitName,
+          frontImage: element.KitImage,
+          price: element.KitPrice,
+          size: element.SizeId,
+          user: null, orderStatus: null, kit: null,
+          uniqueOrderNum: '',address: this.addressString
+        }
+        this.kitOrderArray.push(kitOrder)
+      });
+    }
+    this.orderService.createOrder(this.kitOrderArray)
+    .subscribe({
+      next: (response:any) => {
+        console.log('Next block executed with response:', response);
+      },
+      complete: () => {
+        console.log('complete block executed');
+
+        localStorage.removeItem('cart')
+        this.snackBar.open('Order Placed Successfully', 'Close', {
+          duration: 15000
+        })
+
+        
+        this.router.navigate(['/payment-approved'])
+        .then(() => {
+          this.cartService.updateCartItemsCount(0);         
+        })
+        
+
+
+        
+      },
+      error: (err:any) => {
+        console.log('error block executed with error:', err);
+
+      }
+    })
   }
 
 
