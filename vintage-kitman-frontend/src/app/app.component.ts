@@ -33,6 +33,7 @@ export class AppComponent implements  OnInit, AfterViewInit {
   cartItems: number =0;
   cart: CartItem[] = []
   customOrders:CustomOrderVM [] = []
+  viewCountDowndescription: boolean = false
   //search
   searchForm!:FormGroup
 
@@ -173,6 +174,11 @@ export class AppComponent implements  OnInit, AfterViewInit {
   search(searchTerm:string){
     searchTerm = this.searchForm.get('searchTerm')?.value
     this.router.navigate(['search-query/'+searchTerm])
+    this.closeSidebar()
+  }
+
+  toggleCountDownDescription(){
+    this.viewCountDowndescription =! this.viewCountDowndescription
   }
 
 }

@@ -241,7 +241,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                                                         <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Thanks for joining the Vintage Kitman family!</td>
                                                     </tr>
                                                     <tr>
-                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Before you can start ordering and building your collection, we'd like for you to confirm your account here:</td>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>This email serves as confirmation for creating your account, you can start shopping here:</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -250,7 +250,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                                                 <tbody>
                                                     <tr>
                                                         <td style='padding: 10px; text-align: center;'>
-                                                            <a href='' target='_blank' style='text-decoration: none; color: #ffffff; background-color: #000000; padding: 12px 40px; border-radius: 4px; display: inline-block; font-size: 14px; line-height: 120%;'>Confirm Account</a>
+                                                            <a href='https://vintage-kitman.azurewebsites.net/sport-teams/Football' target='_blank' style='text-decoration: none; color: #ffffff; background-color: #000000; padding: 12px 40px; border-radius: 4px; display: inline-block; font-size: 14px; line-height: 120%;'>Shop Now</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
