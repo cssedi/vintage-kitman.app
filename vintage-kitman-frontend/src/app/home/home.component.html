@@ -44,10 +44,10 @@
            data-te-carousel-item
            style="backface-visibility: hidden">
         <img [src]="slide.image" class="block w-full" alt="..." />
-        <div class="absolute inset-x-[15%] top-5 left-5 hidden py-5 text-white md:block z-30">
-          <h1 class="text-3xl font-bold">{{ slide.content.title }}</h1>
+        <div class="absolute inset-x-[15%] md:top-5 left-5 hidden py-5 text-white xs:block z-30 xs:top-0">
+          <h1 class="md:text-3xl font-bold xs:text-base">{{ slide.content.title }}</h1>
           <p>{{ slide.content.description }}</p>
-          <button class="rounded-md w-32 mt-6 bg-black p-2 text-sm font-semibold text-white" routerLink="{{slide.content.route}}">
+          <button class="rounded-md md:w-32 w-20 mt-6 bg-black p-2 md:text-sm xs:text-xs font-semibold text-white" routerLink="{{slide.content.route}}">
             {{ slide.content.buttonText }}
           </button>
         </div>
@@ -131,6 +131,18 @@
     >
   </button>
 </div>
+<div
+class="relative py-5 text-center text-white md:hidden">
+<h1 class="xl2:text-3xl font-bold text-white xs:text-xl">
+  {{ formatTime(countdown.days) }} days,
+  {{ formatTime(countdown.hours) }} hours,
+  {{ formatTime(countdown.minutes) }} minutes,
+  {{ formatTime(countdown.seconds) }} seconds
+</h1>
+<p>
+  Time remaining until our bulk order from our supplier.<br> <a class="underline hover:text-canary hover:cursor-pointer px-6"> Find out more.</a>
+</p>
+</div>
 
 <div class="xl2:flex xl2:flex-row mt-12 xs:flex-col xs:hidden">
     <div class=" md:w-1/2 float-left">
@@ -152,7 +164,7 @@
     </div>
 </div>
 <!--  responsive -->
-<div class="relative flex-row mt-12 xs:flex-col xl2:hidden ml-9">
+<div class="relative flex-row mt-12 xs:flex-col xl2:hidden px-3">
 
   <div class="mx-auto">
       <h1 class="text-xl font-bold text-white pl-3">
@@ -166,7 +178,7 @@
             <img src="{{team.Logo}}" alt="{{team.Name}}" class="h-14 mx-auto mb-2">
             <h1 class="text-lg text-white group-hover:underline font-semibold group-hover:text-black"> {{team.Name}}</h1>
         </div>  
-        <div class=" w-full float-left mx-5">
+        <div class=" w-fit h-fit float-left mx-5">
           <img src="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d5546c2ea916524/6489df77e165894462d71b2f/EPL_Cover.jpg?auto=webp&format=pjpg&width=3840&quality=60" 
           alt="" 
           class="bg-cover h-full mx-auto ">
@@ -185,14 +197,8 @@
     <section class="justify-normal max-w-screen-2xl mx-auto">
       <div class="container overflow-x-hidden">
           <div class="flex flex-row flex-wrap w-full mx-auto"> 
-              <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/5 lg:w-1/3 xs:w-1/2 hover:cursor-pointer" *ngFor="let kit of nationalKits">
-              <div class="group mb-5 bg-black md:w-[270px] px-2 xs:w-44 md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 md:h-[390px] xs:h-72" >  
-                      <mat-icon fontIcon="favorite_border" 
-                          matTooltipPosition="above"
-                          matTooltip="Add to wishlist"
-                          (click)="addToWishlist(kit)"
-                          class="float-right hidden top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
-                      </mat-icon>
+              <div class="animate-fade-down animate-once animate-ease-linear mb-12 lg:w-1/4 xs:w-1/2 hover:cursor-pointer" *ngFor="let kit of nationalKits">
+              <div class="group mb-5 md:w-[270px] px-2 xs:w-44 md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 md:h-[390px] xs:h-72" >  
                       <img [routerLink]="['/product', kit.name]"
                       class="w-full h-4/5 mx-auto aspect-[5/2]" src="{{kit.frontImage}}" alt="{{kit.name}}">
   
@@ -206,7 +212,22 @@
                           <h1 class="z-10 text-white text-center text-sm">R{{kit.price}}.00</h1>
                       </div>
                   </div>
+                  
               </div>
+              <div 
+              routerLink="teams/National Football Teams"class="group mb-5 bg-black justify-center items-center  md:w-[270px] px-2 xs:w-44 md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-110 md:h-[390px] xs:h-72" >  
+                <!-- <mat-icon fontIcon="favorite_border" 
+                    matTooltipPosition="above"
+                    matTooltip="Add to wishlist"
+                    (click)="addToWishlist(kit)"
+                    class="float-right hidden top-8 right-5 z-30 absolute text-black hover:cursor-pointer hover:flex">
+                </mat-icon> -->
+
+                <h3 
+                class="line-clamp-2 z-10 text-white text-base text-center group-hover:underline mt-3">
+                    View more
+                </h3>
+            </div>
   
           </div>
       </div>
@@ -214,16 +235,15 @@
     
 
 </div>
-<div class="flex flex-col mx-9">
+<div class="flex flex-col px-3">
   <div class="w-screen lg:text-left flex-col xs:text-center">
-    <h1 class="text-3xl font-bold text-white ">
+    <h1 class="xl2:text-3xl font-bold text-white xs:text-xl">
       Can't find what you're looking for?
     </h1>
-    <p class="text-white font-semibold text-sm  lg:text-left flex-col xs:text-center">
+    <p class="text-white font-semibold text-sm  lg:text-left flex-col xs:text-center px-7">
       No worries, place a custom order with us here and our team will get back to you!
     </p>
-  </div>
-  <button class="p-3  bg-grey text-white w-2/12 mt-10 hover:bg-canary hover:text-black rounded-sm" routerLink="/custom-order">
+  </div><button class="p-3  bg-grey items-center justify-center text-white xs:w-fit mt-10 hover:bg-canary hover:text-black rounded-sm" routerLink="/custom-order">
     Place Custom Order
   </button>
   

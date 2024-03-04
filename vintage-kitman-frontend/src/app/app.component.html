@@ -181,14 +181,6 @@
           <!-- User drop down -->
           <div  *ngIf="isUserVisible" class="fixed right-5 z-30 font-normal divide-y rounded-lg shadow w-48 text-white bg-black">
             <ul class="py-2 text-sm space-y-2 ">
-              <li routerLink="register">
-                <button  class="flex flex-row px-4 hover:text-canary space-x-1 ">
-                  <mat-icon fontIcon="mode_edit"></mat-icon>   
-                   <p class="mt-1">
-                    My details
-                  </p>
-                </button>
-            </li>
               <li class="flex flex-row space-x-1" routerLink="/my-orders">
                 <button  class="flex flex-row px-4 hover:text-canary space-x-1">
                     <mat-icon fontIcon="shopping_basket"
@@ -317,7 +309,7 @@
     <section 
         *ngIf="!isAuthenticated && issidebarLoggedOut"
         class="float-left">
-        <div class="relative z-10 md:hidden">
+        <div class="relative z-50 md:hidden">
             <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" ></div>
         
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -325,11 +317,11 @@
                   <div class="relative h-screen w-1/2 transform overflow-hidden rounded-l-none bg-darkgrey text-left shadow-xl transition-all">
                   <div class="bg-darkgrey px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                       <div class="sm:flex sm:items-start">
-                      <div class="mx-auto flex flex-shrink-0 items-center justify-center rounded-full">
-                        <h1 class="text-2xl text-white font-semibold">
+                        <div class="mx-auto flex justify-between  space-x-14 rounded-full">
+                          <h1 class="text-2xl text-white font-semibold">
                           Menu
                         </h1>
-                        <button  (click)="closeSidebar()" type="button" class="text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
+                        <button  (click)="closeSidebar()" type="button" class="text-white bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="edit-modal">
                           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                           </svg>
@@ -339,6 +331,17 @@
                       </div>
                   </div>
                   <div class="px-4 py-3 flex flex-col ">
+
+                      <form [formGroup]="searchForm" (submit)="search(searchForm.get('searchTerm')?.value)" class="items-center justify-between w-full" id="navbar-search">
+                      <div class="relative">
+                        <input formControlName="searchTerm" type="text" id="search-navbar" class="block w-full text-black p-2 text-sm border rounded-lg" placeholder="Search...">
+                        <button type="submit" class="absolute inset-y-0 end-0 flex items-center ps-3 ">
+                          <svg class="w-4 h-4 mr-2 hover:cursor-pointer z-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
                     <button (click)="toggleSideBarDropdown()" class="flex items-center text-white w-full mt-2 px-3 text-gray-900 rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
                     >Shop 
                   </button>
@@ -352,7 +355,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                           </svg>
                         </button>
-                        <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="relative bg-darkgrey divide-y divide-gray-100 rounded-lg w-44 ">
+                        <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="relative bg-grey divide-y divide-gray-100 rounded-lg w-44 ">
                           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
                             <li *ngFor="let league of sport.leagues">
                               <a (click)="routetopage(['/teams', league.name]); toggleDropDown()" class="block px-4 py-2 text-white">{{league.name}}</a>
@@ -403,19 +406,19 @@
       <section 
         *ngIf="isAuthenticated && issidebarLoggedOut"
         class="float-left">
-        <div class="relative z-10 md:hidden">
+        <div class="relative z-50 md:hidden">
             <div class="fixed inset-0 bg-black bg-opacity-75 transition-opacity" ></div>
         
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
               <div class="flex min-h-screen items-end text-center sm:items-center sm:p-0">
                   <div class="relative h-screen w-1/2 transform overflow-hidden rounded-l-none bg-darkgrey text-left shadow-xl transition-all">
                   <div class="bg-darkgrey px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                      <div class="sm:flex sm:items-start">
-                      <div class="mx-auto flex flex-shrink-0 items-center justify-center rounded-full">
+                      <div class="sm:flex sm:items-start w-full">
+                      <div class="mx-auto flex justify-between  space-x-14 rounded-full">
                         <h1 class="text-2xl text-white font-semibold">
                           Menu
                         </h1>
-                        <button  (click)="closeSidebar()" type="button" class="text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
+                        <button  (click)="closeSidebar()" type="button" class="text-white sticky bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
                           <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                           </svg>
@@ -425,6 +428,18 @@
                       </div>
                   </div>
                   <div class="px-4 py-3 flex flex-col ">
+
+                    
+                    <form [formGroup]="searchForm" (submit)="search(searchForm.get('searchTerm')?.value)" class="items-center justify-between w-full" id="navbar-search">
+                      <div class="relative">
+                        <input formControlName="searchTerm" type="text" id="search-navbar" class="block w-full text-black p-2 text-sm border rounded-lg" placeholder="Search...">
+                        <button type="submit" class="absolute inset-y-0 end-0 flex items-center ps-3 ">
+                          <svg class="w-4 h-4 mr-2 hover:cursor-pointer z-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
                     <button (click)="toggleSideBarDropdown()" class="flex items-center text-white w-full mt-2 px-3 text-gray-900 rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
                     >Shop 
                   </button>
@@ -438,7 +453,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                           </svg>
                         </button>
-                        <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="relative bg-darkgrey divide-y divide-gray-100 rounded-lg w-44 ">
+                        <div *ngIf="sport.isDoubleDropDownVisible && sport.leagues.length > 1" class="relative bg-grey divide-y divide-gray-100 rounded-lg w-44 ">
                           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="doubleDropdownButton">
                             <li *ngFor="let league of sport.leagues">
                               <a (click)="routetopage(['/teams', league.name]); toggleDropDown()" class="block px-4 py-2 text-white">{{league.name}}</a>
