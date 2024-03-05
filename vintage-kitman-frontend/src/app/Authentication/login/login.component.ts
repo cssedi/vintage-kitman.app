@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   //variables
   LoginForm!: FormGroup;
   ifIsLoading: boolean = false;
+  errorMessage: string = '';  
   model:LoginVM= { email: '',password: '' }
   userDetails = {name:'', surname:'', email:'', role:''}
   formSubmitted:boolean = false
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit {
         },
         error: (err:any)=>  
         { 
-          console.log(err)
+          this.errorMessage = err.error.message
           this.ifIsLoading = false
         }
       })
