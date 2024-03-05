@@ -44,7 +44,7 @@
            data-te-carousel-item
            style="backface-visibility: hidden">
         <img [src]="slide.image" class="block w-full" alt="..." />
-        <div class="absolute inset-x-[15%] md:top-5 left-5 hidden py-5 text-white xs:block z-30 xs:top-0">
+        <div class="w-1/2 absolute inset-x-[15%] md:top-5 left-5 hidden py-5 text-white xs:block z-30 xs:top-0">
           <h1 class="md:text-3xl font-bold xs:text-base">{{ slide.content.title }}</h1>
           <p>{{ slide.content.description }}</p>
           <button class="rounded-md md:w-32 w-20 mt-6 bg-black p-2 md:text-sm xs:text-xs font-semibold text-white" routerLink="{{slide.content.route}}">
@@ -62,7 +62,7 @@
         <p>
           Time remaining until our bulk order from our supplier.<br> <a class="underline hover:text-canary hover:cursor-pointer"> Find out more.</a>
         </p>
-      </div>
+        </div>
       </div>
     </div>
   

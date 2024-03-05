@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   {
     image: 'https://d3nfwcxd527z59.cloudfront.net/content/uploads/2023/07/17113809/arsenal-23-24.jpg',
     content: {
-      title: 'Get your favourite kits of the 2022/23 season',
+      title: 'Get your favourite kits of the 2022/23 Premier League season',
       description: 'Some representative placeholder content for the first slide.',
       buttonText: 'Shop Now',
       route: '/products/1',
@@ -38,12 +38,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   },
   {
-    image: '/assets/images/AC milan carousel.png',
+    // image: '/assets/images/AC milan carousel.png',
+    image:'/assets/images/la-liga-carousel.jpg',
     content: {
-      title: 'Second slide label',
+      title: `La Liga's classic and modern kits available now!`,
       description: 'Some representative placeholder content for the second slide.',
       buttonText: 'Shop Now',
-      route: '/products/11',
+      route: '/teams/La Liga',
     },
     
   },
@@ -57,7 +58,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     },
     
   },
+
   // Add more slides as needed
+
 ];
 
  premTeams = [
@@ -173,17 +176,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     return value < 10 ? `0${value}` : `${value}`;
   }
 //carousel functions
-  nextSlide() {
-    this.activeSlide = (this.activeSlide + 1) % numberOfSlides;
+nextSlide(manualNavigation: boolean = false) {
+  this.activeSlide = (this.activeSlide + 1) % numberOfSlides;
+  if (manualNavigation) {
     this.autoSlideEnabled = false; // Disable auto-slide when manual navigation occurs
-    console.log('NExt slide clicked');
   }
+}
 
-  prevSlide() {
-    this.activeSlide = (this.activeSlide - 1 + numberOfSlides) % numberOfSlides;
+prevSlide(manualNavigation: boolean = false) {
+  this.activeSlide = (this.activeSlide - 1 + numberOfSlides) % numberOfSlides;
+  if (manualNavigation) {
     this.autoSlideEnabled = false;
-    console.log('Previous slide clicked');
   }
+}
 
   enableAutoSlide() {
     this.autoSlideEnabled = true;
