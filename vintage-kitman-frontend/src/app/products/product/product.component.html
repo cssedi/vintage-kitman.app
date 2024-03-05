@@ -8,6 +8,10 @@
             <h1 class="text-2xl font-bold text-white md:mt-5">
                 {{kit.name}}
             </h1>
+            <div class="flex flex-row space-x-2">
+                <p class="text-lg font-bold text-white" *ngIf="customizedToggle==false">R{{kit.price}}.00</p>
+                <p class="text-lg font-bold text-white" *ngIf="customizedToggle==true">R{{kit.price + 50}}.00</p>
+            </div>
         </div>
         <form (submit)="addToCart()" [formGroup]="cartForm" >
             <div class="mt-9">
@@ -18,12 +22,23 @@
                   <mat-button-toggle-group 
                   formControlName="size"
                   class=""name="fontStyle" aria-label="Font Style">
-                      <mat-button-toggle class="md:w-16 xs:w-14" value="S">S</mat-button-toggle>
-                      <mat-button-toggle class="md:w-16 xs:w-14" value="M">M</mat-button-toggle>
-                      <mat-button-toggle class="md:w-16 xs:w-14" value="L">L</mat-button-toggle>
-                      <mat-button-toggle class="md:w-16 xs:w-14" value="XL">XL</mat-button-toggle>
-                      <mat-button-toggle class="md:w-16 xs:w-14" value="XXL">XXL</mat-button-toggle>
+                      <mat-button-toggle 
+                      class="md:w-16 xs:w-14" value="S">S
+                    </mat-button-toggle>
+                      <mat-button-toggle 
+                      class="md:w-16 xs:w-14" value="M">M
+                    </mat-button-toggle>
+                      <mat-button-toggle
+                      class="md:w-16 xs:w-14" value="L">L
+                    </mat-button-toggle>
+                      <mat-button-toggle 
+                      class="md:w-16 xs:w-14" value="XL">XL
+                    </mat-button-toggle>
+                      <mat-button-toggle 
+                      class="md:w-16 xs:w-14" value="XXL">XXL
+                    </mat-button-toggle>
                   </mat-button-toggle-group>
+                    <p *ngIf="cartForm.controls['size'].invalid && (formSubmitted || cartForm.controls['size'].touched)" class="text-txtRed font-semibold">Select a size</p>
                 </div>
                 <a (click)="viewSizeChart()" class="text-sm text-white pt-2 hover:cursor-pointer hover:text-canary underline"> Size guide</a>
                 <div class="mt-5 flex flex-row space-x-5">
@@ -42,6 +57,8 @@
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="Cristiano Ronaldo">
                         </div>
+                        <p *ngIf="cartForm.controls['customName'].invalid && (formSubmitted || cartForm.controls['customName'].touched)" class="text-txtRed font-semibold">This field is required</p>
+
                     </div>
                     <div class="mb-2">
                         <label for="Custom number"
@@ -50,6 +67,8 @@
                             <input type="number" formControlName="customNumber" min="1" max="99" value="1"
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="7">
+                                <p *ngIf="cartForm.controls['customNumber'].invalid && (formSubmitted || cartForm.controls['customNumber'].touched)" class="text-txtRed font-semibold">This field is required</p>
+
                         </div>    
                     </div>
                 </div>
@@ -83,11 +102,7 @@
 
                 </div>
                 <div class="flex flex-row mt-5">
-                    <div class="flex flex-row space-x-2">
-                        <h3 class="text-xl text-white mb-4 "> Total:</h3>
-                        <p class="text-lg font-bold text-white" *ngIf="customizedToggle==false">R{{kit.price}}.00</p>
-                        <p class="text-lg font-bold text-white" *ngIf="customizedToggle==true">R{{kit.price + 50}}.00</p>
-                    </div>
+
                 </div>
             </div>
         </form>

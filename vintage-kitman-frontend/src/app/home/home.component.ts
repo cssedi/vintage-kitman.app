@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   carouselslides = [ // Add your slides here
   {
-    image: 'https://d3nfwcxd527z59.cloudfront.net/content/uploads/2023/07/17113809/arsenal-23-24.jpg',
+    image: '/assets/images/arsenal-carouselimg.jpg',
     content: {
       title: 'Get your favourite kits of the 2022/23 Premier League season',
       description: 'Some representative placeholder content for the first slide.',

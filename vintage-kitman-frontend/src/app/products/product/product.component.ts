@@ -27,6 +27,7 @@ export class ProductComponent implements OnInit {
    cartForm!:FormGroup
    displaySuccess:boolean = false;
    fullscreenImageModal:boolean=false;
+   formSubmitted:boolean = false;
 
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService, private fb:FormBuilder,
@@ -112,6 +113,7 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(){
+    this.formSubmitted = true
     this.cartItem.KitName = this.kit.name
     this.cartItem.KitImage = this.kit.frontImage
     this.cartItem.KitPrice = this.kit.price
@@ -124,7 +126,6 @@ export class ProductComponent implements OnInit {
     this.cartItem.SizeId = this.cartForm.value.size
     this.cartItem.CustomName = this.cartForm.value.customName
     this.cartItem.CustomNumber = this.cartForm.value.customNumber
-    debugger
     if (this.cartForm.valid) {
       var cart = JSON.parse(localStorage.getItem('cart')!) || [];
     
