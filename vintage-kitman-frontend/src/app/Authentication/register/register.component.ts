@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit{
     password: '',
     phoneNumber: ''
   }
-  errorMessage: string='Password and Confirm Password must be same'
+  errorMessage: string=''
   
   constructor(private fb:FormBuilder, private authService:AuthService, private router: Router, private location:Location) {}
 
@@ -69,6 +69,8 @@ export class RegisterComponent implements OnInit{
             },
             error:(err:any)=>{
               this.ifIsLoading = false
+              this.errorMessage = err.error.message
+              console.log(err)
             }
 
         })
