@@ -87,7 +87,7 @@ namespace vintage_kitman_API.Controllers
 
                 if (!results.isSuccess)
                 {
-                    return BadRequest(results);
+                    return BadRequest(new {Message = results.Message});
                 }
                 else
                 {

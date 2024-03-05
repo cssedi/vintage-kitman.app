@@ -51,7 +51,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 //return response if email not found in the database
                 return new UserManagerReponse
                 {
-                    Message = "There is no user with this email",
+                    Message = "Username or password is incorrect",
                     isSuccess = false,
                 };
             }
@@ -106,7 +106,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     //return response if the password is incorrect
                     return new UserManagerReponse
                     {
-                        Message = "Password is not valid",
+                        Message = "Username or password is incorrect",
                         isSuccess = false
                     };
                 }
