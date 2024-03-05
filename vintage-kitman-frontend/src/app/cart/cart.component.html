@@ -10,10 +10,10 @@
         <div class="flex lg:flex-row xs:flex-col">
             <div class="lg:w-2/3 xs:w-full max-w-screen-xl">
         
-                <div class="flex lg:flex-row mt-5 justify-between xs:flex-col xs:space-y-5"
+                <div class="flex flex-row mt-5 justify-between xs:space-y-5"
                 *ngFor="let cartItem of cartArray">
                 <div class="flex flex-row lg:w-3/5 xs:w-full space-x-3">
-                    <div class="w-1/2">
+                    <div class="w-1/2 xs:hidden lg:flex">
                         <img src="{{cartItem.KitImage}}" alt="{{cartItem.KitName}}" 
                             [routerLink]="['/product', cartItem.KitName]" class="h-fit w-fit mx-auto mb-7 object-cover hover:cursor-pointer">
                     </div>
@@ -39,21 +39,13 @@
                                         </svg>
                                     </button>
                                 </div>
-                                <div class="flex flex-row  space-x-6 bottom-0 lg:hidden">
-                                    <h2 class="text-lg text-white font-semibold">R{{cartItem.KitPrice * cartItem.Quantity}}.00</h2>
-                                    <mat-icon (click)="deleteItem(cartItem)" 
-                                        matTooltip="Delete from cart"
-                                        matTooltipPosition="above"
-                                        class="text-white hover:cursor-pointer ml-3 pt-1" 
-                                        fontIcon="delete">
-                                    </mat-icon>
-                                </div>
+
 
                             </div>
                         </div>               
                     </div>
                 </div>
-                <div class="lg:flex flex-row space-x-6 xs:hidden ">
+                <div class="flex flex-row space-x-6 top-0 mr-3">
                     <h2 class="text-lg text-white font-semibold">R{{cartItem.KitPrice * cartItem.Quantity}}.00</h2>
                     <mat-icon (click)="deleteItem(cartItem)" 
                         matTooltip="Delete from cart"

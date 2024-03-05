@@ -117,22 +117,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     name: "England Home Jersey 1990",
     frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1039.jpg",
     price: 900
-  },
-  { 
-    KitId: 40, 
-    ProductTypeId: 1, 
-    TeamId: 16, 
-    name: "South Africa 1996 Home kit",
-    frontImage: "https://classicfootballshirts.co.uk/pub/media/catalog/product/j/j/jjw316-1_68tc5338kh6azg47.jpg",
-    price: 900
-  },
-  { 
-    KitId: 40, 
-    ProductTypeId: 1, 
-    TeamId: 16, 
-    name: "Japanese goalkeeper jersey from the 1998 World Cup",
-    frontImage: "https://i.ebayimg.com/images/g/NmcAAOSw1dJjpMTt/s-l400.jpg",
-    price: 900
   }
 ];
 
