@@ -98,7 +98,7 @@ import { ViewAllOrdersComponent } from './admin-dashboard/view-all-orders/view-a
     MatSnackBarModule,
     MatIconModule,
     MatExpansionModule,
-    Angular4PaystackModule.forRoot('sk_live_345233da53a95eecce263a2894d246cf1698b02f'),
+    Angular4PaystackModule.forRoot('pk_live_bc1784baa0bf075b7f883c0d3c2c1fdfa07a03c8'),
 
 
   ],
