@@ -33,6 +33,9 @@ namespace vintage_kitman_API.Data.Repositories.Orders
         //getall orders
         public List<KitOrderVM> GetAllOrders();
 
+        //get all custom orders
+        public List<CustomOrderVM> GetHistoricCustomOrders();
+
 
 
 

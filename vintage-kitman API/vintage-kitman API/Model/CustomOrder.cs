@@ -15,6 +15,7 @@ namespace vintage_kitman_API.Model
         public int Quantity { get; set; }
         public bool? IsSourcable { get; set; }
         public string? CustomName { get; set; }
+        public DateTime OrderDate { get; set; }
         public int? CustomNumber { get; set; }
         public string Id { get; set; }
         public int CustomOrderStatusId { get; set; }

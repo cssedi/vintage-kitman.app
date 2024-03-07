@@ -41,6 +41,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                 CustomName = model.CustomName,
                 CustomNumber = model.CustomNumber,
                 Quantity = model.Quantity,
+                OrderDate = DateTime.Now,
                 Name = model.Name,
                 Id = userId,
                 //assign order status of placed
@@ -596,6 +597,41 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                            }).OrderBy(o => o.OrderDate).ToList();
 
             return orders;
+        }
+
+        public List<CustomOrderVM> GetHistoricCustomOrders()
+        {
+
+            var customOrders = _appDbContext.customOrders.Include(u => u.User)
+                .Select(cu => new CustomOrderVM
+                {
+                    CustomOrderId = cu.CustomOrderId,
+                    Id = cu.Id,
+                    Image = cu.Image,
+                    Quantity = cu.Quantity,
+                    CustomName = cu.CustomName,
+                    CustomNumber = cu.CustomNumber,
+                    IsSourcable = false,
+                    User = cu.User,
+                    Size = cu.Size,
+                    Name = cu.Name,
+                    IsReviewed = cu.IsReviewed,
+                    OrderDate = cu.OrderDate
+
+                }).
+                ToList();
+
+            foreach (var item in customOrders)
+            {
+                var user = _appDbContext.Users.Where(u => u.Id == item.Id).FirstOrDefault();
+                if (user != null)
+                {
+                    item.User = user;
+                }
+            }
+            
+            return customOrders;
+
         }
     }
 }
