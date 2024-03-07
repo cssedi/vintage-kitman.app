@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   autoSlideEnabled = true;
   displaySignInError:boolean=false
   onStockKits:OnStockKitVM[]=[]
+  viewBulkOrderModal: boolean = false;
 
   carouselslides = [ // Add your slides here
   {
@@ -90,9 +91,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     Logo: "https://1000logos.net/wp-content/uploads/2017/03/Manchester-United-Logo-493x500.png" 
   },
   { 
-    TeamId: 6, 
-    Name: "Newcastle", 
-    Logo: "https://1000logos.net/wp-content/uploads/2021/05/Newcastle-United-logo-768x489.png" 
+    TeamId: 24, 
+    Name: "Chelsea", 
+    Logo: "https://1000logos.net/wp-content/uploads/2016/11/Chelsea-Logo-640x400.png" 
   }
 ];
 
@@ -221,5 +222,12 @@ prevSlide(manualNavigation: boolean = false) {
     else{
       return ['/product', kit.name];
     }
+  }
+
+  openBulkOrderModal(){
+    this.viewBulkOrderModal = true;
+  }
+  closeBulkOrderModal(){
+    this.viewBulkOrderModal = false;
   }
 }

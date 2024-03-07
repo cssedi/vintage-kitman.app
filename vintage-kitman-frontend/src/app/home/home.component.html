@@ -63,7 +63,7 @@
           {{ formatTime(countdown.seconds) }} seconds
       </h1>
         <p>
-          Time remaining until our bulk order from our supplier.<br> <a class="underline hover:text-canary hover:cursor-pointer"> Find out more.</a>
+          Time remaining until our we place our Monthly bulk order.<br> <a (click)="openBulkOrderModal()" class="underline hover:text-canary hover:cursor-pointer"> Find out more.</a>
         </p>
         </div>
       </div>
@@ -143,7 +143,7 @@ class="relative py-5 text-center text-white md:hidden">
   {{ formatTime(countdown.seconds) }} seconds
 </h1>
 <p>
-  Time remaining until our bulk order from our supplier.<br> <a class="underline hover:text-canary hover:cursor-pointer px-6"> Find out more.</a>
+  Time remaining until our bulk order from our supplier.<br> <a (click)="openBulkOrderModal()" class="underline hover:text-canary hover:cursor-pointer px-6"> Find out more.</a>
 </p>
 </div>
 
@@ -263,7 +263,51 @@ class="relative py-5 text-center text-white md:hidden">
 </div>
 
 
+<!-- image modal -->
+<div class="absolute z-50 inset-0 flex items-center justify-center mb-auto px-12 md:mt-24" *ngIf="viewBulkOrderModal">
+  <div (click)="closeBulkOrderModal()" class="fixed inset-0 bg-black opacity-75 transition-opacity"></div>
+  <div class="bg-white rounded-lg animate-jump-in">
 
+      <div class="relative w-full max-w-screen-lg">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow">
+              <!-- Modal header -->
+              <div class="flex items-center justify-between p-3 border-b rounded-t">
+                  <button (click)="closeBulkOrderModal()" class="bg-transparent rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center" data-modal-hide="small-modal">
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+              </div>
+              <!-- Modal body -->
+              <div>
+              <div class="inset-0 z-10 overflow-y-auto">
+                <div class="justify-center text-center items-center sm:p-0">
+                    <div class="relative w-full transform overflow-hidden rounded-lg bg-white text-left shadow-xl">
+                    <div class="bg-white">
+                            <div class="text-center px-4">
+                              <h1 class="md:text-2xl xs:text-lg font-semibold">
+                                Why we use the Bulk Order System?
+                              </h1>
+                              <br>
+                            </div>
+                            <p class="px-10 pb-8 text-center font-semibold">
+                              🚀 Get ready for lightning-fast delivery at Vintage Kitman! Say goodbye to waiting 6 - 8 weeks for your sports kits – 
+                              our revolutionary Bulk Order Blitz means your gear arrives in record time (20-30 days). By combining all our clients' orders
+                               into one powerhouse shipment each month, we ensure your kit zooms straight from overseas to your doorstep by month's end. 
+                               Experience the difference with Vintage Kitman and gear up faster than ever before! ⚽🏀🏈🎾🏐
+                            </p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+
+          </div>
+      </div>
+</div>
+</div>
 
 
 
