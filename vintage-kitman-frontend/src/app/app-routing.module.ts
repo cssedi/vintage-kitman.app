@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'product/:name', component: ProductComponent },
   { path: 'sport-teams/:name', component: SportTeamsComponent },
   { path: 'cart', component: CartComponent}, 
-  { path: 'custom-order', component: CustomOrderComponent, canActivate: [AuthGuardService] }, 
+  { path: 'custom-order', component: CustomOrderComponent}, 
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuardService] }, 

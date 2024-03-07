@@ -19,6 +19,7 @@ export class CustomOrderComponent implements OnInit {
   quantity:number = 1;
   customOrderForm!:FormGroup
   displaySignInError:boolean=false
+  ifIsLoading:boolean = false
   customOrderDetails: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,private snackBar:MatSnackBar) { }
 
@@ -42,6 +43,7 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitOrder(){
+    this.ifIsLoading = true
     this.customOrderDetails.size = this.customOrderForm.value.size
     this.customOrderDetails.name = this.customOrderForm.value.name
     this.customOrderDetails.quantity = this.customOrderForm.value.quantity
@@ -56,11 +58,13 @@ export class CustomOrderComponent implements OnInit {
           this.snackBar.open('Order has been placed', 'Close', {
             duration: 7000
           });
+          this.ifIsLoading = false
         },
         complete:()=>{this.location.back()},
         error:(err)=>{
           this.displaySignInError = true
           console.log(this.displaySignInError)
+          this.ifIsLoading = false
         }
       });
       } 

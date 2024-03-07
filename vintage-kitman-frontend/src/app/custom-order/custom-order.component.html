@@ -119,9 +119,12 @@
                     </div>
                     <button 
                     type="submit"
+                    [disabled]="ifIsLoading"
                     class="w-32 bg-canary text-black  text-base font-semibold px-2 mt-7 ml-5 hover:cursor-pointer">
                         <div class="flex flex-row text-center justify-center space-x-2">
-                            <p class="text-center">Place Order</p>
+                            <p *ngIf="ifIsLoading==false" 
+                            class="text-sm text-white">Sign up</p>
+                            <div *ngIf="ifIsLoading==true" class="loader mx-auto border-canary"></div>
                         </div>
                     </button>
     
