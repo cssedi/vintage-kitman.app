@@ -19,7 +19,7 @@ export class CustomOrderComponent implements OnInit {
   quantity:number = 1;
   customOrderForm!:FormGroup
   displaySignInError:boolean=false
-  customOrderDetails: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
+  customOrderDetails: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,private snackBar:MatSnackBar) { }
 
   ngOnInit(): void 

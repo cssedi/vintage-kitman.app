@@ -14,7 +14,7 @@ export class MyOrdersComponent implements OnInit{
   customerOrders: CustomOrderVM[] = [];
   userOrders:KitOrderVM[] = []
   messageModal:boolean = false;
-  customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
+  customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   isError:boolean = false
 
   constructor(private orderService:OrderService) { }

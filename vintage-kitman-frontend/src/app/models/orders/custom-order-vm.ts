@@ -12,6 +12,7 @@ export interface CustomOrderVM {
     customNumber: number | null;
     message: string | null;
     user: ApplicationUser|null;
+    orderDate: Date | null;
     isViewed: boolean | null;
     customOrderStatus: customOrderStatus | null;
 

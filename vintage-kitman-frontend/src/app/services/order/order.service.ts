@@ -78,4 +78,7 @@ export class OrderService {
   getOrders():Observable<KitOrderVM[]>{
     return this.http.get<KitOrderVM[]>(this.baseAPIURL+"GetAllOrders", this.httpOptions)
   }
+  getCustomOrders():Observable<CustomOrderVM[]>{
+    return this.http.get<CustomOrderVM[]>(this.baseAPIURL+"GetHistoricCustomOrders", this.httpOptions)
+  }
 }

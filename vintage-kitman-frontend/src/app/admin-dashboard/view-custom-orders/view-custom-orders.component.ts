@@ -15,7 +15,7 @@ export class ViewCustomOrdersComponent implements OnInit {
   customOrders: CustomOrderVM[] = []
   promptOpen: boolean = false;
   userObj: ApplicationUser= {id: '', userName: '', email: '', phoneNumber: '', name: '', surname: '', address: '', addresses: [], customOrders: [], wishlist:null};
-  customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '', isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
+  customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   //modals
   userModal:boolean = false;
   confirmModal:boolean = false;
