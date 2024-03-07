@@ -11,6 +11,7 @@ import { TeamsVM } from '../models/categories/teams-vm';
 export class TeamsComponent implements OnInit {
   leagueName!:string;
   teamArray:TeamsVM[]=[]
+  loading:boolean = true
 
   constructor(private route:ActivatedRoute,private productsService:ProductService) { }
   
@@ -24,8 +25,9 @@ export class TeamsComponent implements OnInit {
         {
           this.teamArray=reponse as TeamsVM[]
           console.log(this.leagueName)
-          console.log(reponse)
-        }
+          this.loading = false
+        },
+        complete:()=>{this.loading = false},
       }
 
       )

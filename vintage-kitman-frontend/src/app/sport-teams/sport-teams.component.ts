@@ -13,6 +13,7 @@ export class SportTeamsComponent implements OnInit{
 
   teamArray:TeamsVM[] =[]
   sportName:string = ''
+  loading:boolean = true
   constructor(private route:ActivatedRoute,private categoriesService:CategoriesService) { }
     
   ngOnInit(): void {
@@ -26,7 +27,9 @@ export class SportTeamsComponent implements OnInit{
           this.teamArray=reponse as TeamsVM[]
           console.log(this.sportName)
           console.log(reponse)  
-        }
+          this.loading = false
+        },
+        complete:()=>{this.loading = false},
       }
 
       )
