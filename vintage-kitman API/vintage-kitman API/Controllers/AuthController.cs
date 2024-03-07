@@ -178,7 +178,7 @@ namespace vintage_kitman_API.Controllers
             var httppUser = HttpContext.User;
             var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; 
 
-            var address = await _authRepository.AddAddress(userId, model);
+            var address =  _authRepository.AddAddress(userId, model);
 
             if (address == null)
             {
@@ -222,12 +222,12 @@ namespace vintage_kitman_API.Controllers
         }
 
         [Authorize(AuthenticationSchemes="Bearer", Roles="CUSTOMER")]
-        [HttpDelete("DeleteAddress")]
-        public async Task<IActionResult> DeleteAddress(Address model)
+        [HttpDelete("DeleteAddress/{addressId}")]
+        public async Task<IActionResult> DeleteAddress(int addressId)
         {
             var http = HttpContext.User;
             var userId = http.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var address = await _authRepository.DeleteAddress(model, userId);
+            var address = await _authRepository.DeleteAddress(addressId);
 
             if (address == null)
             {

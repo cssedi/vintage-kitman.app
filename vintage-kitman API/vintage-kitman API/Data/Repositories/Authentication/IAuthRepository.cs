@@ -17,7 +17,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<AddressVM> AddAddress(string userId, AddressVM address);
         public Task<List<AddressVM>> GetAddressesAsync(string userId);
         public Task<AddressVM> SetMainAddress(Address model, string userId);
-        public Task<AddressVM> DeleteAddress(Address model, string userId);
+        public Task<AddressVM> DeleteAddress(int addressId);
         public Task<Address> GetMainAddress(string userId);
     }
 }

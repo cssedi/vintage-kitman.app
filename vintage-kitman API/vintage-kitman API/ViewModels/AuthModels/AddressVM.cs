@@ -14,6 +14,6 @@ namespace vintage_kitman_API.ViewModels.AuthModels
         public string UnitNumber { get; set; }
         public bool IsMain { get; set; }
         public string Id { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }

@@ -513,7 +513,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return user;
         }
 
-        public async Task<AddressVM> AddAddress(string userId, AddressVM vm)
+        public Task<AddressVM> AddAddress(string userId, AddressVM vm)
         {
             var user = _appDbContext.Users.Where(u => u.Id == userId).FirstOrDefault();
             var userAddresses = _appDbContext.Addresses.Where(a => a.UserId == userId).ToList();
@@ -538,7 +538,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 };
 
                 _appDbContext.Addresses.Add(address);
-                await _appDbContext.SaveChangesAsync();
+                _appDbContext.SaveChangesAsync();
 
                 responseModel = new AddressVM
                 {
@@ -571,7 +571,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 };
 
                 _appDbContext.Addresses.Add(model);
-                await _appDbContext.SaveChangesAsync();
+                _appDbContext.SaveChangesAsync();
 
                 responseModel = new AddressVM
                 {   Name = model.Name,
@@ -587,7 +587,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 };
             }
 
-            return responseModel;
+            return Task.FromResult(responseModel);
         }
 
         public Task<List<AddressVM>> GetAddressesAsync(string userId)
@@ -640,11 +640,34 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             return Task.FromResult(responseModel);
         }
 
-        public Task<AddressVM> DeleteAddress(Address model, string userId)
+        public async Task<AddressVM> DeleteAddress(int addressId)
         {
-            var address = _appDbContext.Addresses.Where(a => a.AddressId == model.AddressId).FirstOrDefault();
+            var address = _appDbContext.Addresses.FirstOrDefault(a => a.AddressId == addressId);
+            if (address == null)
+            {
+                // Handle the case where the address does not exist, possibly throw an exception or return null
+                throw new KeyNotFoundException("Address not found.");
+            }
+
+            bool wasMainAddress = address.IsMain;
+            string userId = address.UserId;
+
             _appDbContext.Addresses.Remove(address);
-            _appDbContext.SaveChanges();
+            await _appDbContext.SaveChangesAsync();
+
+            if (wasMainAddress)
+            {
+                var nextAddress = _appDbContext.Addresses
+                                    .Where(a => a.UserId == userId)
+                                    .OrderBy(a => a.AddressId) 
+                                    .FirstOrDefault();
+
+                if (nextAddress != null)
+                {
+                    nextAddress.IsMain = true;
+                    await _appDbContext.SaveChangesAsync();
+                }
+            }
 
             var responseModel = new AddressVM
             {
@@ -659,7 +682,8 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                 Id = address.UserId,
                 User = address.User
             };
-            return Task.FromResult(responseModel);
+
+            return responseModel;
         }
 
         public Task<Address> GetMainAddress(string userId)
