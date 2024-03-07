@@ -2,3 +2,16 @@
   background: yellow;
   height: 10px;
 } 
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #fff, -20px 0 #fff0ff70;background: #fff }
+    33% {box-shadow: 20px 0 #fff, -20px 0 #fff0ff70;background: #fff0ff70}
+    66% {box-shadow: 20px 0 #fff0ff70,-20px 0 #fff; background: #fff0ff70}
+    100%{box-shadow: 20px 0 #fff0ff70,-20px 0 #fff; background: #fff }
+}

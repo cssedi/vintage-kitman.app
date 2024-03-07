@@ -16,6 +16,8 @@ export class MyOrdersComponent implements OnInit{
   messageModal:boolean = false;
   customOrderObj: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   isError:boolean = false
+  customOrderLoading:boolean=true
+  orderLoading:boolean=true
 
   constructor(private orderService:OrderService) { }
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class MyOrdersComponent implements OnInit{
           this.customerOrders = res as CustomOrderVM[]
           console.log(res)
         },
+        complete: ()=>{this.customOrderLoading = false},
         error: (err:any)=>{
           console.log(err)
         }
@@ -38,6 +41,7 @@ export class MyOrdersComponent implements OnInit{
             this.userOrders = res as KitOrderVM[]
             console.log(res)
           },
+          complete:()=>{this.orderLoading = false},
           error: (err:any)=>{
             console.log(err)
           }

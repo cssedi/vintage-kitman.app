@@ -4,6 +4,9 @@
      <ng-template mat-tab-label>
                   <span [class]="{'text-white': isError?'red':'black'}">Orders</span>
      </ng-template>
+     <div class="h-screen mt-72" *ngIf="orderLoading">
+      <div class="loader w-full items-center justify-center mx-auto my-auto"></div>
+  </div>
      <div *ngIf="userOrders.length==0"
      class="flex flex-col max-w-screen-lg w-screen h-72 items-center justify-center mt-4 mx-auto">
      <h1 class="text-2xl font-bold text-white">
@@ -51,6 +54,9 @@
         <ng-template mat-tab-label>
           <span [class]="{'text-white': isError?'red':'black'}">Custom Orders</span>
         </ng-template> 
+        <div class="h-screen mt-72" *ngIf="customOrderLoading">
+          <div class="loader w-full items-center justify-center mx-auto my-auto"></div>
+      </div>
         <div *ngIf="customerOrders.length>0"
         class="flex flex-col max-w-screen-lg w-screen items-left mt-4">
           <div *ngFor="let customOrder of customerOrders">
