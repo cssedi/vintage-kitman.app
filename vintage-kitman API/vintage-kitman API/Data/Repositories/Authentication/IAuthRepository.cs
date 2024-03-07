@@ -13,7 +13,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         public Task<ResetPasswordVM> ResetPasswordAsync(ResetPasswordVM model);
         public Task<User> AdminGetUserDetails(string id);
         public Task<User> GetUserOrderDetails(string id);
-
+        public Task<List<User>> GetAllUsers();
         public Task<AddressVM> AddAddress(string userId, AddressVM address);
         public Task<List<AddressVM>> GetAddressesAsync(string userId);
         public Task<AddressVM> SetMainAddress(Address model, string userId);

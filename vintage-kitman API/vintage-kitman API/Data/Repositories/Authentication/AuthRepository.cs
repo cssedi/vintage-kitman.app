@@ -46,6 +46,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
         {
             // Find the user 
             var user = await _userManager.FindByEmailAsync(loginVM.email);
+
             if (user == null)
             {
                 //return response if email not found in the database
@@ -57,9 +58,11 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             }
             else
             {
+                // Sign in the user
+                var result = await _signInManager.PasswordSignInAsync(user, loginVM.password, false, false);
                 var userRoles = await _userManager.GetRolesAsync(user);
                 //if user is admin
-                if (userRoles.Contains("ADMIN"))
+                if (userRoles.Contains("ADMIN") && result.Succeeded)
                 {
                     // Create a claims 
                     var claims = new[]
@@ -92,25 +95,14 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                         isSuccess = true,
                         Date = DateTime.Now,
                         username = user.UserName,
-                        Role= "ADMIN",
+                        Role = "ADMIN",
                         email = user.Email,
                         name = user.Name,
                         surname = user.surname,
                     };
 
                 }
-            //check if the password is correct
-                var result = await _userManager.CheckPasswordAsync(user, loginVM.password);
-                if (!result)
-                {
-                    //return response if the password is incorrect
-                    return new UserManagerReponse
-                    {
-                        Message = "Username or password is incorrect",
-                        isSuccess = false
-                    };
-                }
-                else
+                else if(result.Succeeded)
                 {
                     // Create a claims 
                     var claims = new[]
@@ -120,7 +112,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Name),
                     new Claim(ClaimTypes.Surname, user.surname),
-                };
+                    };
 
                     //Create the the singin in key 
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
@@ -128,11 +120,11 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     // Create a token 
                     var token = new JwtSecurityToken
                     (
-                        issuer: _configuration["Jwt:Issuer"],
-                        audience: _configuration["Jwt:Audience"],
-                        claims: claims,
-                        expires: DateTime.Now.AddDays(30),
-                        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+                    issuer: _configuration["Jwt:Issuer"],
+                    audience: _configuration["Jwt:Audience"],
+                    claims: claims,
+                    expires: DateTime.Now.AddDays(30),
+                  signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                     );
 
                     string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
@@ -149,6 +141,19 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                         surname = user.surname,
                     };
                 }
+                else
+                {
+                    return new UserManagerReponse
+                    {
+                        Message = "Username or password is incorrect",
+                        isSuccess = false,
+                    };
+                }
+
+
+
+
+
 
             }
         }
@@ -426,7 +431,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
             {
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var userId = user.Id; // get user ID
-                var callbackUrl = "http://localhost:4200/reset-password/?token=" + Uri.EscapeDataString(token) + "&userId=" + Uri.EscapeDataString(userId);
+                var callbackUrl = "https://vintage-kitman.azurewebsites.net/reset-password/?token=" + Uri.EscapeDataString(token) + "&userId=" + Uri.EscapeDataString(userId);
 
                 var body = $@"<!DOCTYPE html>
                 <html>
@@ -664,6 +669,13 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
 
             return Task.FromResult(address);
 
+        }
+
+        public Task<List<User>> GetAllUsers()
+        {
+
+            var users = _appDbContext.Users.ToList();
+            return Task.FromResult(users);
         }
     }
 }
