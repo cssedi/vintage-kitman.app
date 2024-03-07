@@ -268,6 +268,20 @@ namespace vintage_kitman_API.Controllers
             return Ok(orders);
         }
 
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpGet("GetHistoricCustomOrders")]
+        public async Task<IActionResult> GetHistoricCustomOrders()
+        {
+            var orders = _ordersRepository.GetHistoricCustomOrders();
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found" });
+            }
+            return Ok(orders);
+        }
+
+
 
 
 

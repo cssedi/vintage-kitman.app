@@ -253,6 +253,20 @@ namespace vintage_kitman_API.Controllers
             return Ok(address);
         }
 
+        [Authorize(AuthenticationSchemes="Bearer", Roles="ADMIN")]
+        [HttpGet("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _authRepository.GetAllUsers();
+
+            if (users == null)
+            {
+                return NotFound(new { Message = "No users found" });
+            }
+
+            return Ok(users);
+        }
+
 
 
 
