@@ -47,6 +47,7 @@ import { ApprovedPaymentComponent } from './transactions/approved-payment/approv
 import { PaymentFailedComponent } from './transactions/payment-failed/payment-failed.component';
 import { ViewAllOrdersComponent } from './admin-dashboard/view-all-orders/view-all-orders.component';
 import { ViewAllCustomOrdersComponent } from './admin-dashboard/view-all-custom-orders/view-all-custom-orders.component';
+import { ReturnsPolicyComponent } from './returns-policy/returns-policy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +57,7 @@ import { ViewAllCustomOrdersComponent } from './admin-dashboard/view-all-custom-
     ProductsPageComponent,
     TeamsComponent,
     ProductComponent,
+    
     SportTeamsComponent,
     CartComponent,
     CustomOrderComponent,
@@ -80,6 +82,7 @@ import { ViewAllCustomOrdersComponent } from './admin-dashboard/view-all-custom-
     PaymentFailedComponent,
     ViewAllOrdersComponent,
     ViewAllCustomOrdersComponent,
+    ReturnsPolicyComponent,
   ],
   imports: [
     BrowserModule,

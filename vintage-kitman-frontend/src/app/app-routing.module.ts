@@ -30,6 +30,7 @@ import { ApprovedPaymentComponent } from './transactions/approved-payment/approv
 import { PaymentFailedComponent } from './transactions/payment-failed/payment-failed.component';
 import { ViewAllOrdersComponent } from './admin-dashboard/view-all-orders/view-all-orders.component';
 import { ViewAllCustomOrdersComponent } from './admin-dashboard/view-all-custom-orders/view-all-custom-orders.component';
+import { ReturnsPolicyComponent } from './returns-policy/returns-policy.component';
 
 const routes: Routes = 
 [
@@ -62,7 +63,8 @@ const routes: Routes =
   {path:'payment-approved', component:ApprovedPaymentComponent},
   {path: 'payment-failed', component: PaymentFailedComponent},
   {path: 'view-all-orders', component: ViewAllOrdersComponent},
-  {path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent}
+  {path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent},
+  {path: 'returns-policy', component: ReturnsPolicyComponent}
 ];
 
 @NgModule({
