@@ -31,47 +31,47 @@ import { PaymentFailedComponent } from './transactions/payment-failed/payment-fa
 import { ViewAllOrdersComponent } from './admin-dashboard/view-all-orders/view-all-orders.component';
 import { ViewAllCustomOrdersComponent } from './admin-dashboard/view-all-custom-orders/view-all-custom-orders.component';
 import { ReturnsPolicyComponent } from './returns-policy/returns-policy.component';
+import { AuthGuardService } from './guard/authguard.service';
 
-const routes: Routes = 
-[
-  {path:'login', component: LoginComponent},
-  {path:'', component:HomeComponent},
-  {path:'register', component:RegisterComponent},
-  {path:'products/:id', component:ProductsPageComponent},
-  {path:'teams/:name', component:TeamsComponent},
-  {path:'product/:name', component:ProductComponent},
-  {path:'sport-teams/:name', component:SportTeamsComponent},
-  {path:'cart', component:CartComponent},
-  {path:'custom-order', component:CustomOrderComponent},
-  {path:'forgot-password', component:ForgotPasswordComponent},
-  {path:'reset-password', component:ResetPasswordComponent},
-  {path:'wishlist', component:WishlistComponent},
-  {path:'placed-orders', component:PlacedOrdersComponent},
-  {path:'my-orders', component:MyOrdersComponent},
-  {path:'shipping-address', component:ShippingAddressComponent},
-  {path:"view-custom-orders", component:ViewCustomOrdersComponent},
-  {path:"search-query/:name", component:SearchQueriesComponent},
-  {path:'view-sports', component:ViewSportsComponent},
-  {path:'view-leagues/:name', component:ViewLeaguesComponent},
-  {path:'view-teams/:name', component:ViewTeamsComponent},
-  {path:'view-kits/:name', component:ViewKitsComponent},
-  {path:'blogs', component:BlogsComponent},
-  {path: 'checkout', component: CheckoutComponent},
-  {path: 'view-on-stock-kits', component: OnStockKitsComponent},
-  {path: 'about-us', component: AboutUsComponent},
-  {path:'policies', component:PoliciesComponent},
-  {path:'payment-approved', component:ApprovedPaymentComponent},
-  {path: 'payment-failed', component: PaymentFailedComponent},
-  {path: 'view-all-orders', component: ViewAllOrdersComponent},
-  {path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent},
-  {path: 'returns-policy', component: ReturnsPolicyComponent}
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: '', component: HomeComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: 'products/:id', component: ProductsPageComponent },
+  { path: 'teams/:name', component: TeamsComponent },
+  { path: 'product/:name', component: ProductComponent },
+  { path: 'sport-teams/:name', component: SportTeamsComponent },
+  { path: 'cart', component: CartComponent}, 
+  { path: 'custom-order', component: CustomOrderComponent, canActivate: [AuthGuardService] }, 
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuardService] }, 
+  { path: 'placed-orders', component: PlacedOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } },
+  { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuardService] }, 
+  { path: 'shipping-address', component: ShippingAddressComponent, canActivate: [AuthGuardService] }, 
+  { path: 'blogs', component: BlogsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] }, 
+  { path: 'on-stock-kits', component: OnStockKitsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'policies', component: PoliciesComponent },
+  { path: 'approved-payment', component: ApprovedPaymentComponent },
+  { path: 'payment-failed', component: PaymentFailedComponent },
+  { path: 'view-all-orders', component: ViewAllOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'returns-policy', component: ReturnsPolicyComponent },
+  { path: 'search-queries', component: SearchQueriesComponent}, 
+  { path: 'view-sports', component: ViewSportsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-leagues', component: ViewLeaguesComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } },
+  { path: 'view-teams', component: ViewTeamsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-kits', component: ViewKitsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-custom-orders', component: ViewCustomOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
+export class AppRoutingModule {}
 
-  
- }
+
