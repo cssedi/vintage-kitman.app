@@ -1,12 +1,11 @@
 <div class=" h-screen overflow-x-hidden mt-8">
     <p class="text-white font-semibold text-3xl ml-3">Custom Orders</p>
 
-    <div class="sm:flex sm:items-center sm:justify-between ml-3">
+    <div class="sm:flex sm:items-center justify-between ml-3">
         <div>
             <div class="flex items-center gap-x-3">
                 <h2 class="text-lg font-medium mt-3 text-white">Number Of Orders: {{customOrders.length}}</h2>
 
-                <span class="px-3 py-1 text-xs rounded-full">Audit</span>
             </div>
 
             <p class="mt-2 text-sm text-white">These are all orders placed for the month of {{month|date:'MMMM'}}</p>
