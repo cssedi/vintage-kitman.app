@@ -96,12 +96,7 @@ export class ShippingAddressComponent implements OnInit{
         },
         error: (err: any) => {
           this.ifIsLoading = false;
-          if(this.previousUrl === '/checkout'){
-            this.router.navigate(['/checkout']).then(()=>{
-              window.location.reload()
 
-            }
-            )}
         }
       });
     } else {

@@ -59,11 +59,11 @@ const routes: Routes = [
   { path: 'view-all-orders', component: ViewAllOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'returns-policy', component: ReturnsPolicyComponent },
-  { path: 'search-queries', component: SearchQueriesComponent}, 
+  { path: 'search-queries/:name', component: SearchQueriesComponent}, 
   { path: 'view-sports', component: ViewSportsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
-  { path: 'view-leagues', component: ViewLeaguesComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } },
-  { path: 'view-teams', component: ViewTeamsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
-  { path: 'view-kits', component: ViewKitsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-leagues/:name', component: ViewLeaguesComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } },
+  { path: 'view-teams/:name', component: ViewTeamsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
+  { path: 'view-kits/:name', component: ViewKitsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'view-custom-orders', component: ViewCustomOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
 
 ];
