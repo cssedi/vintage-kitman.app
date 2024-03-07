@@ -2,8 +2,10 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NavigationEnd, Router, RoutesRecognized } from '@angular/router';
 import { Address } from 'src/app/models/authentication/address-vm';
 import { AuthService } from 'src/app/services/authentication/auth.service';
+import { filter, pairwise } from 'rxjs';
 
 @Component({
   selector: 'app-shipping-address',
@@ -29,8 +31,12 @@ export class ShippingAddressComponent implements OnInit{
   ];
   addressArray: Address[]=[]
   showAddForm:boolean = false
+  previousUrl: string = '';
+  currentUrl: string = '';
 
-  constructor(private fb:FormBuilder, private authService:AuthService, private location:Location, private snackar: MatSnackBar) { }
+  constructor(private fb:FormBuilder, private authService:AuthService, private location:Location, private snackar: MatSnackBar, private router:Router) {
+;
+   }
   ngOnInit(): void {
     this.addressForm = this.fb.group({
       name: ['', Validators.required],
@@ -44,10 +50,28 @@ export class ShippingAddressComponent implements OnInit{
 
     this.getAddresses()
 
+    //get router events
+    this.router.events
+    .pipe(filter((evt: any) => evt instanceof RoutesRecognized), pairwise())
+    .subscribe((events: RoutesRecognized[]) => {
+      this.currentUrl = events[0].urlAfterRedirects;
+      this.previousUrl = events[1].urlAfterRedirects;   
+      console.log(this.previousUrl)                                                                                                             
+    });                           
+
   }
 
   onSubmit(): void {
-    this.addressDetails = this.addressForm.value
+
+    this.addressDetails.isMain = false
+    this.addressDetails.addressName1 = this.addressForm.value.addressName1
+    this.addressDetails.addressName2 = this.addressForm.value.addressName2
+    this.addressDetails.buildingName = this.addressForm.value.buildingName
+    this.addressDetails.name = this.addressForm.value.name
+    this.addressDetails.province = this.addressForm.value.province
+    this.addressDetails.unitNumber = this.addressForm.value.unitNumber
+    this.addressDetails.zipCode = this.addressForm.value.zipCode
+
     this.ifIsLoading=true
     this.formSubmitted = true
     if (this.addressForm.valid) {
@@ -65,10 +89,19 @@ export class ShippingAddressComponent implements OnInit{
             duration: 3000
           });
           this.getAddresses()
+
+          if(this.previousUrl === '/checkout'){
+            this.router.navigate(['/checkout'])
+          }
         },
         error: (err: any) => {
           this.ifIsLoading = false;
-          window.location.reload()
+          if(this.previousUrl === '/checkout'){
+            this.router.navigate(['/checkout']).then(()=>{
+              window.location.reload()
+
+            }
+            )}
         }
       });
     } else {
@@ -87,6 +120,7 @@ export class ShippingAddressComponent implements OnInit{
     this.authService.getAddresses().subscribe({
       next:(res:any)=>{
         this.addressArray = res as Address[]
+        console.log(this.addressArray)
       },
       complete:()=>{
         
@@ -113,6 +147,26 @@ export class ShippingAddressComponent implements OnInit{
       }
     })
 
+  }
+
+  deleteAddress(address: Address){
+    this.ifIsLoading = true
+    console.log(address)
+    this.authService.deleteAddress(address.addressId!).subscribe({
+      next:(res:any)=>{
+        console.log(res)
+      },
+      complete:()=>{
+        this.ifIsLoading = false
+        this.snackar.open('Address deleted', 'Close', {
+          duration: 3000
+        });
+        this.getAddresses()
+      },
+      error:(err:any)=>{
+        this.ifIsLoading = false
+      }
+    })
   }
 
 }

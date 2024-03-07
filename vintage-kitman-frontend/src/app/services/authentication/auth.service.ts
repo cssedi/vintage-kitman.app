@@ -75,6 +75,10 @@ export class AuthService {
     return this.http.get<Address>(this.baseAPIUrl+"GetMainAddress", this.httpOptions)
   }
 
+  deleteAddress(id:number):Observable<Address>{
+    return this.http.delete<Address>(this.baseAPIUrl+"DeleteAddress/"+id, this.httpOptions)
+  }
+
   setAuthenticationStatus(isAuthenticated: boolean, isAdmin: boolean) {
     // Store authentication status in localStorage
     localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
