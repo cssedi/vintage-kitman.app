@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApplicationUser } from 'src/app/models/authentication/appuser';
 import { KitOrderVM } from 'src/app/models/orders/KitOrderVM';
 import { AuthService } from 'src/app/services/authentication/auth.service';
@@ -18,8 +19,12 @@ export class PlacedOrdersComponent implements OnInit {
   //modals
   fullScreenImageModal:boolean = false;
   userModal:boolean = false;
+  isLoading: boolean = false
+  showdeliveryModal:boolean = false
+  deliveryForm!: FormGroup;
+  formSubmitted:boolean = false
 
-  constructor(private orderService: OrderService, private authService:AuthService) { }
+  constructor(private orderService: OrderService, private authService:AuthService, private fb:FormBuilder) { }
   ngOnInit(): void {
     //getmonthly orders
     this.orderService.getMonthlyOrders()
@@ -28,12 +33,16 @@ export class PlacedOrdersComponent implements OnInit {
       next:(response)=>
       {
         this.orders = response as KitOrderVM[]
-        console.log(response)
+        console.log(this.orders)
       },
       error:(error)=>
       {
       }
     }) 
+
+    this.deliveryForm = this.fb.group({
+      link: ['']
+    })
 
   }
 
@@ -56,6 +65,40 @@ export class PlacedOrdersComponent implements OnInit {
     this.fullScreenImageModal = true
   }
 
+  updateBulkOrderStatus(order:KitOrderVM){
+    console.log(order)
+    this.orderService.updateBulkOrderStatus(order.uniqueOrdenum)
+    .subscribe({
+      next:(response)=>{
+
+      },complete:()=>{
+
+      },
+      error:(err)=>{
+
+      }
+    })
+  }
+
+  confirmDelivery(){
+    this.formSubmitted = true
+    let link = this.deliveryForm.value.link
+    if(this.deliveryForm.valid){
+    this.orderService.updateDeliveryStatus(this.kitOrder.uniqueOrdenum, link)
+    .subscribe({
+      next:(response)=>{
+      },
+      complete:()=>{
+        this.deliveryForm.reset()
+        this.showdeliveryModal = false
+      },
+      error:(err)=>{}
+    })
+
+    }
+
+  }
+
 
   //modal
   closeModal(){
@@ -63,6 +106,11 @@ export class PlacedOrdersComponent implements OnInit {
     // this.confirmModal = false
     // this.rejectModal = false
     this.fullScreenImageModal = false
+    this.showdeliveryModal = false
+  }
+  toggleDeliveryModal(order:KitOrderVM){
+    this.kitOrder = order
+    this.showdeliveryModal = !this.showdeliveryModal
   }
 
 }

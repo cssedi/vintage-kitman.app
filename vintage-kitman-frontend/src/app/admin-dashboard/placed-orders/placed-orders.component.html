@@ -1,4 +1,6 @@
-<div class=" h-screen overflow-x-hidden mt-8">
+<div class=" h-screen overflow-x-hidden mt-8"
+[ngClass]="{ 'bg-black opacity-60': showdeliveryModal}">
+>
     <p class="text-white font-semibold text-3xl ml-3">Placed Orders</p>
 
     <div class="sm:flex sm:items-center sm:justify-between ml-3">
@@ -16,6 +18,7 @@
 
 
         <div class="flex items-center mt-4 gap-x-3">
+
       
            
         </div>
@@ -72,7 +75,25 @@
                                 <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                     <a (click)="getUserDetails(order)" class="text-sm font-normal underline hover:cursor-pointer">{{order.user?.name +" "+ order.user?.surname}}</a>
                                 </td>
-                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap space-x-4">
+                                    <button (click)="updateBulkOrderStatus(order)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zM3.8 6h16.4M16 10a4 4 0 1 1-8 0"/></svg>
+                                    </button>
+                                    <button class="top-3" (click)="toggleDeliveryModal(order)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="28" height="28" viewBox="0 0 256 256" xml:space="preserve">
+
+                                            <defs>
+                                            </defs>
+                                            <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                                                <path d="M 19.774 61.808 H 14.74 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 h 5.035 c 1.933 0 3.5 1.567 3.5 3.5 S 21.708 61.808 19.774 61.808 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                                <circle cx="30.316" cy="62.886" r="5.826" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+                                                <circle cx="71.93599999999999" cy="62.886" r="5.826" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+                                                <path d="M 89.555 42.337 l -7.271 -13.003 c -0.618 -1.106 -1.787 -1.792 -3.055 -1.792 H 63.168 v -6.253 c 0 -1.933 -1.567 -3.5 -3.5 -3.5 H 14.74 c -1.933 0 -3.5 1.567 -3.5 3.5 s 1.567 3.5 3.5 3.5 h 41.428 v 6.253 v 23.766 H 41.256 c -1.933 0 -3.5 1.567 -3.5 3.5 s 1.567 3.5 3.5 3.5 h 18.412 c 1.933 0 3.5 -1.567 3.5 -3.5 V 34.542 h 14.008 L 83 44.957 v 9.851 c -1.918 0.018 -3.467 1.578 -3.467 3.5 c 0 1.933 1.567 3.5 3.5 3.5 H 86.5 c 1.933 0 3.5 -1.567 3.5 -3.5 V 44.045 C 90 43.447 89.847 42.858 89.555 42.337 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                                <path d="M 23.057 50.229 H 3.5 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 h 19.557 c 1.933 0 3.5 1.567 3.5 3.5 S 24.99 50.229 23.057 50.229 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                                <path d="M 35.528 37.682 H 3.5 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 h 32.028 c 1.933 0 3.5 1.567 3.5 3.5 S 37.461 37.682 35.528 37.682 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                                            </g>
+                                            </svg>
+                                    </button>
                                 </td>
                             </tr>
 
@@ -120,7 +141,6 @@
                     <p class="text-sm">Email: <b>{{userObj.email}}</b></p>
                     <p class="text-sm">Phone Number: <b>{{userObj.phoneNumber}}</b></p>
                     <p class="text-sm">Address: <b>{{kitOrder.address}}</b></p>
-                    <p class="text-sm">Province: <b>{{kitOrder.orderDate | date}}</b></p>
                 </div>
             </div>
             </div>
@@ -130,5 +150,58 @@
         </div>
         </div>
     </div>
+    </div>
+</div>
+
+<!-- Update modal -->
+<div class="fixed top-0 left-0 right-0 z-50  inset-0 flex items-center justify-center mb-auto" *ngIf="showdeliveryModal">
+    <div class="fixed inset-0 bg-gray-900 opacity-75 transition-opacity"
+        [ngClass]="{ 'opacity-100': showdeliveryModal, 'opacity-0': !showdeliveryModal }"></div>
+    <div class="bg-white rounded-lg animate-jump-in"
+        [ngClass]="{ 'scale-100': showdeliveryModal, 'scale-95': !showdeliveryModal }">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-jump-in">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                  Confirm delivery
+                </h3>
+                <button  (click)="closeModal()" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="edit-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <form (submit)="confirmDelivery()" [formGroup]="deliveryForm" >
+                        
+                        
+                    <div class="mb-6 ">
+                        <label for="email" class="block mb-2 text-sm font-medium  dark:text-white">Customer tracking link</label>
+                        <input 
+                        formControlName="link"
+                        name="name"
+                        type="text" 
+                 placeholder="enter link here" 
+                 [ngClass]="{'border-txtRed': (deliveryForm.get('link')?.touched || formSubmitted) && deliveryForm.get('link')?.invalid, 'border-gray-400': !deliveryForm.get('link')?.invalid || !formSubmitted }"
+                 class="w-full py-1.5 px-2 bg-white border rounded-lg md:w-80  rtl:pr-11 rtl:pl-5 focus:outline-none">
+                 <p *ngIf="deliveryForm.controls['link'].invalid && (formSubmitted || deliveryForm.controls['link'].touched)"
+                 class="bottom-0 text-xs text-red-600 dark:text-red-400">This field is required!</p>
+                    </div>
+                    <div class="flex items-center space-x-4 mt-4">
+                        <button type="submit" class="bg-grey focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary ">
+                             Submit
+                        </button>
+                        <button type="button" (click)="closeModal()" class="bg-grey inline-flex items-center hover:text-white border hover:bg-txtRed focus:ring-4 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">
+                            Cancel
+                        </button>
+                    </div>
+        
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
