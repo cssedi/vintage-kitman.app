@@ -24,6 +24,7 @@ export class ViewKitsComponent implements OnInit {
   kitObj:kitVM={name: '', frontImage: '', price: 0, productType: null,teamId: 0,productTypeId: 0}
   //forms
   createForm!: FormGroup;
+  updateForm!: FormGroup;
   formSubmitted: boolean = false;
   //modals
   showCreateModal: boolean = false;
@@ -32,9 +33,10 @@ export class ViewKitsComponent implements OnInit {
   //images
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
+  selectedKitName: string = '';
 
   constructor(private orderService: OrderService, private fb:FormBuilder, private categoriesService: CategoriesService, 
-             private snackBar:MatSnackBar, private productService:ProductService,private route:ActivatedRoute) {}
+             private snackBar:MatSnackBar, private productService:ProductService,private route:ActivatedRoute, ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -70,6 +72,11 @@ export class ViewKitsComponent implements OnInit {
       price: ['', Validators.required],
       productTypeId: [0, Validators.required],
     });
+    this.updateForm = this.fb.group({
+      name: ['', Validators.required],
+      price: ['', Validators.required],
+      productTypeId: [0, Validators.required],
+    });
   }
 
 
@@ -81,8 +88,6 @@ export class ViewKitsComponent implements OnInit {
     this.kitObj = this.createForm.value
     this.kitObj.teamId = this.teamId
     this.kitObj.frontImage = this.base64Image!
-    console.log(this.kitObj)
-    debugger
     this.categoriesService.addKit(this.teamName, this.kitObj)
     .subscribe({
       next:(response)=>{
@@ -92,17 +97,92 @@ export class ViewKitsComponent implements OnInit {
         this.snackBar.open("Kit created successfully", "Close", {duration:3000})
         this.ngOnInit()
         this.showCreateModal = false
+        this.createForm.reset()
+        this.clearImageUpload()
+
       },
       error:(error)=>{
-        window.alert("Error has occured, please contact support")
       }
     })
 
     
   }
+
+  //update kit
+  updateKit(){
+    this.formSubmitted = true;
+    this.kitObj = this.updateForm.value
+    this.kitObj.teamId = this.teamId
+    this.kitObj.frontImage = this.base64Image!
+    this.productService.updateKit(this.selectedKitName, this.kitObj)
+    .subscribe({
+      next:(response)=>{
+
+      },
+      complete:()=>{
+        this.snackBar.open("Kit updated successfully", "Close", {duration:3000})
+        this.ngOnInit()
+        this.updateModal = false
+      },
+      error:(error)=>{
+        window.alert("Error has occured, please contact support")
+      }
+    })
+  }
+
+  deleteKit(kit:kitVM){
+    kit = this.kitObj
+    this.productService.deleteKit(kit.name).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete:()=>{
+        this.deleteModal=false;
+        this.ngOnInit()
+        this.snackBar.open("Kit deleted successfully", "Close", {duration:3000})
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+
+  }
+
+
+
   toggleCreateModal(){
     this.showCreateModal=!this.showCreateModal
     this.clearImageUpload()
+  }
+
+  toggleDeleteModal(kit:kitVM){
+    this.kitObj = kit
+    this.deleteModal = true
+    this.selectedKitName = kit.name
+
+  }
+
+  //open update modal
+  openUpdateModal(kit:kitVM){
+    this.kitObj = kit
+    this.updateModal = true
+    this.selectedKitName = kit.name
+    this.base64Image = kit.frontImage
+    this.updateForm.patchValue({
+      name: kit.name,
+      price: kit.price,
+      productTypeId: kit.productTypeId
+    })
+  }
+
+  toggleUpdateModal(){
+    this.updateModal=!this.updateModal
+    this.clearImageUpload()
+  }
+
+  
+  closeDeleteModal(){
+    this.deleteModal=false;
   }
     //Images
     onImageDrop(event: DragEvent) {
