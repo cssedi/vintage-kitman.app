@@ -323,7 +323,7 @@
   </mat-sidenav-container>
 </ng-container>
 
-        <!-- Side bar logged out -->
+    <!-- Side bar logged out -->
     <section 
         *ngIf="!isAuthenticated && issidebarLoggedOut"
         class="float-left">
@@ -367,7 +367,13 @@
                   <div  class="relative bg-darkgrey font-normal divide-y rounded-lg shadow w-full text-white">
                     <ul class="py-2 text-sm">
                       <li *ngFor="let sport of sports" class="h-9">
-                        <button (click)="toggleDoubleDropDown(sport) " [routerLink]="['/sport-teams', sport.name]"
+                        <button *ngIf="sport.leagues.length == 1" (click)="toggleDoubleDropDown(sport)" [routerLink]="['/sport-teams', sport.name]"
+                        class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
+                          <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                          </svg>
+                        </button>
+                        <button *ngIf="sport.leagues.length > 1" (click)="toggleDoubleDropDown(sport)"
                         class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
                           <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -466,12 +472,6 @@
                     <ul class="py-2 text-sm">
                       <li *ngFor="let sport of sports" class="h-9">
                         <button *ngIf="sport.leagues.length == 1" (click)="toggleDoubleDropDown(sport)" [routerLink]="['/sport-teams', sport.name]"
-                        class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
-                          <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                          </svg>
-                        </button>
-                        <button *ngIf="sport.leagues.length > 1" (click)="toggleDoubleDropDown(sport)"
                         class="flex flex-row px-4 py- hover:opacity-50">{{sport.name}} 
                           <svg *ngIf="sport.leagues.length > 1" class="mt-1 w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
