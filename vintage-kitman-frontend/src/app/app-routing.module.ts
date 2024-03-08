@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: 'view-all-orders', component: ViewAllOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'view-all-custom-orders', component: ViewAllCustomOrdersComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'returns-policy', component: ReturnsPolicyComponent },
-  { path: 'search-queries/:name', component: SearchQueriesComponent}, 
+  { path: 'search-query/:name', component: SearchQueriesComponent}, 
   { path: 'view-sports', component: ViewSportsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 
   { path: 'view-leagues/:name', component: ViewLeaguesComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } },
   { path: 'view-teams/:name', component: ViewTeamsComponent, canActivate: [AuthGuardService], data: { role: 'ADMIN' } }, 

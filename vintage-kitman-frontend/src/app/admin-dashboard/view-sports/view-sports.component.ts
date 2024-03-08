@@ -12,6 +12,7 @@ import { CategoriesService } from 'src/app/services/Categories/categories.servic
 export class ViewSportsComponent implements OnInit {
 
   month:Date = new Date();
+  isLoading:boolean = false;
   Sports:SportsVM[] = []
   //modals
   showCreateModal: boolean = false;
@@ -51,40 +52,49 @@ export class ViewSportsComponent implements OnInit {
 
   createSport(){
     this.formSubmitted=true
+    this.isLoading = true
     this.sportObj.name = this.createSportForm.value.name
     console.log()
     this.categoriesService.createSport(this.sportObj).subscribe({
       next: (response) => 
       {
-        console.log(response)
+        this.isLoading = false
       },
       complete: () => {
         this.showCreateModal = false
         this.createSportForm.reset()
         this.snackBar.open("League created successfully", "Close", {duration:3000})
         this.ngOnInit()
+        this.isLoading = false
+
       },
       error: (err) => {
         console.log(err)
+        this.isLoading = false
       }
     })
 
 
   }
   updateSport(){
+    this.isLoading = true
     this.formSubmitted=true
     this.sportObj.name = this.updateForm.value.name
     this.categoriesService.updateSport(this.selectedSport, this.sportObj)
     .subscribe({
       next:(response)=>{
-        console.log(response)
+        this.isLoading = false
       },
       complete: ()=>{
+        this.isLoading = false
         this.editModal=false
         this.ngOnInit()
         this.formSubmitted=false;
         this.updateForm.reset()
         this.snackBar.open("Team updated successfully", "Close", {duration:3000})
+      },
+      error:(err)=>{
+        this.isLoading = false
       }
 
     })
@@ -123,6 +133,11 @@ export class ViewSportsComponent implements OnInit {
     this.sportObj = sport
     this.editModal=true
     this.selectedSport = sport.name
+    this.updateForm.patchValue({
+      name: sport.name,
+
+    })
+
   }
 
   closeDeleteModal(){
