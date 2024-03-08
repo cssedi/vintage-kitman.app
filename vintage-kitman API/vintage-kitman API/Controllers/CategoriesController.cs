@@ -30,18 +30,6 @@ namespace vintage_kitman_API.Controllers
             return Ok(teams);
         }
 
-        [HttpGet("GetAllSizes")]
-        public async Task<IActionResult> GetAllSizes()
-        {
-            var sizes = await _categoriesRepository.GetAllSizes();
-
-            if(sizes == null)
-            {
-                return NotFound(new { message = "No sizes found" });
-            }
-
-            return Ok(sizes);
-        }
 
         [Authorize(AuthenticationSchemes ="Bearer", Roles = "ADMIN")]
         [HttpGet("GetLeaguesBySport/{name}")]
