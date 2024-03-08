@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   {
     image: '/assets/images/arsenal-carouselimg.jpg',
     content: {
-      title: 'Get your favourite kits of the 2022/23 Premier League season',
+      title: 'Get Your Favorite Vintage  and New Arsenal kits',
       description: 'Some representative placeholder content for the first slide.',
       buttonText: 'Shop Now',
       route: '/products/1',
@@ -121,7 +121,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     name: "England Home Jersey 1990",
     frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1039.jpg",
     price: 900
-  }
+  },
+  { 
+    KitId: 35, 
+    ProductTypeId: 3, 
+    TeamId: 14, 
+    name: "Brazil Home Jersey 1998",
+    frontImage: "https://webpixelscdn.fra1.digitaloceanspaces.com/the-locker-room/assets/1082.jpg",
+    price: 900
+  },
+
 ];
 
   ngOnInit() {
@@ -158,14 +167,14 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       //get on stock kits
-      this.orderService.homePageOnStockKits()
-      .subscribe({
-        next:(value)=> {
-          this.onStockKits = value as OnStockKitVM[]
-        },
-        complete:()=>{},
-        error:(err)=>{}
-      })
+      // this.orderService.homePageOnStockKits()
+      // .subscribe({
+      //   next:(value)=> {
+      //     this.onStockKits = value as OnStockKitVM[]
+      //   },
+      //   complete:()=>{},
+      //   error:(err)=>{}
+      // })
   }
 
   ngOnDestroy() {
