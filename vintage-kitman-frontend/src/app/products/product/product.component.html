@@ -57,19 +57,17 @@
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="Cristiano Ronaldo">
                         </div>
-                        <p *ngIf="cartForm.controls['customName'].invalid && (formSubmitted || cartForm.controls['customName'].touched)" class="text-txtRed font-semibold">This field is required</p>
-
+                        <p *ngIf="customizedToggle && cartForm.controls['customName'].invalid && (formSubmitted || cartForm.controls['customName'].touched)" class="text-txtRed font-semibold">This field is required</p>
                     </div>
-                    <div class="mb-2">
+                    <div class="relative mb-2">
                         <label for="Custom number"
-                            class="block text-sm font-medium text-gray-900 dark:text-white">Custom number</label>
+                            class="block text-sm font-medium text-white">Custom number</label>
                         <div class="relative flex items-center md:w-1/4 xs:w-1/2">
                             <input type="number" formControlName="customNumber" min="1" max="99" value="1"
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="7">
-                                <p *ngIf="cartForm.controls['customNumber'].invalid && (formSubmitted || cartForm.controls['customNumber'].touched)" class="text-txtRed font-semibold">This field is required</p>
-
                         </div>    
+                        <p *ngIf="customizedToggle && cartForm.controls['customNumber'].invalid && (formSubmitted || cartForm.controls['customNumber'].touched)" class="text-txtRed font-semibold">This field is required</p>
                     </div>
                 </div>
 
