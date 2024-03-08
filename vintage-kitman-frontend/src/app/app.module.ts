@@ -57,7 +57,6 @@ import { ReturnsPolicyComponent } from './returns-policy/returns-policy.componen
     ProductsPageComponent,
     TeamsComponent,
     ProductComponent,
-    
     SportTeamsComponent,
     CartComponent,
     CustomOrderComponent,
