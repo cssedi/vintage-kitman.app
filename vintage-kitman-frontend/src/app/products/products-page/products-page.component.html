@@ -38,7 +38,11 @@
         </section>
     </div>
 </div>
-
+<div class="h-svh" *ngIf="loading">
+    <div class="h-full absolute top-72 right-0 left-0" >
+        <div class="loader w-full items-center justify-center mx-auto my-auto"></div>
+    </div>
+</div>
 
 <ng-template #errorBlock>
     <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">

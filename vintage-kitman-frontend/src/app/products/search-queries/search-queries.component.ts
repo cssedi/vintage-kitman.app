@@ -17,6 +17,7 @@ export class SearchQueriesComponent implements OnInit {
   kitArray:kitVM[]=[]
   isDrawerVisible:boolean=false
   displaySignInError:boolean=false
+  loading:boolean = true
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService
              ,private snackBar:MatSnackBar) { }
@@ -30,8 +31,9 @@ export class SearchQueriesComponent implements OnInit {
           next:(response)=>
           {
             this.kitArray= response as kitVM[]
+            this.loading = false
           },
-          complete:()=>{},
+          complete:()=>{this.loading = false},
           error:(error)=>{}
         })
     });  

@@ -17,6 +17,7 @@ export class ProductsPageComponent implements OnInit {
   kitArray:kitVM[]=[]
   isDrawerVisible:boolean=false
   displaySignInError:boolean=false
+  loading:boolean = true
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService
              , private snackBar:MatSnackBar) { }
@@ -30,10 +31,10 @@ export class ProductsPageComponent implements OnInit {
         {
           this.kitArray=reponse as kitVM[]
           console.log(this.teamId)
-          console.log(reponse)
+          this.loading = false
         },
         complete:()=>{
-
+          this.loading = false
         },
         error:(err)=> {
           console.log(err)
