@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using vintage_kitman_API.Data.Repositories.Orders;
 using vintage_kitman_API.NewFolder;
+using vintage_kitman_API.ViewModels.CategoriesModels;
 using vintage_kitman_API.ViewModels.OrderModels;
 
 namespace vintage_kitman_API.Controllers
@@ -56,14 +57,13 @@ namespace vintage_kitman_API.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "CUSTOMER")]
-        [HttpDelete("RemoveFromWishlist")]
-        public async Task<IActionResult> RemoveFromWishlist(WishlistVM model)
+        [HttpPost("RemoveFromWishlist")]
+        public async Task<IActionResult> RemoveFromWishlist(KitVM model)
         {
             //get user details
             var httppUser = HttpContext.User;
             var userId = httppUser.FindFirst(ClaimTypes.NameIdentifier)?.Value; // retrieve the user id  
-            model.Id = userId;
-            var wishlist = await _ordersRepository.RemoveFromWishlist(model);
+            var wishlist = await _ordersRepository.RemoveFromWishlist(model, userId);
 
             if (wishlist == null)
             {
@@ -280,6 +280,32 @@ namespace vintage_kitman_API.Controllers
             }
             return Ok(orders);
         }
+
+        [HttpPost("BulkOrderPlaced/{orderNum}")]
+        public async Task<IActionResult> BulkOrderPlaced(string orderNum)
+        {
+            var orders = _ordersRepository.updateBulkOrderStatus(orderNum);
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found" });
+            }
+            return Ok(orders);
+        }
+
+        [HttpPost("OrderDelivered")]
+        public async Task<IActionResult> OrderDelivered([FromBody] DeliveryInfoVM deliveryInfo)
+        {
+            var orders = _ordersRepository.updateDeliveredStatus(deliveryInfo.OrderNum, deliveryInfo.TrackingLink);
+
+            if (orders == null)
+            {
+                return NotFound(new { message = "No Orders found" });
+            }
+            return Ok(orders);
+        }
+
+
 
 
 

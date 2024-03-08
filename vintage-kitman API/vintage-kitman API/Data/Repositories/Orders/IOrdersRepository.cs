@@ -10,7 +10,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
     {
         public Task<CustomOrder> CreateCustomOrder(CustomOrderVM model, string userId);
         public Task<WishlistVM> AddToWishlist(WishlistVM model);
-        public Task<WishlistVM> RemoveFromWishlist(WishlistVM model);
+        public Task<WishlistVM> RemoveFromWishlist(KitVM model, string userId);
         public Task<List<KitVM>> GetWishList(string userId);
         public CartTotalVM GetCartTotal(List<CartVM> model);
         public List<CustomOrderVM> GetAllCustomOrders();
@@ -25,16 +25,14 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
         public List<OnStockKitVM> CustomerViewOnStockKits();
         public Task<KitOrderVM> createOrder(List<KitOrderVM> model, string userId);  
-        //public Task<KitOrders> newKitOrder(KitOrderVM model);
 
-        //get monthly orders
         public List<KitOrderVM> GetMonthlyOrders();
 
-        //getall orders
         public List<KitOrderVM> GetAllOrders();
 
-        //get all custom orders
         public List<CustomOrderVM> GetHistoricCustomOrders();
+        public Task<KitOrderVM> updateBulkOrderStatus(string ordernumber);
+        public Task<KitOrderVM> updateDeliveredStatus(string ordernumber, string trackingNumber);
 
 
 

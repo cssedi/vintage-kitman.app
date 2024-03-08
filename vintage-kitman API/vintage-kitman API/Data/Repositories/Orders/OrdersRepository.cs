@@ -74,12 +74,12 @@ namespace vintage_kitman_API.Data.Repositories.Orders
 
             return model;
         }
-        public async Task<WishlistVM> RemoveFromWishlist(WishlistVM model)
+        public async Task<WishlistVM> RemoveFromWishlist(KitVM model, string Id)
         {
-            var kitId = await _appDbContext.kits.Where(k => k.Name == model.KitName)
+            var kitId = await _appDbContext.kits.Where(k => k.Name == model.Name)
                         .Select(k => k.KitId).FirstOrDefaultAsync();
 
-            var userId = await _appDbContext.Users.Where(u => u.Id == model.Id)
+            var userId = await _appDbContext.Users.Where(u => u.Id == Id)
                         .Select(u => u.Id).FirstOrDefaultAsync();
 
             UserWishlist userWishlist = new UserWishlist()
@@ -91,7 +91,8 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             _appDbContext.UserWishlists.Remove(userWishlist);
             await _appDbContext.SaveChangesAsync();
 
-            return model;
+            return new WishlistVM();
+
         }
 
         public Task<List<KitVM>> GetWishList(string userId)
@@ -186,7 +187,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             // Continue with your email sending logic using confirmationLink
             if(user != null && customOrder != null)
             {
-                var link = "http://localhost:4200/my-orders";
+                var link = "http://vintage-kitman.azurewebsites.net/my-orders";
                 //send email confirmation
                 var message = new MimeMessage();
                 message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
@@ -426,7 +427,7 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             if (user != null)
             {
 
-                var link = "http://localhost:4200/my-orders";
+                var link = "https://vintage-kitman.azurewebsites.net/my-orders";
                 //send email confirmation
                 var message = new MimeMessage();
                 message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
@@ -552,13 +553,14 @@ namespace vintage_kitman_API.Data.Repositories.Orders
                                 FrontImage = o.Kit.FrontImage,
                                 Name = o.Kit.Name,
                                 CustomNumber = o.CustomNumber,
+                                OrderStatusId = o.Order.OrderStatusId,
                                 OrderDate = o.Order.OrderDate,
                                 uniqueOrdenum = o.Order.orderNumber,
                                 Address = o.Address,
                                 User = o.Order.User,
                                 Kit = o.Kit,
                                 Order = o.Order
-                            }).OrderBy(o=> o.OrderDate).ToList();    
+                            }).Where(o=> o.Order.OrderStatusId ==1).OrderBy(o=> o.OrderDate).ToList();    
 
             return orders;
         }
@@ -633,5 +635,234 @@ namespace vintage_kitman_API.Data.Repositories.Orders
             return customOrders;
 
         }
+
+        public Task<KitOrderVM> updateBulkOrderStatus(string ordernumber)
+        {
+            var orders = _appDbContext.kitOrders.Include(o => o.Order).ThenInclude(u => u.User).Include(o => o.Kit)
+                           .Where(o => o.Order.OrderDate.Month == DateTime.Now.Month)
+                            .Select(o => new KitOrderVM
+                            {
+                                KitId = o.KitId,
+                                OrderId = o.OrderId,
+                                Size = o.Size,
+                                Quantity = o.Quantity,
+                                CustomName = o.CustomName,
+                                FrontImage = o.Kit.FrontImage,
+                                Name = o.Kit.Name,
+                                CustomNumber = o.CustomNumber,
+                                OrderStatusId = o.Order.OrderStatusId,
+                                OrderDate = o.Order.OrderDate,
+                                uniqueOrdenum = o.Order.orderNumber,
+                                Address = o.Address,
+                                User = o.Order.User,
+                                Kit = o.Kit,
+                                Order = o.Order
+                            }).
+                            Where(o => o.uniqueOrdenum == ordernumber).ToList();
+
+            var user = orders.FirstOrDefault().User;
+
+            foreach (var order in orders)
+            {
+                order.Order.OrderStatusId = 2;
+
+            }
+
+            _appDbContext.SaveChanges();
+
+
+
+            var link = "http://vintage-kitman.azurewebsites.net/my-orders";
+            //send email confirmation
+            var message = new MimeMessage();
+            message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
+            message.To.Add(MailboxAddress.Parse(user.Email));
+            message.Subject = "Bulk Order placed";
+
+            var body = @$"<!DOCTYPE html>
+                        <html lang='en'>
+                        <head>
+                            <meta charset='UTF-8'>
+                            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                            <title>Account Registration Confirmation</title>
+                        </head>
+                        <body style='margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #f7f7f7; color: #000000; font-family: Arial, Helvetica, sans-serif;'>
+
+                            <table style='border-collapse: collapse; table-layout: fixed; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: top; min-width: 320px; margin: 0 auto; background-color: #f7f7f7; width:100%;' cellpadding='0' cellspacing='0'>
+                                <tbody style=""text-align: center;"">
+                                    <tr>
+                                        <img src ='https://i.ibb.co/n3SX2cC/image-3.png' 
+                                        style='background-color: #000000; height: 85px; margin: 0 auto; display: block; width: max-content; object-fit: contain;'/>
+                                    </tr>
+                                    <tr style='vertical-align: top;'>
+                                        <td style='word-break: break-word; border-collapse: collapse !important; vertical-align: top;'>
+
+                                            <!-- Email content starts here -->
+                                            <h1 style='margin: 20px 10px; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 26px; font-weight: 400;'>Order Sourced!</h1>
+
+                                            <table style='width:100%; border-collapse: collapse; margin: 20px 10px;' cellpadding='0' cellspacing='0'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Hi {user.Name}!</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Your Order with reference number {ordernumber} has been placed and is on route to South africa.You will be notified again when your order is being delivered to you!</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'> Please log into your account to see more more information about the status of your order. </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: center;'>
+                                                            <a href='{link}' target='_blank' style='text-decoration: none; color: #ffffff; background-color: #000000; padding: 12px 40px; border-radius: 4px; display: inline-block; font-size: 14px; line-height: 120%;'>
+                                                             View Orders
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='text-align: center; font-size: 14px; line-height: 140%;'>Thanks again for shopping with the Vintage Kitman Team!</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>If you didn't create an account with us, please ignore this email.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Email content ends here -->
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </body>
+                        </html>
+                        ";
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = body;
+            message.Body = new TextPart(TextFormat.Html) { Text = body };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate(_configuration["EmailConfig:Username"], _configuration["EmailConfig:Password"]);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+            return Task.FromResult(new KitOrderVM());
+        }
+
+
+        public Task<KitOrderVM> updateDeliveredStatus(string ordernumber, string trackingNumber)
+        {
+            var orders = _appDbContext.kitOrders.Include(o => o.Order).ThenInclude(u => u.User).Include(o => o.Kit)
+                           .Where(o => o.Order.OrderDate.Month == DateTime.Now.Month)
+                            .Select(o => new KitOrderVM
+                            {
+                                KitId = o.KitId,
+                                OrderId = o.OrderId,
+                                Size = o.Size,
+                                Quantity = o.Quantity,
+                                CustomName = o.CustomName,
+                                FrontImage = o.Kit.FrontImage,
+                                Name = o.Kit.Name,
+                                CustomNumber = o.CustomNumber,
+                                OrderStatusId = o.Order.OrderStatusId,
+                                OrderDate = o.Order.OrderDate,
+                                uniqueOrdenum = o.Order.orderNumber,
+                                Address = o.Address,
+                                User = o.Order.User,
+                                Kit = o.Kit,
+                                Order = o.Order
+                            }).
+                            Where(o => o.uniqueOrdenum == ordernumber).ToList();
+
+            var user = orders.FirstOrDefault().User;
+
+            foreach (var order in orders)
+            {
+                order.Order.OrderStatusId = 3;
+
+            }
+
+            _appDbContext.SaveChanges();
+
+
+
+            var link = trackingNumber;
+            //send email confirmation
+            var message = new MimeMessage();
+            message.From.Add(MailboxAddress.Parse(_configuration["EmailConfig:Username"]));
+            message.To.Add(MailboxAddress.Parse(user.Email));
+            message.Subject = "Order "+ ordernumber + " out for delivery";
+
+            var body = @$"<!DOCTYPE html>
+                        <html lang='en'>
+                        <head>
+                            <meta charset='UTF-8'>
+                            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                            <title>Account Registration Confirmation</title>
+                        </head>
+                        <body style='margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #f7f7f7; color: #000000; font-family: Arial, Helvetica, sans-serif;'>
+
+                            <table style='border-collapse: collapse; table-layout: fixed; border-spacing: 0; mso-table-lspace: 0pt; mso-table-rspace: 0pt; vertical-align: top; min-width: 320px; margin: 0 auto; background-color: #f7f7f7; width:100%;' cellpadding='0' cellspacing='0'>
+                                <tbody style=""text-align: center;"">
+                                    <tr>
+                                        <img src ='https://i.ibb.co/n3SX2cC/image-3.png' 
+                                        style='background-color: #000000; height: 85px; margin: 0 auto; display: block; width: max-content; object-fit: contain;'/>
+                                    </tr>
+                                    <tr style='vertical-align: top;'>
+                                        <td style='word-break: break-word; border-collapse: collapse !important; vertical-align: top;'>
+
+                                            <!-- Email content starts here -->
+                                            <h1 style='margin: 20px 10px; line-height: 140%; text-align: center; word-wrap: break-word; font-size: 26px; font-weight: 400;'>Order out for delivery</h1>
+
+                                            <table style='width:100%; border-collapse: collapse; margin: 20px 10px;' cellpadding='0' cellspacing='0'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Hi {user.Name}!</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'>Your Order with reference number {ordernumber} has arrived in south africa!</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: left; font-size: 14px; line-height: 140%;'> Please find the tracking link below and allow 3-5 working days for delivery. </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='padding: 10px; text-align: center;'>
+                                                            <a href='{trackingNumber}' target='_blank' style='text-decoration: none; color: #ffffff; background-color: #000000; padding: 12px 40px; border-radius: 4px; display: inline-block; font-size: 14px; line-height: 120%;'>
+                                                             View Delivery
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='text-align: center; font-size: 14px; line-height: 140%;'>Thanks again for shopping with the Vintage Kitman Team!</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Email content ends here -->
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </body>
+                        </html>
+                        ";
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = body;
+            message.Body = new TextPart(TextFormat.Html) { Text = body };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate(_configuration["EmailConfig:Username"], _configuration["EmailConfig:Password"]);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+
+            return Task.FromResult(new KitOrderVM());
+        }
+
     }
 }
