@@ -142,7 +142,7 @@ export class CheckoutComponent {
         })
 
         
-        this.router.navigate(['/payment-approved'])
+        this.router.navigate(['/approved-payment'])
         .then(() => {
           this.cartService.updateCartItemsCount(0);         
         })

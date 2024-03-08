@@ -98,9 +98,8 @@
             </div>
     </div>
 
-    <button
+    <button *ngIf="addressString!=''"
     class="text-black bg-canary w-full h-12 mt-4 rounded-md"
-    [disabled]="addressString ==''"
     angular4-paystack
     [paystackOptions]="options"
     (onClose)="paymentCancel()"
@@ -108,9 +107,14 @@
     (callback)="paymentDone($event)"
     [class]="'btn btn-primary btn-lg'"
   >
-    <p *ngIf="addressString==''"> Add address</p>
     <p *ngIf="addressString!=''"> Place Order</p>
   </button>
+  
+  <button *ngIf="addressString==''"
+  class="text-black bg-canary w-full h-12 mt-4 rounded-md"
+  routerLink="/shipping-address">
+  <p > Add address</p>
+</button>
 
     <!-- <button
     class="text-black bg-canary w-full h-12 mt-4 rounded-md"
