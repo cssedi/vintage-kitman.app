@@ -112,6 +112,9 @@ export class ViewTeamsComponent implements OnInit {
     this.editModal=true
     this.base64Image = this.teamObject.logo
     this.selectedClub = team.name
+    this.updateForm.patchValue({
+      name: team.name
+    })
   }
   closeDeleteModal(){
     this.deleteModal=false;

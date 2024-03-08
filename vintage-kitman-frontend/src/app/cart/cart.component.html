@@ -1,4 +1,4 @@
-<div class="flex flex-row h-fit my-10 overflow-x-hidden max-w-screen-xl items-center justify-between mx-auto" 
+<div class="flex flex-row h-fit my-10 overflow-x-hidden max-w-screen-xl items-center lg:justify-between sm:justify-center mx-auto" 
 
 *ngIf="!displaySignInError; else errorBlock">
 >
@@ -17,7 +17,7 @@
                         <img src="{{cartItem.KitImage}}" alt="{{cartItem.KitName}}" 
                             [routerLink]="['/product', cartItem.KitName]" class="h-fit w-fit mx-auto mb-7 object-cover hover:cursor-pointer">
                     </div>
-                    <div class="flex flex-col w-1/2 h-full">
+                    <div class="flex flex-col md:w-1/2 xs:w-3/4 h-full">
                         <h4 class="text-base text-white group-hover:underline group-hover:text-black hover:cursor-pointer" [routerLink]="['/product', cartItem.KitName]"> {{cartItem.KitName}} (Size: {{cartItem.SizeId}})</h4>
                         <div class="flex flex-col h-12 mt-1" *ngIf="cartItem.CustomName != '' && cartItem.CustomNumber != 0">
                             <h6 class="text-grey">Custom Name: {{cartItem.CustomName}}</h6>

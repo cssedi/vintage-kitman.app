@@ -35,6 +35,10 @@ export class OrderService {
     return this.http.post<wishlistVM>(this.baseAPIURL+"AddToWishlist", model, this.httpOptions)
   }
 
+  removeFromWishlist(model:kitVM):Observable<wishlistVM>{
+    return this.http.post<wishlistVM>(this.baseAPIURL+"RemoveFromWishlist", model, this.httpOptions)
+  }
+
   getWishlist():Observable<kitVM[]>{ 
     return this.http.get<kitVM[]>(this.baseAPIURL+"GetWishlist", this.httpOptions)
   }
@@ -81,4 +85,12 @@ export class OrderService {
   getCustomOrders():Observable<CustomOrderVM[]>{
     return this.http.get<CustomOrderVM[]>(this.baseAPIURL+"GetHistoricCustomOrders", this.httpOptions)
   }
+  updateBulkOrderStatus(orderNum: string):Observable<KitOrderVM>{
+    return this.http.post<KitOrderVM>(this.baseAPIURL+"BulkOrderPlaced/"+orderNum, this.httpOptions)
+  }
+  updateDeliveryStatus(orderNum: string, trackingLink: string): Observable<KitOrderVM> {
+    const body = { orderNum, trackingLink };
+    return this.http.post<KitOrderVM>(this.baseAPIURL + "OrderDelivered", body, this.httpOptions);
+  }
+  
 }
