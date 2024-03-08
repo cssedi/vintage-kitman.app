@@ -1,7 +1,7 @@
 <!-- component -->
 <div class="my-12 flex flex-col">
     <div class="container  mx-auto flex-1 flex flex-col items-center justify-center">
-        <div class="px-6 rounded shadow-md text-black md:w-8/12 xs:w-10/12 m">
+        <div class="px-6 rounded shadow-md text-black md:w-8/12 xs:w-10/12">
             <div class="left-0 right-0 mx-auto items-center">
                 <img src="/assets/images/vintagekitman-bg-clear.png" class="h-20 mx-auto" alt="">
             </div>
@@ -82,9 +82,14 @@
                     class="block border p-3 rounded mb-2"
                     placeholder="Confirm Password"
                     formControlName="confirmPassword" />
-                    <div class="text-txtRed mb-4" *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
+                    <p class="text-txtRed font-semibold">
                         {{errorMessage}}
+
+                    </p>
+                    <div class="text-txtRed mb-4" *ngIf="registerForm.value['confirmPassword'] != registerForm.value['password']">
+                        Passwords do not match      
                     </div>
+
 
                 </div>
 
