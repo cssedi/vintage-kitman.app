@@ -54,21 +54,34 @@
                       class="block md:w-full xs:w-4/5 py-3 text-black bg-white px-3 rounded-lg "
                       placeholder="Inter Milan 2008-09 Away">
                 </div>
+                <p *ngIf="customOrderForm.controls['name'].invalid && (formSubmitted || customOrderForm.controls['name'].touched)" class="text-txtRed font-semibold">This field is required</p>
+
                 <div class="mt-9 ">
                     <div class="flex flex-row justify-between w-full -mt-5">
                         <h3 class="text-xl text-white mb-4 "> Select size</h3>
                     </div>
-                <div>
-                    <mat-button-toggle-group 
-                    formControlName="size"
-                    class=""name="fontStyle" aria-label="Font Style">
-                        <mat-button-toggle class="md:w-16 xs:w-12" value="S">S</mat-button-toggle>
-                        <mat-button-toggle class="md:w-16 xs:w-12" value="M">M</mat-button-toggle>
-                        <mat-button-toggle class="md:w-16 xs:w-12" value="L">L</mat-button-toggle>
-                        <mat-button-toggle class="md:w-16 xs:w-12" value="XL">XL</mat-button-toggle>
-                        <mat-button-toggle class="md:w-16 xs:w-12" value="XXL">XXL</mat-button-toggle>
-                    </mat-button-toggle-group>
-                </div>
+                    <div>
+                        <mat-button-toggle-group 
+                        formControlName="size"
+                        class=""name="fontStyle" aria-label="Font Style">
+                            <mat-button-toggle 
+                            class="md:w-16 xs:w-14" value="S">S
+                          </mat-button-toggle>
+                            <mat-button-toggle 
+                            class="md:w-16 xs:w-14" value="M">M
+                          </mat-button-toggle>
+                            <mat-button-toggle
+                            class="md:w-16 xs:w-14" value="L">L
+                          </mat-button-toggle>
+                            <mat-button-toggle 
+                            class="md:w-16 xs:w-14" value="XL">XL
+                          </mat-button-toggle>
+                            <mat-button-toggle 
+                            class="md:w-16 xs:w-14" value="XXL">XXL
+                          </mat-button-toggle>
+                        </mat-button-toggle-group>
+                          <p *ngIf="customOrderForm.controls['size'].invalid && (formSubmitted || customOrderForm.controls['size'].touched)" class="text-txtRed font-semibold">Select a size</p>
+                      </div>
                 <div class="mt-5 flex flex-row space-x-5">
                     <span class="text-sm font-medium text-white">Customize Kit?</span>
                     <label class="relative inline-flex items-center mb-5 cursor-pointer">
@@ -77,30 +90,31 @@
                     </label>
                 </div>
                 <div *ngIf="customizedToggle">
-                    <div class="mb-1" >
+                    <div class=" relative mb-1" >
                         <label for="Name" class="block mb- text-sm text-white font-medium">
                             Custom Name</label>
-                        <div class="relative flex items-center w-1/2">
-                            <input type="email"
-                                formControlName="customName"
+                        <div class="relative flex items-center md:w-1/2 xs:w-full">
+                            <input formControlName="customName"
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="Cristiano Ronaldo">
                         </div>
+                        <p *ngIf="customOrderForm.controls['customName'].invalid && (formSubmitted || customOrderForm.controls['customName'].touched)" class="text-txtRed font-semibold">This field is required</p>
                     </div>
-                    <div class="mb-2">
+                    <div class="relative mt-2">
                         <label for="Custom number"
                             class="block text-sm font-medium text-white">Custom number</label>
-                        <div class="relative flex items-center w-1/4 ">
-                            <input type="number" min="1" max="99" value="1"
-                                formControlName="customNumber"
+                        <div class="relative flex items-center md:w-1/4 xs:w-1/2">
+                            <input type="number" formControlName="customNumber" min="1" max="99" 
                                 class="block w-full py-3 text-black bg-white px-3 rounded-lg  focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                 placeholder="7">
                         </div>    
+                        <p *ngIf="customOrderForm.controls['customNumber'].invalid && (formSubmitted || customOrderForm.controls['customNumber'].touched)" class="text-txtRed font-semibold">This field is required</p>
+                        <p *ngIf="(customOrderForm.controls['customNumber'].invalid && customOrderForm.controls['customNumber'].errors!['min']) && formSubmitted" class="text-txtRed font-semibold">Minimum value is 1</p>
                     </div>
                 </div>
     
     
-                <div class="flex flex-row w-full mt-1">
+                <div class="flex flex-row w-full mt-3">
                     <div class="flex flex-col">
                         <label for="quantity" class="block mb-2 text-sm font-medium text-white">Choose quantity:</label>
                         <div class="relative flex items-center max-w-[8rem]">

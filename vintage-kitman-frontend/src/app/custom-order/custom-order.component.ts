@@ -20,6 +20,7 @@ export class CustomOrderComponent implements OnInit {
   customOrderForm!:FormGroup
   displaySignInError:boolean=false
   ifIsLoading:boolean = false
+  formSubmitted:boolean = false
   customOrderDetails: CustomOrderVM={customOrderId: 0, size: '', name: '', quantity: 0, image: '',orderDate:null, isSourcable: null, customName: null, customNumber: null, message: null, user: null, isViewed: null,customOrderStatus: null}
   constructor(private fb:FormBuilder, private orderService: OrderService, private location:Location,private snackBar:MatSnackBar) { }
 
@@ -43,6 +44,7 @@ export class CustomOrderComponent implements OnInit {
   }
 
   submitOrder(){
+    this.formSubmitted = true
     this.ifIsLoading = true
     this.customOrderDetails.size = this.customOrderForm.value.size
     this.customOrderDetails.name = this.customOrderForm.value.name
@@ -59,17 +61,25 @@ export class CustomOrderComponent implements OnInit {
             duration: 7000
           });
           this.ifIsLoading = false
+          this.formSubmitted = false
         },
-        complete:()=>{this.location.back()},
+        complete:()=>{
+          this.location.back()
+          this.ifIsLoading = false
+          this.formSubmitted = false
+        
+        },
         error:(err)=>{
           this.displaySignInError = true
           console.log(this.displaySignInError)
           this.ifIsLoading = false
+          this.formSubmitted
         }
       });
       } 
       else {
       console.log('invalid form');
+      this.ifIsLoading = false
     }
 
 
