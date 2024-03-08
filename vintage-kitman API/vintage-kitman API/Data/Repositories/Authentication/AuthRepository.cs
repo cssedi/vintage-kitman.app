@@ -534,7 +534,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     ZipCode = vm.ZipCode,
                     IsMain = true,
                     UserId = userId,
-                    User = user
+                    User = null
                 };
 
                 _appDbContext.Addresses.Add(address);
@@ -551,7 +551,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     ZipCode = address.ZipCode,
                     IsMain = address.IsMain,
                     Id = address.UserId,
-                    User = user
+                    User = null
                 };
             }
             else
@@ -566,7 +566,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     UnitNumber = vm.UnitNumber,
                     ZipCode = vm.ZipCode,
                     IsMain = false,
-                    User = user,
+                    User = null,
                     UserId = userId
                 };
 
@@ -583,7 +583,7 @@ namespace vintage_kitman_API.Data.Repositories.Authentication
                     ZipCode = model.ZipCode,
                     IsMain = model.IsMain,
                     Id = model.UserId,
-                    User = user
+                    User = null
                 };
             }
 
