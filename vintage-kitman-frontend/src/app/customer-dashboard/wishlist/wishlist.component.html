@@ -14,9 +14,9 @@
         
                     <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2 " *ngFor="let kit of kitArray">
                         <div class="group mb-5 bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-105 h-[405px]"  >  
-                                <mat-icon fontIcon="favorite_border" 
+                                <mat-icon fontIcon="favorite" 
                                     matTooltipPosition="above"
-                                    matTooltip="Add to wishlist"
+                                    matTooltip="Remove from wishlist"
                                     (click)="removeFromWishlist(kit)" 
                                     class="float-right fixed md:top-8 md:right-5 z-30 text-black hover:cursor-pointer hover:block xs:-top-20 ">
                                 </mat-icon>
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="text-center justify-center items-center w-screen mx-auto text-white text-2xl mt-5 xs:h-screen max-w-screen-md" *ngIf="kitArray.length ==0">
+                    <div class="text-center justify-center items-center w-screen mx-auto text-white text-2xl mt-5 xs:h-screen max-w-screen-md" *ngIf="kitArray.length ==0 && !loading">
                         Your Wishlist is Empty!
                         <div>
                             <a routerLink="/sport-teams/Football" class="text-base underline hover:text-canary">Continue shopping</a>
@@ -45,4 +45,8 @@
             </div>
         </section>
     </div>
+</div>
+
+<div class="h-full absolute top-72 right-0 left-0" *ngIf="loading">
+    <div class="loader w-full items-center justify-center mx-auto my-auto"></div>
 </div>

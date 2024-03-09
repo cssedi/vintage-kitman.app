@@ -9,6 +9,7 @@ import { kitVM } from '../../models/categories/kit-vm';
 })
 export class WishlistComponent implements OnInit {
   kitArray: kitVM[] = [];
+  loading:boolean = true
   constructor(private ordersService: OrderService) {}
   ngOnInit(): void {
     this.getWishlist();
@@ -17,11 +18,13 @@ export class WishlistComponent implements OnInit {
     this.ordersService.getWishlist().subscribe({
       next: (response) => {
         this.kitArray = response as kitVM[];
-        console.log(response);
+        this.loading = false
       },
-      complete: () => {},
+      complete: () => {
+        this.loading = false
+      },
       error: (err) => {
-        console.log(err);
+        this.loading = false
       },
     });
   }

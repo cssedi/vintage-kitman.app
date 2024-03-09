@@ -8,33 +8,19 @@
     overflow-x: hidden;
   }
   
-  /* HTML: <div class="loader"></div> */
-  .loader {
-    width: 50px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 8px solid #0000;
-    border-right-color: #ffa50097;
-    position: relative;
-    animation: l24 1s infinite linear;
-    margin: auto;
-  }
-  .loader:before,
-  .loader:after {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    border: inherit;
-    animation: inherit;
-    animation-duration: 2s;
-  }
-  .loader:after {
-    animation-duration: 4s;
-  }
-  @keyframes l24 {
-    100% {transform: rotate(1turn)}
-  }
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #fff, -20px 0 #fff0ff70;background: #fff }
+    33% {box-shadow: 20px 0 #fff, -20px 0 #fff0ff70;background: #fff0ff70}
+    66% {box-shadow: 20px 0 #fff0ff70,-20px 0 #fff; background: #fff0ff70}
+    100%{box-shadow: 20px 0 #fff0ff70,-20px 0 #fff; background: #fff }
+}
   
   
   
