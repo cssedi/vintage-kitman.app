@@ -1,11 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { timeInterval } from 'rxjs';
 import { kitVM } from 'src/app/models/categories/kit-vm';
 import { Size } from 'src/app/models/categories/size';
 import { CartItem } from 'src/app/models/orders/CartItem-vm';
+import { wishlistVM } from 'src/app/models/orders/wishlist-vm';
 import { CategoriesService } from 'src/app/services/Categories/categories.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OrderService } from 'src/app/services/order/order.service';
@@ -27,11 +29,12 @@ export class ProductComponent implements OnInit {
    cartForm!:FormGroup
    displaySuccess:boolean = false;
    fullscreenImageModal:boolean=false;
+   displaySignInError: boolean = false
    formSubmitted:boolean = false;
 
 
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService, private fb:FormBuilder,
-              private location:Location,  private cartService: CartService) { }
+              private location:Location,  private cartService: CartService, private snackBar:MatSnackBar) { }
   
   ngOnInit(): void {
     //get kits
@@ -164,15 +167,38 @@ export class ProductComponent implements OnInit {
     
 
 
-}
+  }
+  back(){
+    window.history.back();
+  }
 
-viewSizeChart(){
-  this.fullscreenImageModal = true
-}
 
-closeSizeChart(){
-  this.fullscreenImageModal = false
+  addToWishlist(kit:kitVM)
+  {
+    const wishlistModel:wishlistVM={KitName: '',id: null}
+    wishlistModel.KitName=kit.name
+    //
+    this.orderService.addToWishlist(wishlistModel).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      complete:()=>{
+        this.snackBar.open("Added to wishlist", "Close", {duration:3000})
+      },
+      error:(err)=>{
+        console.log(err)
+        this.displaySignInError=true
+      }
+    })
+  }
 
-}
+  viewSizeChart(){
+    this.fullscreenImageModal = true
+  }
+
+  closeSizeChart(){
+    this.fullscreenImageModal = false
+
+  }
 
 }
