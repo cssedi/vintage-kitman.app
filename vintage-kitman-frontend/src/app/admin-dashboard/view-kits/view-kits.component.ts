@@ -34,6 +34,7 @@ export class ViewKitsComponent implements OnInit {
   base64Image: string | null = null;
   selectedImage: string | ArrayBuffer | null | undefined;
   selectedKitName: string = '';
+  isloading:boolean=false
 
   constructor(private orderService: OrderService, private fb:FormBuilder, private categoriesService: CategoriesService, 
              private snackBar:MatSnackBar, private productService:ProductService,private route:ActivatedRoute, ) {}
@@ -84,6 +85,7 @@ export class ViewKitsComponent implements OnInit {
 
 
   createKit(){
+    this.isloading = true
     this.formSubmitted = true;
     this.kitObj = this.createForm.value
     this.kitObj.teamId = this.teamId
@@ -91,17 +93,20 @@ export class ViewKitsComponent implements OnInit {
     this.categoriesService.addKit(this.teamName, this.kitObj)
     .subscribe({
       next:(response)=>{
+        this.isloading=false
 
       },
       complete:()=>{
         this.snackBar.open("Kit created successfully", "Close", {duration:3000})
         this.ngOnInit()
         this.showCreateModal = false
+        this.isloading = false
         this.createForm.reset()
         this.clearImageUpload()
 
       },
       error:(error)=>{
+        this.isloading = false
       }
     })
 
@@ -110,6 +115,7 @@ export class ViewKitsComponent implements OnInit {
 
   //update kit
   updateKit(){
+    this.isloading = true
     this.formSubmitted = true;
     this.kitObj = this.updateForm.value
     this.kitObj.teamId = this.teamId
@@ -117,29 +123,40 @@ export class ViewKitsComponent implements OnInit {
     this.productService.updateKit(this.selectedKitName, this.kitObj)
     .subscribe({
       next:(response)=>{
+        this.isloading=false
 
       },
       complete:()=>{
         this.snackBar.open("Kit updated successfully", "Close", {duration:3000})
         this.ngOnInit()
         this.updateModal = false
+        this.isloading=false
+
       },
       error:(error)=>{
         window.alert("Error has occured, please contact support")
+        this.isloading=false
+
       }
     })
   }
 
   deleteKit(kit:kitVM){
+    this.isloading=true
+
     kit = this.kitObj
     this.productService.deleteKit(kit.name).subscribe({
       next:(response)=>{
         console.log(response)
+        this.isloading=false
+
       },
       complete:()=>{
         this.deleteModal=false;
         this.ngOnInit()
         this.snackBar.open("Kit deleted successfully", "Close", {duration:3000})
+        this.isloading=false
+
       },
       error:(err)=>{
         console.log(err)

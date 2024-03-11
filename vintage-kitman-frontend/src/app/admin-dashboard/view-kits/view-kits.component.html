@@ -1,4 +1,4 @@
-<div class=" h-screen overflow-y-hidden mt-8 ml-3"
+<div class=" h-screen mt-8 ml-3"
 [ngClass]="{ 'bg-black opacity-60': showCreateModal ||deleteModal||updateModal}">
     <p class="text-white font-semibold text-3xl ">Kits for {{teamName}}</p>
     <div class="flex flex-col">
@@ -143,7 +143,10 @@
                         </div> 
                         <!-- Modal footer -->
                         <div class="flex items-center mt-4 space-x-2 ">
-                            <button type="submit" class="bg-grey text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary border-black border-1">Create</button>
+                            <button [disabled]="isloading" type="submit" class="bg-grey text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary border-black border-1">
+                                <p *ngIf="!isloading">Create</p>
+                                <div *ngIf="isloading" class="loader"></div>
+                            </button>
                             <button (click)="toggleCreateModal()" class=" bg-grey text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-black text-sm font-medium px-5 py-2.5 focus:z-10">Cancel</button>
                         </div>
             
@@ -252,7 +255,10 @@
                         </div> 
                         <!-- Modal footer -->
                         <div class="flex items-center mt-4 space-x-2 ">
-                            <button type="submit" class="bg-grey text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary border-black border-1">Create</button>
+                            <button [disabled]="isloading" type="submit" class="bg-grey text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-canary border-black border-1">
+                                <p *ngIf="!isloading">Update</p>
+                                <div *ngIf="isloading" class="loader"></div>
+                            </button>
                             <button (click)="toggleUpdateModal()" class=" bg-grey text-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-black text-sm font-medium px-5 py-2.5 focus:z-10">Cancel</button>
                         </div>
             
@@ -287,8 +293,9 @@
             <div class="p-6 space-y-6">
                 <div class="p-6 text-center">
                     <h3 class="mb-5 text-lg font-normal">Are you sure you want to delete {{kitObj.name}}?</h3>
-                    <button (click)="deleteKit(kitObj)" class="text-white bg-txtRed focus:ring-4 focus:outline-none font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                        Yes, I'm sure
+                    <button [disabled]="isloading" (click)="deleteKit(kitObj)" class="text-white bg-txtRed focus:ring-4 focus:outline-none font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                            <p *ngIf="!isloading">Delete</p>
+                            <div *ngIf="isloading" class="loader"></div>
                     </button>
                     <button (click)="closeDeleteModal()" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
                 </div>
