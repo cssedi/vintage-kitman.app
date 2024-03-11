@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { kitVM } from 'src/app/models/categories/kit-vm';
@@ -9,42 +10,47 @@ import { ProductService } from 'src/app/services/product/product.service';
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss']
+  styleUrls: ['./products-page.component.scss'],
+  encapsulation: ViewEncapsulation.None, // Apply styles globally
+
 })
 export class ProductsPageComponent implements OnInit {
   
   teamId!:number;
-  kitArray:kitVM[]=[]
+  allKits: kitVM[] = []; 
+  displayedKits: kitVM[] = []; 
+  pageSize = 10; 
+  length = 0; 
   isDrawerVisible:boolean=false
   displaySignInError:boolean=false
   loading:boolean = true
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private route:ActivatedRoute,private productsService:ProductService, private orderService:OrderService
              , private snackBar:MatSnackBar) { }
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.teamId = parseInt(params.get('id')!);
-      // Fetch products based on the leagueId using your ProductService
-      this.productsService.getKitsByTeam(this.teamId).subscribe({
-        // Handle the retrieved products
-        next:(reponse)=>
-        {
-          this.kitArray=reponse as kitVM[]
-          console.log(this.teamId)
-          this.loading = false
-        },
-        complete:()=>{
-          this.loading = false
-        },
-        error:(err)=> {
-          console.log(err)
-        },
-
-      }
-
-      )
-    });  
-  }
+             ngOnInit(): void {
+              this.route.paramMap.subscribe(params => {
+                this.teamId = parseInt(params.get('id')!);
+                this.loading = true;
+                
+                this.productsService.getKitsByTeam(this.teamId).subscribe({
+                  next: (response) => {
+                    this.allKits = response; // Store all kits
+                    this.length = this.allKits.length; // Update total length
+                    this.updateDisplayedKits(0, this.pageSize); // Display the first page
+                  },
+                  error: (err) => {
+                    console.error(err);
+                    this.loading = false;
+                  },
+                  complete: () => {
+                    this.loading = false;
+                  }
+                });
+              });
+            }
+            
 
   addToWishlist(kit:kitVM)
   {
@@ -85,6 +91,16 @@ export class ProductsPageComponent implements OnInit {
 
   back(){
     window.history.back();
+  }
+
+  updateDisplayedKits(startIndex: number, pageSize: number) {
+    this.displayedKits = this.allKits.slice(startIndex, startIndex + pageSize);
+  }
+  
+
+  handlePageEvent(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    this.updateDisplayedKits(startIndex, event.pageSize);
   }
 
 }

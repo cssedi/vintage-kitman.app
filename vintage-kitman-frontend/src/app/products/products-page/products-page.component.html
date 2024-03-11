@@ -1,4 +1,4 @@
-<div class="flex flex-col left-0 right-0 mx-12 max-w-screen-xl"
+<div class="flex flex-col left-0 right-0 mx-auto items-center justify-center max-w-screen-xl"
 >
     <!-- top of page -->
     <div id="topOfPage" class="flex flex-wrap h-18 pt-8 mr-3 w-full justify-end max-w-screen-xl">
@@ -9,8 +9,8 @@
         <section class="justify-normal">
             <div class="container overflow-x-hidden justify-start">
                 <div class="flex flex-wrap w-full space-x-0 "> 
-                    <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2 " *ngFor="let kit of kitArray">
-                    <div class="group mb-5 bg-black min-w-[270px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-105 h-[405px]"  
+                    <div class="animate-fade-down animate-once animate-ease-linear mb-12 xl:w-1/4 lg:w-1/3 md:w-1/2 " *ngFor="let kit of displayedKits">
+                    <div class="group mb-5 bg-black max-w-[300px] md:ml-4 rounded-lg shadow transition-transform duration-300 ease-in-out hover:scale-105 h-[405px] xs:ml-8 sm:ml-24"  
                         *ngIf="!displaySignInError; else errorBlock">  
                             <mat-icon fontIcon="favorite_border" 
                                 matTooltipPosition="above"
@@ -37,6 +37,16 @@
             </div>
         </section>
     </div>
+    <!-- Paginator -->
+    <div class="w-screen bg-white">
+            <mat-paginator *ngIf="!loading" [length]="length"
+    class="bg-black text-white"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePageEvent($event)">
+    </mat-paginator>
+    </div>
+
 </div>
 <div class="h-svh" *ngIf="loading">
     <div class="h-full absolute top-72 right-0 left-0" >
@@ -97,4 +107,5 @@
 </ng-template>
 
   
+
 
